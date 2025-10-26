@@ -1,29 +1,32 @@
 @import "tailwindcss";
 
+@utility no-scrollbar {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+
+  /* Hide scrollbar for Chrome, Safari and Opera */
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
 :root {
   --color-primary: #000000;
   --color-secondary: #0070a8;
 
   --color-background: #000000;
-  --color-foreground: #ffffff;
 
   --font-primary: var(--font-ubuntu);
   --font-secondary: var(--font-roboto);
+  --font-public-sans: var(--font-public-sans);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
     --color-background: #0a0a0a;
-    --color-foreground: #ededed;
   }
 }
 
-@theme inline {
-  --color-background: var(--color-background);
-  --color-foreground: var(--color-foreground);
-  --color-primary: var(--color-primary);
-  --color-secondary: var(--color-secondary);
-
-  --font-primary: var(--font-primary);
-  --font-secondary: var(--font-secondary);
+.font-public-sans {
+  font-family: var(--font-public-sans), sans-serif;
 }

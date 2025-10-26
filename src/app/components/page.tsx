@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Navbar } from "./Navbar";
+
 import { Sidebar } from "./Sidebar";
 import { ComponentDocumentation } from "./ComponentDocumentation";
 import { componentData } from "../../lib/component-data";
@@ -12,7 +12,6 @@ export default function ComponentsPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <Navbar />
       <div className="flex">
         <Sidebar
           selectedComponent={selectedComponent}

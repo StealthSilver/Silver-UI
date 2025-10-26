@@ -4,7 +4,7 @@ import "./globals.css";
 import { ThemeProvider } from "next-themes";
 import ThemeHeadIcons from "./components/ThemeHeadIcon";
 import ClientWrapper from "./components/ClientWrapper";
-import { Ubuntu, Roboto } from "next/font/google";
+import { Ubuntu, Roboto, Public_Sans } from "next/font/google";
 
 const ubuntu = Ubuntu({
   subsets: ["latin"],
@@ -16,6 +16,12 @@ const roboto = Roboto({
   subsets: ["latin"],
   weight: ["400", "500", "700"],
   variable: "--font-roboto",
+});
+
+const publicSans = Public_Sans({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-public-sans",
 });
 
 export const metadata: Metadata = {
@@ -60,7 +66,7 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${ubuntu.variable} ${roboto.variable}`}
+      className={`${ubuntu.variable} ${roboto.variable} ${publicSans.variable}`}
     >
       <head>
         <ThemeHeadIcons />
