@@ -80,3 +80,7 @@
   color: transparent;
   animation: shine 10s linear infinite;
 }
+
+.bg-gradient-radial {
+  background: radial-gradient(circle, var(--tw-gradient-stops));
+}
