@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import { SITE } from "../config/site.config";
 import "./globals.css";
 import { ThemeProvider } from "next-themes";
-import ThemeHeadIcons from "./components/ThemeHeadIcon";
-import ClientWrapper from "./components/ClientWrapper";
+import ThemeHeadIcons from "./landing/components/ThemeHeadIcon";
+import ClientWrapper from "./landing/components/ClientWrapper";
 import { Ubuntu, Roboto, Public_Sans } from "next/font/google";
 
 const ubuntu = Ubuntu({

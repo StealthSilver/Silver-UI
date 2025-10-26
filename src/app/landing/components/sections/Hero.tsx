@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Spotlight } from "../ui/Spotlight";
-import TechStackSection from "./TechStackSection";
+import TechStackSection from "../ui/TechStackSection";
 import { motion } from "motion/react";
 
 export const Hero = () => {
@@ -37,16 +37,22 @@ export const Hero = () => {
         className="flex flex-col sm:flex-row gap-4 mb-16"
       >
         <Link
-          href="#components"
-          className="px-6 py-3 bg-[#0070a8] text-white rounded-xl transition-all duration-300 hover:bg-[#004d74]"
+          href="/components"
+          className="px-6 py-3 bg-[#0070a8] text-white rounded-xl transition-all duration-300 hover:bg-[#008fd7] relative overflow-hidden group"
         >
-          Browse Components
+          <span className="relative z-10">Browse Components</span>
+          <div className="absolute inset-0 bg-[#0298e3] rounded-xl opacity-0 group-hover:opacity-50 transition-opacity duration-300 blur-md scale-110 -z-10"></div>
         </Link>
         <Link
-          href="#docs"
-          className="px-6 py-3 text-white rounded-xl border border-white transition-all duration-300 hover:bg-white hover:text-black"
+          href="/docs"
+          className="px-6 py-3 text-white rounded-xl border border-white transition-all duration-300 hover:bg-white hover:text-black group"
         >
-          Documentation &gt;
+          <span className="flex items-center gap-1">
+            Documentation
+            <span className="inline-block transition-transform duration-300 group-hover:translate-x-2">
+              &gt;
+            </span>
+          </span>
         </Link>
       </motion.div>
 
