@@ -6,7 +6,6 @@ export default function Page() {
     <main className="min-h-screen bg-black ">
       <Navbar />
       <Hero />
-      <Hero />
     </main>
   );
 }

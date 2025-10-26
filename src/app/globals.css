@@ -10,6 +10,34 @@
   }
 }
 
+/* Custom scrollbar styles */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #6b7280 #000000;
+}
+
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+*::-webkit-scrollbar-track {
+  background: #000000;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: #6b7280;
+  border-radius: 4px;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: #9ca3af;
+}
+
+*::-webkit-scrollbar-corner {
+  background: #000000;
+}
+
 :root {
   --color-primary: #000000;
   --color-secondary: #0070a8;
@@ -29,4 +57,27 @@
 
 .font-public-sans {
   font-family: var(--font-public-sans), sans-serif;
+}
+@keyframes shine {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+.shiny-text {
+  background: linear-gradient(
+    90deg,
+    #ffffff,
+    #b0b0b0,
+    #ffffff,
+    #c0c0c0,
+    #ffffff
+  );
+  background-size: 200% 100%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  animation: shine 10s linear infinite;
 }
