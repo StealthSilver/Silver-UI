@@ -4,24 +4,24 @@ import "./globals.css";
 import { ThemeProvider } from "next-themes";
 import ThemeHeadIcons from "./components/ThemeHeadIcon";
 import ClientWrapper from "./components/ClientWrapper";
-import { DM_Sans, Geist } from "next/font/google";
+import { Ubuntu, Roboto } from "next/font/google";
 
-const dmSans = DM_Sans({
+const ubuntu = Ubuntu({
   subsets: ["latin"],
   weight: ["400", "500", "700"],
-  variable: "--font-dm-sans",
+  variable: "--font-ubuntu",
 });
 
-const geist = Geist({
+const roboto = Roboto({
   subsets: ["latin"],
   weight: ["400", "500", "700"],
-  variable: "--font-geist",
+  variable: "--font-roboto",
 });
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.url),
   title: {
-    default: `Meshspire | Learn & Teach Anytime, Anywhere`,
+    default: `Silver UI | Not your orthodox component library`,
     template: `%s | ${SITE.name}`,
   },
   description: SITE.description,
@@ -60,7 +60,7 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${dmSans.variable} ${geist.variable}`}
+      className={`${ubuntu.variable} ${roboto.variable}`}
     >
       <head>
         <ThemeHeadIcons />
