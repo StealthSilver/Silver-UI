@@ -8,7 +8,7 @@ export const Cta = () => {
   return (
     <section className="relative flex flex-col items-center justify-center text-center max-w-7xl mx-auto px-6 py-20 bg-black text-white overflow-hidden">
       <DottedGlowBackground
-        className="absolute inset-0 pointer-events-none mask-radial-to-90% mask-radial-at-center opacity-5 sm:opacity-20 dark:opacity-70"
+        className="absolute inset-0 pointer-events-none mask-radial-to-60% mask-radial-at-center opacity-5 sm:opacity-20 dark:opacity-70"
         opacity={1}
         gap={4}
         radius={1.2}
