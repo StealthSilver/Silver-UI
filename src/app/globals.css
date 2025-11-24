@@ -40,12 +40,16 @@
 :root {
   --color-primary: #ffffff;
   --color-secondary: #0070a8;
-
   --color-background: #000000;
-
   --font-primary: var(--font-ubuntu);
   --font-secondary: var(--font-roboto);
   --font-public-sans: var(--font-public-sans);
+}
+
+html,
+body {
+  background: #000 !important;
+  color-scheme: dark;
 }
 
 @media (prefers-color-scheme: dark) {
