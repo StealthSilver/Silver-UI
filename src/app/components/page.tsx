@@ -2,6 +2,7 @@
 import Image from "next/image";
 import React, { useState } from "react";
 import { Button, Card, Input } from "./ui";
+import { CodeBlock } from "./CodeBlock";
 
 // Simple inline SVG icon components (Twitter & LinkedIn)
 const TwitterIcon: React.FC<{ className?: string }> = ({ className }) => (
@@ -64,7 +65,7 @@ const components: ComponentMeta[] = [
             A lightweight content container.
           </p>
         </Card>
-        <Card className="bg-gradient-to-br from-white to-neutral-50 dark:from-neutral-900 dark:to-neutral-800">
+        <Card className="bg-linear-to-br from-white to-neutral-50 dark:from-neutral-900 dark:to-neutral-800">
           <h3 className="font-semibold mb-1">Custom Background</h3>
           <Button size="sm" className="mt-2">
             Action
@@ -102,9 +103,15 @@ export default function ComponentsPage() {
   const active = components.find((c) => c.name === activeName)!;
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div
+      className="min-h-screen flex flex-col bg-linear-to-br from-neutral-50 to-neutral-100 dark:from-neutral-950 dark:to-neutral-900"
+      style={{
+        ["--primary" as any]: "#007078",
+        ["--primary-hover" as any]: "#006068",
+      }}
+    >
       {/* Navbar */}
-      <nav className="w-full border-b border-neutral-200/50 bg-white/70 backdrop-blur supports-backdrop-filter:bg-white/60 dark:bg-neutral-900/70 dark:border-neutral-800/50 dark:supports-backdrop-filter:bg-neutral-900/60">
+      <nav className="w-full border-b border-neutral-200/60 bg-white/80 backdrop-blur-xl supports-backdrop-filter:bg-white/70 dark:bg-neutral-900/80 dark:border-neutral-800/60 dark:supports-backdrop-filter:bg-neutral-900/70">
         <div className="mx-auto px-4 md:px-6 lg:px-8 h-12 flex items-center justify-between gap-4">
           <div className="flex items-center gap-2">
             <a href="/" className="flex items-center gap-2">
@@ -124,9 +131,9 @@ export default function ComponentsPage() {
                 onChange={(e) => setQuery(e.target.value)}
                 type="text"
                 placeholder="Search components..."
-                className="peer w-48 sm:w-64 rounded-md border border-neutral-300 dark:border-neutral-700 bg-white/90 dark:bg-neutral-800/90 px-3 py-1 text-sm outline-none focus:ring-2 focus:ring-blue-500 transition shadow-sm"
+                className="peer w-48 sm:w-64 rounded-md border border-neutral-300 dark:border-neutral-700 bg-white/90 dark:bg-neutral-800/90 px-3 py-1 text-sm outline-none focus:ring-2 focus:ring-(--primary) transition shadow-sm"
               />
-              <div className="pointer-events-none absolute inset-y-0 right-3 flex items-center text-neutral-400 peer-focus:text-blue-500">
+              <div className="pointer-events-none absolute inset-y-0 right-3 flex items-center text-neutral-400 peer-focus:text-(--primary)">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -149,7 +156,7 @@ export default function ComponentsPage() {
                 href="https://twitter.com/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-neutral-500 hover:text-blue-500 transition"
+                className="text-neutral-500 hover:text-(--primary) transition"
               >
                 <TwitterIcon className="h-5 w-5" />
               </a>
@@ -157,7 +164,7 @@ export default function ComponentsPage() {
                 href="https://linkedin.com/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-neutral-500 hover:text-blue-700 transition"
+                className="text-neutral-500 hover:text-(--primary) transition"
               >
                 <LinkedInIcon className="h-5 w-5" />
               </a>
@@ -169,20 +176,20 @@ export default function ComponentsPage() {
       {/* Layout with sidebar */}
       <div className="flex flex-1 overflow-hidden">
         {/* Sidebar */}
-        <aside className="hidden md:flex md:flex-col w-64 border-r border-neutral-200 dark:border-neutral-800 bg-neutral-50/60 dark:bg-neutral-900/40 backdrop-blur-sm">
-          <div className="p-4">
-            <h2 className="text-sm font-semibold uppercase tracking-wide text-neutral-500 dark:text-neutral-400 mb-2">
-              Components
+        <aside className="hidden md:flex md:flex-col w-72 border-r border-neutral-200/70 dark:border-neutral-800/70 bg-white/70 dark:bg-neutral-900/50 backdrop-blur-xl">
+          <div className="p-5 flex-1 flex flex-col">
+            <h2 className="text-[11px] font-semibold uppercase tracking-wider text-neutral-600 dark:text-neutral-400 mb-3">
+              Components ({filtered.length})
             </h2>
-            <div className="space-y-1 max-h-[calc(100vh-7rem)] overflow-y-auto pr-1">
+            <div className="space-y-1 overflow-y-auto pr-1 flex-1">
               {filtered.map((c) => (
                 <button
                   key={c.name}
                   onClick={() => setActiveName(c.name)}
-                  className={`group w-full text-left px-3 py-2 rounded-md text-sm font-medium transition-colors border border-transparent ${
+                  className={`group w-full text-left px-3 py-2 rounded-md text-sm font-medium transition-colors border ${
                     c.name === activeName
-                      ? "bg-blue-600 text-white shadow-sm"
-                      : "hover:bg-white dark:hover:bg-neutral-800 hover:border-neutral-200 dark:hover:border-neutral-700"
+                      ? "bg-(--primary) border-(--primary) text-white shadow-sm"
+                      : "border-transparent hover:border-neutral-200 dark:hover:border-neutral-700 hover:bg-white/70 dark:hover:bg-neutral-800/60"
                   }`}
                 >
                   {c.name}
@@ -194,35 +201,45 @@ export default function ComponentsPage() {
                 </p>
               )}
             </div>
+            <div className="pt-4 text-[10px] text-neutral-400">
+              <p className="leading-relaxed">
+                Tip: Use the search above to quickly filter the component list.
+              </p>
+            </div>
           </div>
         </aside>
 
         {/* Content */}
-        <main className="flex-1 px-4 md:px-6 lg:px-8 py-6 overflow-y-auto">
-          <h1 className="text-2xl font-semibold mb-4">{active.name}</h1>
-          {active.description && (
-            <p className="text-neutral-600 dark:text-neutral-400 mb-6 max-w-prose">
-              {active.description}
-            </p>
-          )}
-          <section className="mb-8">
-            <h2 className="text-sm font-semibold mb-2 text-neutral-700 dark:text-neutral-300">
-              Preview
-            </h2>
-            <div className="rounded-lg border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 p-6 mb-2">
-              {active.preview}
-            </div>
-          </section>
-          <section>
-            <h2 className="text-sm font-semibold mb-2 text-neutral-700 dark:text-neutral-300">
-              Source Code
-            </h2>
-            <div className="relative">
-              <pre className="overflow-x-auto rounded-lg border border-neutral-200 dark:border-neutral-800 bg-neutral-900 text-neutral-100 text-xs p-4 leading-relaxed">
-                <code>{active.code}</code>
-              </pre>
-            </div>
-          </section>
+        <main className="flex-1 py-8 overflow-y-auto">
+          <div className="mx-auto px-5 md:px-10 max-w-5xl">
+            <h1 className="text-3xl font-semibold tracking-tight mb-5 flex items-center gap-3">
+              <span className="inline-block h-6 w-1 rounded bg-(--primary)" />
+              {active.name}
+            </h1>
+            {active.description && (
+              <p className="text-neutral-700 dark:text-neutral-300 mb-8 max-w-prose text-sm leading-relaxed">
+                {active.description}
+              </p>
+            )}
+            <section className="mb-12">
+              <div className="flex items-center justify-between mb-3">
+                <h2 className="text-xs font-semibold uppercase tracking-wider text-neutral-600 dark:text-neutral-400">
+                  Preview
+                </h2>
+              </div>
+              <div className="rounded-xl border border-neutral-200/70 dark:border-neutral-800/70 bg-white/90 dark:bg-neutral-900/70 backdrop-blur p-8 shadow-sm">
+                {active.preview}
+              </div>
+            </section>
+            <section className="mb-20">
+              <div className="flex items-center justify-between mb-3">
+                <h2 className="text-xs font-semibold uppercase tracking-wider text-neutral-600 dark:text-neutral-400">
+                  Source Code
+                </h2>
+              </div>
+              <CodeBlock code={active.code} language="tsx" />
+            </section>
+          </div>
         </main>
       </div>
     </div>
