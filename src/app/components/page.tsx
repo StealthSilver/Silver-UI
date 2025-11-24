@@ -1,5 +1,7 @@
+"use client";
 import Image from "next/image";
-import React from "react";
+import React, { useState } from "react";
+import { Button, Card, Input } from "./ui";
 
 // Simple inline SVG icon components (Twitter & LinkedIn)
 const TwitterIcon: React.FC<{ className?: string }> = ({ className }) => (
@@ -28,13 +30,82 @@ const LinkedInIcon: React.FC<{ className?: string }> = ({ className }) => (
   </svg>
 );
 
+// Component metadata (preview + code). In a real scenario you could read file contents server-side.
+interface ComponentMeta {
+  name: string;
+  preview: React.ReactNode;
+  code: string;
+  description?: string;
+}
+
+const components: ComponentMeta[] = [
+  {
+    name: "Button",
+    description: "Primary action button with variants and sizes.",
+    preview: (
+      <div className="flex gap-3 flex-wrap items-center">
+        <Button>Default</Button>
+        <Button variant="outline">Outline</Button>
+        <Button size="sm">Small</Button>
+        <Button size="md">Medium</Button>
+        <Button disabled>Disabled</Button>
+      </div>
+    ),
+    code: `// button.tsx\nimport { cva } from "class-variance-authority";\nimport { cn } from "./utils";\n\nconst buttonVariants = cva(\n  "inline-flex items-center justify-center rounded-md font-medium transition-colors focus:outline-none",\n  {\n    variants: {\n      variant: {\n        default: "bg-blue-600 text-white hover:bg-blue-700",\n        outline: "border border-gray-300 hover:bg-gray-100",\n      },\n      size: {\n        sm: "px-3 py-1.5 text-sm",\n        md: "px-4 py-2 text-base",\n      },\n    },\n    defaultVariants: { variant: "default", size: "md" },\n  }\n);\n\nexport const Button = ({ className, variant, size, ...props }) => (\n  <button className={cn(buttonVariants({ variant, size }), className)} {...props} />\n);`,
+  },
+  {
+    name: "Card",
+    description: "Container with border, padding and subtle shadow.",
+    preview: (
+      <div className="grid gap-4 sm:grid-cols-2">
+        <Card>
+          <h3 className="font-semibold mb-1">Simple Card</h3>
+          <p className="text-sm text-neutral-600 dark:text-neutral-400">
+            A lightweight content container.
+          </p>
+        </Card>
+        <Card className="bg-gradient-to-br from-white to-neutral-50 dark:from-neutral-900 dark:to-neutral-800">
+          <h3 className="font-semibold mb-1">Custom Background</h3>
+          <Button size="sm" className="mt-2">
+            Action
+          </Button>
+        </Card>
+      </div>
+    ),
+    code: `// card.tsx\nimport { cn } from "./utils";\nexport const Card = ({ className, children, ...props }) => (\n  <div className={cn("rounded-xl border bg-white p-4 shadow-sm", className)} {...props}>\n    {children}\n  </div>\n);`,
+  },
+  {
+    name: "Input",
+    description: "Text input with variants (default, error) & sizes.",
+    preview: (
+      <div className="flex flex-col gap-4 w-full max-w-sm">
+        <Input placeholder="Default" />
+        <Input size="sm" placeholder="Small" />
+        <Input size="lg" placeholder="Large" />
+        <Input variant="error" placeholder="Error state" />
+        <div className="flex gap-2">
+          <Input className="flex-1" placeholder="Inline" />
+          <Button>Submit</Button>
+        </div>
+      </div>
+    ),
+    code: `// input.tsx\nimport { cva } from "class-variance-authority";\nimport { cn } from "./utils";\nconst inputVariants = cva(\n  "flex w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm ring-offset-white file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-gray-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",\n  {\n    variants: {\n      variant: { default: "border-gray-300 focus-visible:ring-blue-500", error: "border-red-500 focus-visible:ring-red-500" },\n      size: { sm: "h-8 px-2 text-xs", md: "h-10 px-3 text-sm", lg: "h-12 px-4 text-base" },\n    },\n    defaultVariants: { variant: "default", size: "md" },\n  }\n);\nexport const Input = ({ className, variant, size, ...props }) => (\n  <input className={cn(inputVariants({ variant, size }), className)} {...props} />\n);`,
+  },
+];
+
 export default function ComponentsPage() {
+  const [query, setQuery] = useState("");
+  const [activeName, setActiveName] = useState<string>(components[0].name);
+  const filtered = components.filter((c) =>
+    c.name.toLowerCase().includes(query.toLowerCase())
+  );
+  const active = components.find((c) => c.name === activeName)!;
+
   return (
     <div className="min-h-screen flex flex-col">
       {/* Navbar */}
       <nav className="w-full border-b border-neutral-200/50 bg-white/70 backdrop-blur supports-backdrop-filter:bg-white/60 dark:bg-neutral-900/70 dark:border-neutral-800/50 dark:supports-backdrop-filter:bg-neutral-900/60">
-        <div className="mx-auto  px-4 md:px-6 lg:px-8 h-12 flex items-center justify-between gap-4">
-          {/* Left: Logo */}
+        <div className="mx-auto px-4 md:px-6 lg:px-8 h-12 flex items-center justify-between gap-4">
           <div className="flex items-center gap-2">
             <a href="/" className="flex items-center gap-2">
               <Image
@@ -46,11 +117,11 @@ export default function ComponentsPage() {
               />
             </a>
           </div>
-
-          {/* Right: Search + Social Icons */}
           <div className="flex items-center gap-4">
             <div className="relative">
               <input
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
                 type="text"
                 placeholder="Search components..."
                 className="peer w-48 sm:w-64 rounded-md border border-neutral-300 dark:border-neutral-700 bg-white/90 dark:bg-neutral-800/90 px-3 py-1 text-sm outline-none focus:ring-2 focus:ring-blue-500 transition shadow-sm"
@@ -95,13 +166,65 @@ export default function ComponentsPage() {
         </div>
       </nav>
 
-      {/* Page content placeholder */}
-      <main className="flex-1 px-4 md:px-6 lg:px-8 py-8">
-        <h1 className="text-2xl font-semibold mb-4">Components</h1>
-        <p className="text-neutral-600 dark:text-neutral-400">
-          Browse and search for UI components. (Content coming soon.)
-        </p>
-      </main>
+      {/* Layout with sidebar */}
+      <div className="flex flex-1 overflow-hidden">
+        {/* Sidebar */}
+        <aside className="hidden md:flex md:flex-col w-64 border-r border-neutral-200 dark:border-neutral-800 bg-neutral-50/60 dark:bg-neutral-900/40 backdrop-blur-sm">
+          <div className="p-4">
+            <h2 className="text-sm font-semibold uppercase tracking-wide text-neutral-500 dark:text-neutral-400 mb-2">
+              Components
+            </h2>
+            <div className="space-y-1 max-h-[calc(100vh-7rem)] overflow-y-auto pr-1">
+              {filtered.map((c) => (
+                <button
+                  key={c.name}
+                  onClick={() => setActiveName(c.name)}
+                  className={`group w-full text-left px-3 py-2 rounded-md text-sm font-medium transition-colors border border-transparent ${
+                    c.name === activeName
+                      ? "bg-blue-600 text-white shadow-sm"
+                      : "hover:bg-white dark:hover:bg-neutral-800 hover:border-neutral-200 dark:hover:border-neutral-700"
+                  }`}
+                >
+                  {c.name}
+                </button>
+              ))}
+              {filtered.length === 0 && (
+                <p className="text-xs text-neutral-500 px-2 py-4">
+                  No matches.
+                </p>
+              )}
+            </div>
+          </div>
+        </aside>
+
+        {/* Content */}
+        <main className="flex-1 px-4 md:px-6 lg:px-8 py-6 overflow-y-auto">
+          <h1 className="text-2xl font-semibold mb-4">{active.name}</h1>
+          {active.description && (
+            <p className="text-neutral-600 dark:text-neutral-400 mb-6 max-w-prose">
+              {active.description}
+            </p>
+          )}
+          <section className="mb-8">
+            <h2 className="text-sm font-semibold mb-2 text-neutral-700 dark:text-neutral-300">
+              Preview
+            </h2>
+            <div className="rounded-lg border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 p-6 mb-2">
+              {active.preview}
+            </div>
+          </section>
+          <section>
+            <h2 className="text-sm font-semibold mb-2 text-neutral-700 dark:text-neutral-300">
+              Source Code
+            </h2>
+            <div className="relative">
+              <pre className="overflow-x-auto rounded-lg border border-neutral-200 dark:border-neutral-800 bg-neutral-900 text-neutral-100 text-xs p-4 leading-relaxed">
+                <code>{active.code}</code>
+              </pre>
+            </div>
+          </section>
+        </main>
+      </div>
     </div>
   );
 }
