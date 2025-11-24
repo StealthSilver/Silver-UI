@@ -1,4 +1,3 @@
-"use client";
 import React from "react";
 import { Highlight, themes } from "prism-react-renderer";
 
@@ -13,8 +12,16 @@ export const CodeBlock: React.FC<CodeBlockProps> = ({
   language = "tsx",
   showLineNumbers = true,
 }) => {
+  const [copied, setCopied] = React.useState(false);
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(code);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
   return (
-    <div className="group relative font-mono text-xs">
+    <div className="group relative font-mono text-[13px]">
       <Highlight
         code={code.trim()}
         language={language as any}
@@ -22,10 +29,7 @@ export const CodeBlock: React.FC<CodeBlockProps> = ({
       >
         {({ className, style, tokens, getLineProps, getTokenProps }) => (
           <pre
-            className={
-              className +
-              " rounded-xl border border-neutral-800 bg-neutral-950/90 backdrop-blur p-4 overflow-x-auto shadow-md"
-            }
+            className="rounded-lg border border-border bg-black/40 p-5 overflow-x-auto"
             style={style}
           >
             {tokens.map((line: any, i: number) => (
@@ -35,7 +39,7 @@ export const CodeBlock: React.FC<CodeBlockProps> = ({
                 className="table-row"
               >
                 {showLineNumbers && (
-                  <span className="table-cell pr-4 text-neutral-600 select-none text-right w-6">
+                  <span className="table-cell pr-4 text-muted-foreground/50 select-none text-right w-8">
                     {i + 1}
                   </span>
                 )}
@@ -50,11 +54,11 @@ export const CodeBlock: React.FC<CodeBlockProps> = ({
         )}
       </Highlight>
       <button
-        onClick={() => navigator.clipboard.writeText(code)}
-        className="absolute top-2 right-2 rounded-md bg-neutral-800/80 hover:bg-neutral-700 text-neutral-200 px-2 py-1 text-[10px] uppercase tracking-wide transition"
+        onClick={handleCopy}
+        className="absolute top-3 right-3 rounded-md bg-muted hover:bg-muted/80 text-foreground px-3 py-1.5 text-xs font-medium transition-all opacity-0 group-hover:opacity-100"
         aria-label="Copy code"
       >
-        Copy
+        {copied ? "Copied!" : "Copy"}
       </button>
     </div>
   );

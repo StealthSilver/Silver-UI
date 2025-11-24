@@ -1,246 +1,522 @@
 "use client";
-import Image from "next/image";
 import React, { useState } from "react";
-import { Button, Card, Input } from "./ui";
+import {
+  Button,
+  Card,
+  Input,
+  Loader,
+  ShimmerButton,
+  Badge,
+  Switch,
+  Avatar,
+} from "../components/ui";
 import { CodeBlock } from "./CodeBlock";
+import { Search, Github, Code2 } from "lucide-react";
 
-// Simple inline SVG icon components (Twitter & LinkedIn)
-const TwitterIcon: React.FC<{ className?: string }> = ({ className }) => (
-  <svg
-    className={className}
-    role="img"
-    aria-label="Twitter"
-    viewBox="0 0 24 24"
-    fill="currentColor"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <path d="M23.954 4.569c-.885.392-1.83.656-2.825.775 1.014-.608 1.794-1.574 2.163-2.724-.949.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-2.72 0-4.928 2.206-4.928 4.927 0 .386.045.763.127 1.125-4.094-.206-7.725-2.165-10.163-5.144-.424.722-.666 1.561-.666 2.475 0 1.709.87 3.216 2.19 4.099-.807-.026-1.566-.247-2.228-.616v.062c0 2.386 1.698 4.374 3.95 4.827-.414.111-.848.171-1.296.171-.317 0-.626-.03-.928-.086.627 1.956 2.444 3.381 4.6 3.421-1.685 1.321-3.81 2.107-6.116 2.107-.398 0-.79-.023-1.177-.069 2.179 1.397 4.768 2.213 7.557 2.213 9.054 0 14.004-7.496 14.004-13.986 0-.213-.005-.425-.014-.636.961-.693 1.8-1.56 2.46-2.548z" />
-  </svg>
-);
+interface PropRow {
+  name: string;
+  type: string;
+  default?: string;
+  description: string;
+}
 
-const LinkedInIcon: React.FC<{ className?: string }> = ({ className }) => (
-  <svg
-    className={className}
-    role="img"
-    aria-label="LinkedIn"
-    viewBox="0 0 24 24"
-    fill="currentColor"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.049c.476-.9 1.637-1.85 3.367-1.85 3.602 0 4.267 2.368 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.068-.926-2.068-2.068 0-1.143.924-2.069 2.068-2.069 1.142 0 2.066.926 2.066 2.069 0 1.142-.924 2.068-2.066 2.068zM7.119 20.452H3.554V9h3.565v11.452zM22.225 0H1.771C.792 0 0 .771 0 1.723v20.554C0 23.229.792 24 1.771 24h20.451C23.2 24 24 23.229 24 22.277V1.723C24 .771 23.2 0 22.222 0h.003z" />
-  </svg>
-);
-
-// Component metadata (preview + code). In a real scenario you could read file contents server-side.
 interface ComponentMeta {
   name: string;
   preview: React.ReactNode;
   code: string;
-  description?: string;
+  description: string;
+  props: PropRow[];
 }
 
 const components: ComponentMeta[] = [
   {
     name: "Button",
-    description: "Primary action button with variants and sizes.",
+    description:
+      "Versatile action button with multiple variants and sizes for different use cases.",
     preview: (
-      <div className="flex gap-3 flex-wrap items-center">
+      <div className="flex flex-wrap gap-3 items-center">
         <Button>Default</Button>
         <Button variant="outline">Outline</Button>
+        <Button variant="ghost">Ghost</Button>
+        <Button variant="destructive">Destructive</Button>
         <Button size="sm">Small</Button>
-        <Button size="md">Medium</Button>
+        <Button size="lg">Large</Button>
         <Button disabled>Disabled</Button>
       </div>
     ),
-    code: `// button.tsx\nimport { cva } from "class-variance-authority";\nimport { cn } from "./utils";\n\nconst buttonVariants = cva(\n  "inline-flex items-center justify-center rounded-md font-medium transition-colors focus:outline-none",\n  {\n    variants: {\n      variant: {\n        default: "bg-blue-600 text-white hover:bg-blue-700",\n        outline: "border border-gray-300 hover:bg-gray-100",\n      },\n      size: {\n        sm: "px-3 py-1.5 text-sm",\n        md: "px-4 py-2 text-base",\n      },\n    },\n    defaultVariants: { variant: "default", size: "md" },\n  }\n);\n\nexport const Button = ({ className, variant, size, ...props }) => (\n  <button className={cn(buttonVariants({ variant, size }), className)} {...props} />\n);`,
-  },
-  {
-    name: "Card",
-    description: "Container with border, padding and subtle shadow.",
-    preview: (
-      <div className="grid gap-4 sm:grid-cols-2">
-        <Card>
-          <h3 className="font-semibold mb-1">Simple Card</h3>
-          <p className="text-sm text-neutral-600 dark:text-neutral-400">
-            A lightweight content container.
-          </p>
-        </Card>
-        <Card className="bg-linear-to-br from-white to-neutral-50 dark:from-neutral-900 dark:to-neutral-800">
-          <h3 className="font-semibold mb-1">Custom Background</h3>
-          <Button size="sm" className="mt-2">
-            Action
-          </Button>
-        </Card>
-      </div>
-    ),
-    code: `// card.tsx\nimport { cn } from "./utils";\nexport const Card = ({ className, children, ...props }) => (\n  <div className={cn("rounded-xl border bg-white p-4 shadow-sm", className)} {...props}>\n    {children}\n  </div>\n);`,
+    code: `import { Button } from "@/components/ui";
+
+<Button>Default</Button>
+<Button variant="outline">Outline</Button>
+<Button variant="ghost">Ghost</Button>
+<Button size="sm">Small</Button>`,
+    props: [
+      {
+        name: "variant",
+        type: '"default" | "outline" | "ghost" | "destructive" | "secondary"',
+        default: '"default"',
+        description: "Visual style variant",
+      },
+      {
+        name: "size",
+        type: '"sm" | "default" | "lg" | "icon"',
+        default: '"default"',
+        description: "Button size",
+      },
+      {
+        name: "disabled",
+        type: "boolean",
+        default: "false",
+        description: "Disable button interaction",
+      },
+    ],
   },
   {
     name: "Input",
-    description: "Text input with variants (default, error) & sizes.",
+    description:
+      "Text input field with variants and sizes for form interactions.",
     preview: (
-      <div className="flex flex-col gap-4 w-full max-w-sm">
-        <Input placeholder="Default" />
-        <Input size="sm" placeholder="Small" />
-        <Input size="lg" placeholder="Large" />
+      <div className="flex flex-col gap-4 w-full max-w-md">
+        <Input placeholder="Default input" />
+        <Input inputSize="sm" placeholder="Small input" />
+        <Input inputSize="lg" placeholder="Large input" />
         <Input variant="error" placeholder="Error state" />
         <div className="flex gap-2">
-          <Input className="flex-1" placeholder="Inline" />
+          <Input className="flex-1" placeholder="With button" />
           <Button>Submit</Button>
         </div>
       </div>
     ),
-    code: `// input.tsx\nimport { cva } from "class-variance-authority";\nimport { cn } from "./utils";\nconst inputVariants = cva(\n  "flex w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm ring-offset-white file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-gray-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",\n  {\n    variants: {\n      variant: { default: "border-gray-300 focus-visible:ring-blue-500", error: "border-red-500 focus-visible:ring-red-500" },\n      size: { sm: "h-8 px-2 text-xs", md: "h-10 px-3 text-sm", lg: "h-12 px-4 text-base" },\n    },\n    defaultVariants: { variant: "default", size: "md" },\n  }\n);\nexport const Input = ({ className, variant, size, ...props }) => (\n  <input className={cn(inputVariants({ variant, size }), className)} {...props} />\n);`,
+    code: `import { Input } from "@/components/ui";
+
+<Input placeholder="Default input" />
+<Input inputSize="sm" placeholder="Small" />
+<Input variant="error" placeholder="Error" />`,
+    props: [
+      {
+        name: "variant",
+        type: '"default" | "error"',
+        default: '"default"',
+        description: "Visual style variant",
+      },
+      {
+        name: "inputSize",
+        type: '"sm" | "default" | "lg"',
+        default: '"default"',
+        description: "Input size",
+      },
+      {
+        name: "disabled",
+        type: "boolean",
+        default: "false",
+        description: "Disable input interaction",
+      },
+    ],
+  },
+  {
+    name: "Card",
+    description:
+      "Content container with border, padding and optional hover effects.",
+    preview: (
+      <div className="grid gap-4 sm:grid-cols-2">
+        <Card>
+          <h3 className="font-semibold mb-2 text-foreground">Simple Card</h3>
+          <p className="text-sm text-muted-foreground">
+            A clean content container with subtle styling.
+          </p>
+        </Card>
+        <Card hoverable>
+          <h3 className="font-semibold mb-2 text-foreground">Hoverable Card</h3>
+          <p className="text-sm text-muted-foreground mb-3">
+            Interactive card with hover effects.
+          </p>
+          <Button size="sm">Action</Button>
+        </Card>
+      </div>
+    ),
+    code: `import { Card } from "@/components/ui";
+
+<Card>
+  <h3>Simple Card</h3>
+  <p>Card content goes here</p>
+</Card>
+
+<Card hoverable>
+  <h3>Hoverable Card</h3>
+  <Button>Action</Button>
+</Card>`,
+    props: [
+      {
+        name: "hoverable",
+        type: "boolean",
+        default: "false",
+        description: "Enable hover effects",
+      },
+    ],
+  },
+  {
+    name: "Loader",
+    description: "Animated loading spinner with customizable size and style.",
+    preview: (
+      <div className="flex flex-wrap gap-8 items-center">
+        <div className="flex flex-col gap-3 items-center">
+          <Loader size="sm" />
+          <span className="text-xs text-muted-foreground">Small</span>
+        </div>
+        <div className="flex flex-col gap-3 items-center">
+          <Loader size="md" />
+          <span className="text-xs text-muted-foreground">Medium</span>
+        </div>
+        <div className="flex flex-col gap-3 items-center">
+          <Loader size="lg" />
+          <span className="text-xs text-muted-foreground">Large</span>
+        </div>
+        <div className="flex flex-col gap-3 items-center">
+          <Loader size="xl" />
+          <span className="text-xs text-muted-foreground">Extra Large</span>
+        </div>
+      </div>
+    ),
+    code: `import { Loader } from "@/components/ui";
+
+<Loader size="sm" />
+<Loader size="md" />
+<Loader size="lg" />
+<Loader size="xl" />`,
+    props: [
+      {
+        name: "variant",
+        type: '"default" | "secondary" | "muted"',
+        default: '"default"',
+        description: "Color variant",
+      },
+      {
+        name: "size",
+        type: '"sm" | "md" | "lg" | "xl"',
+        default: '"md"',
+        description: "Loader size",
+      },
+    ],
+  },
+  {
+    name: "ShimmerButton",
+    description:
+      "Eye-catching button with animated shimmer effect for primary CTAs.",
+    preview: (
+      <div className="flex flex-wrap gap-4">
+        <ShimmerButton>Get Started</ShimmerButton>
+        <ShimmerButton disabled>Disabled</ShimmerButton>
+      </div>
+    ),
+    code: `import { ShimmerButton } from "@/components/ui";
+
+<ShimmerButton>Get Started</ShimmerButton>
+<ShimmerButton shimmerSize="300px">
+  Custom Shimmer
+</ShimmerButton>`,
+    props: [
+      {
+        name: "shimmerSize",
+        type: "string",
+        default: '"200px"',
+        description: "Width of shimmer effect",
+      },
+      {
+        name: "disabled",
+        type: "boolean",
+        default: "false",
+        description: "Disable button interaction",
+      },
+    ],
+  },
+  {
+    name: "Badge",
+    description: "Small label component for tags, statuses, and categories.",
+    preview: (
+      <div className="flex flex-wrap gap-3">
+        <Badge>Default</Badge>
+        <Badge variant="secondary">Secondary</Badge>
+        <Badge variant="outline">Outline</Badge>
+        <Badge variant="success">Success</Badge>
+        <Badge variant="warning">Warning</Badge>
+        <Badge variant="destructive">Destructive</Badge>
+      </div>
+    ),
+    code: `import { Badge } from "@/components/ui";
+
+<Badge>Default</Badge>
+<Badge variant="secondary">Secondary</Badge>
+<Badge variant="outline">Outline</Badge>
+<Badge variant="success">Success</Badge>`,
+    props: [
+      {
+        name: "variant",
+        type: '"default" | "secondary" | "outline" | "success" | "warning" | "destructive"',
+        default: '"default"',
+        description: "Badge color variant",
+      },
+    ],
+  },
+  {
+    name: "Switch",
+    description: "Toggle switch for binary on/off states with optional label.",
+    preview: (
+      <div className="flex flex-col gap-4">
+        <Switch label="Enable notifications" />
+        <Switch label="Dark mode" defaultChecked />
+        <Switch disabled label="Disabled switch" />
+      </div>
+    ),
+    code: `import { Switch } from "@/components/ui";
+
+<Switch label="Enable notifications" />
+<Switch label="Dark mode" defaultChecked />
+<Switch disabled label="Disabled" />`,
+    props: [
+      {
+        name: "label",
+        type: "string",
+        description: "Optional label text",
+      },
+      {
+        name: "checked",
+        type: "boolean",
+        description: "Controlled checked state",
+      },
+      {
+        name: "defaultChecked",
+        type: "boolean",
+        default: "false",
+        description: "Default checked state",
+      },
+      {
+        name: "disabled",
+        type: "boolean",
+        default: "false",
+        description: "Disable switch interaction",
+      },
+    ],
+  },
+  {
+    name: "Avatar",
+    description: "User profile image with fallback text for missing images.",
+    preview: (
+      <div className="flex flex-wrap gap-4 items-center">
+        <Avatar
+          src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop"
+          alt="User"
+          size="sm"
+        />
+        <Avatar
+          src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop"
+          alt="User"
+          size="default"
+        />
+        <Avatar
+          src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&h=100&fit=crop"
+          alt="User"
+          size="lg"
+        />
+        <Avatar fallback="JD" size="xl" />
+      </div>
+    ),
+    code: `import { Avatar } from "@/components/ui";
+
+<Avatar src="/user.jpg" alt="User" />
+<Avatar fallback="JD" />
+<Avatar size="lg" src="/profile.jpg" />`,
+    props: [
+      {
+        name: "src",
+        type: "string",
+        description: "Image source URL",
+      },
+      {
+        name: "alt",
+        type: "string",
+        description: "Alternative text",
+      },
+      {
+        name: "fallback",
+        type: "string",
+        default: '"U"',
+        description: "Fallback text when image fails",
+      },
+      {
+        name: "size",
+        type: '"sm" | "default" | "lg" | "xl"',
+        default: '"default"',
+        description: "Avatar size",
+      },
+    ],
   },
 ];
 
-export default function ComponentsPage() {
+const PropsTable: React.FC<{ props: PropRow[] }> = ({ props }) => {
+  if (!props || props.length === 0) return null;
+
+  return (
+    <div className="overflow-hidden rounded-lg border border-border bg-card">
+      <div className="overflow-x-auto">
+        <table className="w-full">
+          <thead>
+            <tr className="border-b border-border">
+              <th className="px-4 py-3 text-left text-xs font-semibold text-foreground">
+                Prop
+              </th>
+              <th className="px-4 py-3 text-left text-xs font-semibold text-foreground">
+                Type
+              </th>
+              <th className="px-4 py-3 text-left text-xs font-semibold text-foreground">
+                Default
+              </th>
+              <th className="px-4 py-3 text-left text-xs font-semibold text-foreground">
+                Description
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {props.map((prop, idx) => (
+              <tr
+                key={idx}
+                className="border-b border-border last:border-0 hover:bg-muted/50 transition-colors"
+              >
+                <td className="px-4 py-3 font-mono text-xs font-semibold text-primary">
+                  {prop.name}
+                </td>
+                <td className="px-4 py-3 font-mono text-xs text-muted-foreground">
+                  {prop.type}
+                </td>
+                <td className="px-4 py-3 font-mono text-xs text-muted-foreground">
+                  {prop.default || "—"}
+                </td>
+                <td className="px-4 py-3 text-xs text-muted-foreground">
+                  {prop.description}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+};
+
+export default function Index() {
   const [query, setQuery] = useState("");
   const [activeName, setActiveName] = useState<string>(components[0].name);
+
   const filtered = components.filter((c) =>
     c.name.toLowerCase().includes(query.toLowerCase())
   );
   const active = components.find((c) => c.name === activeName)!;
 
   return (
-    <div
-      className="min-h-screen flex flex-col bg-linear-to-br from-neutral-50 to-neutral-100 dark:from-neutral-950 dark:to-neutral-900"
-      style={{
-        ["--primary" as any]: "#007078",
-        ["--primary-hover" as any]: "#006068",
-      }}
-    >
+    <div className="min-h-screen bg-background text-foreground">
       {/* Navbar */}
-      <nav className="w-full border-b border-neutral-200/60 bg-white/80 backdrop-blur-xl supports-backdrop-filter:bg-white/70 dark:bg-neutral-900/80 dark:border-neutral-800/60 dark:supports-backdrop-filter:bg-neutral-900/70">
-        <div className="mx-auto px-4 md:px-6 lg:px-8 h-12 flex items-center justify-between gap-4">
-          <div className="flex items-center gap-2">
-            <a href="/" className="flex items-center gap-2">
-              <Image
-                src="/logo.svg"
-                width={100}
-                height={36}
-                alt="Logo"
-                priority
-              />
-            </a>
+      <nav className="sticky top-0 z-50 border-b border-border bg-background/80 backdrop-blur-xl">
+        <div className="mx-auto max-w-7xl px-6 h-16 flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <Code2 className="h-6 w-6 text-primary" />
+            <span className="text-lg font-bold text-foreground">
+              ComponentLib
+            </span>
           </div>
+
           <div className="flex items-center gap-4">
-            <div className="relative">
-              <input
-                value={query}
-                onChange={(e) => setQuery(e.target.value)}
-                type="text"
-                placeholder="Search components..."
-                className="peer w-48 sm:w-64 rounded-md border border-neutral-300 dark:border-neutral-700 bg-white/90 dark:bg-neutral-800/90 px-3 py-1 text-sm outline-none focus:ring-2 focus:ring-(--primary) transition shadow-sm"
-              />
-              <div className="pointer-events-none absolute inset-y-0 right-3 flex items-center text-neutral-400 peer-focus:text-(--primary)">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth={2}
-                  stroke="currentColor"
-                  className="h-4 w-4"
-                  aria-hidden="true"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M21 21l-4.35-4.35M11 19a8 8 0 100-16 8 8 0 000 16z"
-                  />
-                </svg>
-              </div>
-            </div>
-            <div className="flex items-center gap-4">
-              <a
-                href="https://twitter.com/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-neutral-500 hover:text-(--primary) transition"
-              >
-                <TwitterIcon className="h-5 w-5" />
-              </a>
-              <a
-                href="https://linkedin.com/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-neutral-500 hover:text-(--primary) transition"
-              >
-                <LinkedInIcon className="h-5 w-5" />
-              </a>
-            </div>
+            <a
+              href="https://github.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-muted-foreground hover:text-foreground transition-colors"
+            >
+              <Github className="h-5 w-5" />
+            </a>
           </div>
         </div>
       </nav>
 
-      {/* Layout with sidebar */}
-      <div className="flex flex-1 overflow-hidden">
-        {/* Sidebar */}
-        <aside className="hidden md:flex md:flex-col w-72 border-r border-neutral-200/70 dark:border-neutral-800/70 bg-white/70 dark:bg-neutral-900/50 backdrop-blur-xl">
-          <div className="p-5 flex-1 flex flex-col">
-            <h2 className="text-[11px] font-semibold uppercase tracking-wider text-neutral-600 dark:text-neutral-400 mb-3">
-              Components ({filtered.length})
-            </h2>
-            <div className="space-y-1 overflow-y-auto pr-1 flex-1">
+      {/* Main Layout */}
+      <div className="mx-auto max-w-7xl px-6 py-8">
+        <div className="grid lg:grid-cols-[240px_1fr] gap-8">
+          {/* Sidebar */}
+          <aside className="lg:sticky lg:top-24 lg:h-[calc(100vh-8rem)]">
+            <div className="mb-6">
+              <div className="relative">
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                <input
+                  value={query}
+                  onChange={(e) => setQuery(e.target.value)}
+                  type="text"
+                  placeholder="Search..."
+                  className="w-full rounded-lg border border-border bg-card pl-10 pr-4 py-2 text-sm text-foreground placeholder:text-muted-foreground outline-none focus:ring-2 focus:ring-primary transition-all"
+                />
+              </div>
+            </div>
+
+            <div className="space-y-1 overflow-y-auto">
               {filtered.map((c) => (
                 <button
                   key={c.name}
                   onClick={() => setActiveName(c.name)}
-                  className={`group w-full text-left px-3 py-2 rounded-md text-sm font-medium transition-colors border ${
+                  className={`w-full text-left px-4 py-2.5 rounded-lg text-sm font-medium transition-all ${
                     c.name === activeName
-                      ? "bg-(--primary) border-(--primary) text-white shadow-sm"
-                      : "border-transparent hover:border-neutral-200 dark:hover:border-neutral-700 hover:bg-white/70 dark:hover:bg-neutral-800/60"
+                      ? "bg-primary text-primary-foreground"
+                      : "text-muted-foreground hover:text-foreground hover:bg-muted"
                   }`}
                 >
                   {c.name}
                 </button>
               ))}
               {filtered.length === 0 && (
-                <p className="text-xs text-neutral-500 px-2 py-4">
-                  No matches.
+                <p className="text-xs text-muted-foreground px-4 py-4">
+                  No components found.
                 </p>
               )}
             </div>
-            <div className="pt-4 text-[10px] text-neutral-400">
-              <p className="leading-relaxed">
-                Tip: Use the search above to quickly filter the component list.
-              </p>
-            </div>
-          </div>
-        </aside>
+          </aside>
 
-        {/* Content */}
-        <main className="flex-1 py-8 overflow-y-auto">
-          <div className="mx-auto px-5 md:px-10 max-w-5xl">
-            <h1 className="text-3xl font-semibold tracking-tight mb-5 flex items-center gap-3">
-              <span className="inline-block h-6 w-1 rounded bg-(--primary)" />
-              {active.name}
-            </h1>
-            {active.description && (
-              <p className="text-neutral-700 dark:text-neutral-300 mb-8 max-w-prose text-sm leading-relaxed">
+          {/* Content */}
+          <main className="min-w-0">
+            {/* Header */}
+            <div className="mb-10">
+              <h1 className="text-4xl font-bold text-foreground mb-3">
+                {active.name}
+              </h1>
+              <p className="text-muted-foreground text-base leading-relaxed max-w-2xl">
                 {active.description}
               </p>
-            )}
-            <section className="mb-12">
-              <div className="flex items-center justify-between mb-3">
-                <h2 className="text-xs font-semibold uppercase tracking-wider text-neutral-600 dark:text-neutral-400">
-                  Preview
-                </h2>
-              </div>
-              <div className="rounded-xl border border-neutral-200/70 dark:border-neutral-800/70 bg-white/90 dark:bg-neutral-900/70 backdrop-blur p-8 shadow-sm">
+            </div>
+
+            {/* Preview */}
+            <section className="mb-10">
+              <h2 className="text-sm font-semibold text-foreground mb-4 uppercase tracking-wide">
+                Preview
+              </h2>
+              <div className="rounded-lg border border-border bg-card p-8">
                 {active.preview}
               </div>
             </section>
-            <section className="mb-20">
-              <div className="flex items-center justify-between mb-3">
-                <h2 className="text-xs font-semibold uppercase tracking-wider text-neutral-600 dark:text-neutral-400">
-                  Source Code
-                </h2>
-              </div>
+
+            {/* Code */}
+            <section className="mb-10">
+              <h2 className="text-sm font-semibold text-foreground mb-4 uppercase tracking-wide">
+                Code
+              </h2>
               <CodeBlock code={active.code} language="tsx" />
             </section>
-          </div>
-        </main>
+
+            {/* Props Table */}
+            {active.props && active.props.length > 0 && (
+              <section>
+                <h2 className="text-sm font-semibold text-foreground mb-4 uppercase tracking-wide">
+                  Props
+                </h2>
+                <PropsTable props={active.props} />
+              </section>
+            )}
+          </main>
+        </div>
       </div>
     </div>
   );
