@@ -43,7 +43,36 @@ This guide explains how to add a new UI component to the Silver UI library, foll
 
 - File: `src/app/components/ui/loader.tsx`
 - Exported in: `src/app/components/ui/index.ts`
-- Added to: `components` array in `Page.tsx`
+- Added to: `components` array in `Page.tsx`:
+
+```tsx
+{
+   name: "Loader",
+   description: "Animated spinner for loading states, with size options.",
+   preview: (
+      <div className="flex gap-6 items-center">
+         <Loader />
+         <Loader size="sm" />
+         <Loader size="md" />
+         <Loader size="lg" />
+      </div>
+   ),
+   code: `// loader.tsx\nimport React from "react";\nimport { cn } from "./utils";\n\ninterface LoaderProps {\n  size?: \"sm\" | \"md\" | \"lg\";\n  className?: string;\n}\n\nconst sizeMap = {\n  sm: \"h-4 w-4 border-2\",\n  md: \"h-8 w-8 border-4\",\n  lg: \"h-12 w-12 border-8\",\n};\n\nexport const Loader: React.FC<LoaderProps> = ({ size = \"md\", className }) => (\n  <span\n    className={cn(\n      \"inline-block animate-spin rounded-full border-t-[--primary] border-r-transparent border-b-[--primary] border-l-transparent\",\n      sizeMap[size],\n      className\n    )}\n    aria-label=\"Loading\"\n    role=\"status\"\n  />\n);`,
+   props: [
+      {
+         name: "size",
+         type: '"sm" | "md" | "lg"',
+         default: '"md"',
+         description: "Size of the loader spinner.",
+      },
+      {
+         name: "className",
+         type: "string",
+         description: "Additional CSS classes.",
+      },
+   ],
+}
+```
 
 ## Conventions
 
