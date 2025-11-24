@@ -29,7 +29,7 @@ export const CodeBlock: React.FC<CodeBlockProps> = ({
       >
         {({ className, style, tokens, getLineProps, getTokenProps }) => (
           <pre
-            className="rounded-lg border border-border bg-black/40 p-5 overflow-x-auto"
+            className="rounded-xl bg-neutral-900/90 p-5 overflow-x-auto shadow-lg"
             style={style}
           >
             {tokens.map((line: any, i: number) => (
@@ -55,7 +55,7 @@ export const CodeBlock: React.FC<CodeBlockProps> = ({
       </Highlight>
       <button
         onClick={handleCopy}
-        className="absolute top-3 right-3 rounded-md bg-muted hover:bg-muted/80 text-foreground px-3 py-1.5 text-xs font-medium transition-all opacity-0 group-hover:opacity-100"
+        className="absolute top-3 right-3 rounded-md bg-white/10 hover:bg-white/20 text-neutral-100 border border-neutral-700 px-3 py-1.5 text-xs font-medium transition-all opacity-0 group-hover:opacity-100 backdrop-blur"
         aria-label="Copy code"
       >
         {copied ? "Copied!" : "Copy"}

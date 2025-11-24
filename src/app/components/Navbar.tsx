@@ -27,24 +27,52 @@ const LinkedInIcon: React.FC<{ className?: string }> = ({ className }) => (
   </svg>
 );
 
-const Navbar: React.FC = () => (
-  <nav className="w-full border-b border-neutral-200/60 bg-white/80 backdrop-blur-xl supports-backdrop-filter:bg-white/70 dark:bg-neutral-900/80 dark:border-neutral-800/60 dark:supports-backdrop-filter:bg-neutral-900/70">
-    <div className="mx-auto px-4 md:px-6 lg:px-8 h-14 flex items-center justify-between gap-4">
+interface NavbarProps {
+  query: string;
+  setQuery: (q: string) => void;
+}
+
+const Navbar: React.FC<NavbarProps> = ({ query, setQuery }) => (
+  <nav className="w-full border-b border-neutral-800/80 bg-neutral-950/90 backdrop-blur-xl supports-backdrop-filter:bg-neutral-950/80 dark:bg-neutral-950/90 dark:border-neutral-800/80 dark:supports-backdrop-filter:bg-neutral-950/80">
+    <div className="mx-auto px-4 md:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
       <div className="flex items-center gap-2">
         <a href="/" className="flex items-center gap-2">
           <Image src="/logo.svg" width={110} height={40} alt="Logo" priority />
         </a>
       </div>
-      <div className="flex items-center gap-4">
-        <div className="relative">
-          {/* Search input will be passed as children or via props in parent */}
+      <div className="flex items-center gap-6">
+        <div className="relative w-56 md:w-72">
+          <input
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            type="text"
+            placeholder="Search components..."
+            className="peer w-full rounded-lg border border-neutral-700 bg-neutral-900/90 px-4 py-2 text-base text-white placeholder:text-neutral-400 outline-none focus:ring-2 focus:ring-[--primary] transition shadow-sm"
+          />
+          <div className="pointer-events-none absolute inset-y-0 right-4 flex items-center text-neutral-500 peer-focus:text-[--primary]">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={2}
+              stroke="currentColor"
+              className="h-5 w-5"
+              aria-hidden="true"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M21 21l-4.35-4.35M11 19a8 8 0 100-16 8 8 0 000 16z"
+              />
+            </svg>
+          </div>
         </div>
         <div className="flex items-center gap-4">
           <a
             href="https://twitter.com/"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-neutral-500 hover:text-[var(--primary)] transition"
+            className="text-neutral-400 hover:text-[--primary] transition"
           >
             <TwitterIcon className="h-5 w-5" />
           </a>
@@ -52,7 +80,7 @@ const Navbar: React.FC = () => (
             href="https://linkedin.com/"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-neutral-500 hover:text-[var(--primary)] transition"
+            className="text-neutral-400 hover:text-[--primary] transition"
           >
             <LinkedInIcon className="h-5 w-5" />
           </a>

@@ -166,7 +166,7 @@ export default function ComponentsPage() {
         ["--primary-hover" as any]: "#005a87",
       }}
     >
-      <Navbar />
+      <Navbar query={query} setQuery={setQuery} />
       <div className="flex flex-1 overflow-hidden">
         <Sidebar
           components={components}
@@ -178,56 +178,30 @@ export default function ComponentsPage() {
           <div className="mx-auto px-6 md:px-12 max-w-4xl">
             <div className="mb-8 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
               <div className="flex items-center gap-3">
-                <span className="inline-block h-7 w-1 rounded bg-(--primary)" />
-                <h1 className="text-3xl font-bold tracking-tight text-neutral-900 dark:text-white">
+                <span className="inline-block h-7 w-1 rounded bg-[--primary]" />
+                <h1 className="text-3xl font-bold tracking-tight text-white">
                   {active.name}
                 </h1>
               </div>
-              <div className="relative w-full md:w-80">
-                <input
-                  value={query}
-                  onChange={(e) => setQuery(e.target.value)}
-                  type="text"
-                  placeholder="Search components..."
-                  className="peer w-full rounded-lg border border-neutral-300 dark:border-neutral-700 bg-white/90 dark:bg-neutral-800/90 px-4 py-2 text-base outline-none focus:ring-2 focus:ring-(--primary) transition shadow-sm"
-                />
-                <div className="pointer-events-none absolute inset-y-0 right-4 flex items-center text-neutral-400 peer-focus:text-(--primary)">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth={2}
-                    stroke="currentColor"
-                    className="h-5 w-5"
-                    aria-hidden="true"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M21 21l-4.35-4.35M11 19a8 8 0 100-16 8 8 0 000 16z"
-                    />
-                  </svg>
-                </div>
-              </div>
             </div>
             {active.description && (
-              <p className="text-neutral-700 dark:text-neutral-300 mb-8 max-w-prose text-base leading-relaxed">
+              <p className="text-neutral-200 mb-8 max-w-prose text-base leading-relaxed">
                 {active.description}
               </p>
             )}
             <section className="mb-12">
               <div className="flex items-center justify-between mb-3">
-                <h2 className="text-xs font-semibold uppercase tracking-wider text-neutral-600 dark:text-neutral-400">
+                <h2 className="text-xs font-semibold uppercase tracking-wider text-neutral-400">
                   Preview
                 </h2>
               </div>
-              <div className="rounded-2xl border border-neutral-200/70 dark:border-neutral-800/70 bg-white/95 dark:bg-neutral-900/80 backdrop-blur p-10 shadow-lg">
+              <div className="rounded-2xl border border-neutral-800 bg-neutral-900/90 backdrop-blur p-10 shadow-lg">
                 {active.preview}
               </div>
             </section>
             <section className="mb-8">
               <div className="flex items-center justify-between mb-3">
-                <h2 className="text-xs font-semibold uppercase tracking-wider text-neutral-600 dark:text-neutral-400">
+                <h2 className="text-xs font-semibold uppercase tracking-wider text-neutral-400">
                   Source Code
                 </h2>
               </div>
@@ -236,25 +210,25 @@ export default function ComponentsPage() {
             {/* Props Table */}
             <section className="mb-20">
               <div className="flex items-center justify-between mb-3">
-                <h2 className="text-xs font-semibold uppercase tracking-wider text-neutral-600 dark:text-neutral-400">
+                <h2 className="text-xs font-semibold uppercase tracking-wider text-neutral-400">
                   Props
                 </h2>
               </div>
-              <div className="rounded-xl border border-neutral-200/70 dark:border-neutral-800/70 bg-white/95 dark:bg-neutral-900/80 backdrop-blur p-6 shadow overflow-x-auto">
+              <div className="rounded-xl border border-neutral-800 bg-neutral-900/90 backdrop-blur p-6 shadow overflow-x-auto">
                 {active.props && active.props.length > 0 ? (
                   <table className="min-w-full text-sm">
                     <thead>
-                      <tr className="text-left border-b border-neutral-200 dark:border-neutral-800">
-                        <th className="py-2 pr-4 font-semibold text-neutral-700 dark:text-neutral-200">
+                      <tr className="text-left border-b border-neutral-800">
+                        <th className="py-2 pr-4 font-semibold text-neutral-100">
                           Prop
                         </th>
-                        <th className="py-2 pr-4 font-semibold text-neutral-700 dark:text-neutral-200">
+                        <th className="py-2 pr-4 font-semibold text-neutral-100">
                           Type
                         </th>
-                        <th className="py-2 pr-4 font-semibold text-neutral-700 dark:text-neutral-200">
+                        <th className="py-2 pr-4 font-semibold text-neutral-100">
                           Default
                         </th>
-                        <th className="py-2 font-semibold text-neutral-700 dark:text-neutral-200">
+                        <th className="py-2 font-semibold text-neutral-100">
                           Description
                         </th>
                       </tr>
@@ -263,20 +237,20 @@ export default function ComponentsPage() {
                       {active.props.map((prop) => (
                         <tr
                           key={prop.name}
-                          className="border-b border-neutral-100 dark:border-neutral-800"
+                          className="border-b border-neutral-800"
                         >
-                          <td className="py-2 pr-4 font-mono text-blue-700 dark:text-blue-300">
+                          <td className="py-2 pr-4 font-mono text-blue-300">
                             {prop.name}
                           </td>
-                          <td className="py-2 pr-4 font-mono text-emerald-700 dark:text-emerald-300">
+                          <td className="py-2 pr-4 font-mono text-emerald-300">
                             {prop.type}
                           </td>
-                          <td className="py-2 pr-4 text-neutral-500">
+                          <td className="py-2 pr-4 text-neutral-400">
                             {prop.default || (
                               <span className="italic text-xs">-</span>
                             )}
                           </td>
-                          <td className="py-2 text-neutral-700 dark:text-neutral-300">
+                          <td className="py-2 text-neutral-100">
                             {prop.description || (
                               <span className="italic text-xs">-</span>
                             )}
@@ -286,7 +260,7 @@ export default function ComponentsPage() {
                     </tbody>
                   </table>
                 ) : (
-                  <p className="text-neutral-500 text-sm">
+                  <p className="text-neutral-400 text-sm">
                     No documented props.
                   </p>
                 )}
