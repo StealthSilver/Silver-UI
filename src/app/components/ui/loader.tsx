@@ -15,8 +15,9 @@ const sizeMap = {
 export const Loader: React.FC<LoaderProps> = ({ size = "md", className }) => (
   <span
     className={cn(
-      // Grey spinner: top & bottom borders darker neutral, sides transparent for arc effect
-      "inline-block animate-spin rounded-full border-r-transparent border-l-transparent border-t-neutral-500 border-b-neutral-500 dark:border-t-neutral-400 dark:border-b-neutral-400",
+      "inline-block animate-spin rounded-full border-r-transparent border-l-transparent",
+      "border-t-[var(--primary)] border-b-[var(--primary-hover)]",
+      "shadow-lg shadow-[var(--primary)]/20",
       sizeMap[size],
       className
     )}

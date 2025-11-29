@@ -11,14 +11,15 @@ const Card = React.forwardRef<HTMLDivElement, CardProps>(
       <div
         ref={ref}
         className={cn(
-          "rounded-2xl border border-neutral-200 bg-white dark:bg-neutral-900 p-8 shadow-md transition-all duration-200 text-neutral-900 dark:text-white",
+          "rounded-2xl border border-neutral-200/60 dark:border-neutral-800/60 bg-gradient-to-br from-white via-neutral-50/30 to-white dark:from-neutral-900 dark:via-neutral-900/50 dark:to-neutral-800/80 p-8 shadow-lg backdrop-blur-sm transition-all duration-300 text-neutral-900 dark:text-white relative overflow-hidden group",
+          "before:absolute before:inset-0 before:bg-gradient-to-br before:from-[var(--primary)]/0 before:to-[var(--primary)]/0 before:opacity-0 before:transition-all before:duration-300",
           hoverable &&
-            "hover:shadow-lg hover:border-[var(--primary)]/60 cursor-pointer",
+            "hover:shadow-2xl hover:shadow-[var(--primary)]/10 hover:border-[var(--primary)]/40 hover:-translate-y-1 cursor-pointer hover:before:from-[var(--primary)]/5 hover:before:to-transparent hover:before:opacity-100",
           className
         )}
         {...props}
       >
-        {children}
+        <div className="relative z-10">{children}</div>
       </div>
     );
   }
