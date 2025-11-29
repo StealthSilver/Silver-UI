@@ -12,7 +12,7 @@ export const Footer = () => {
         <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
           {/* Left side - Copyright */}
           <div className="text-gray-400 text-sm">
-            © {new Date().getFullYear()}, Silver/UI
+            © {new Date().getFullYear()}, Silver/UI - inspired by @forgeui
           </div>
 
           {/* Right side - Links */}

@@ -1,16 +1,15 @@
 import React from "react";
+import Link from "next/link";
 
 interface SidebarProps {
-  components: { name: string }[];
-  activeName: string;
-  setActiveName: (name: string) => void;
-  filtered: { name: string }[];
+  components: { name: string; slug: string }[];
+  activeSlug: string;
+  filtered: { name: string; slug: string }[];
 }
 
 const Sidebar: React.FC<SidebarProps> = ({
   components,
-  activeName,
-  setActiveName,
+  activeSlug,
   filtered,
 }) => (
   <aside className="hidden md:flex md:flex-col w-72 border-r border-neutral-800 bg-neutral-950/90 backdrop-blur-xl">
@@ -20,17 +19,17 @@ const Sidebar: React.FC<SidebarProps> = ({
       </h2>
       <div className="space-y-1 overflow-y-auto pr-1 flex-1">
         {filtered.map((c) => (
-          <button
-            key={c.name}
-            onClick={() => setActiveName(c.name)}
-            className={`group w-full text-left px-3 py-2 rounded-md text-sm font-medium transition-colors border ${
-              c.name === activeName
+          <Link
+            key={c.slug}
+            href={`/components/${c.slug}`}
+            className={`group w-full text-left px-3 py-2 rounded-md text-sm font-medium transition-colors border block ${
+              c.slug === activeSlug
                 ? "bg-[--primary] border-[--primary] text-white shadow-sm"
                 : "border-transparent text-neutral-200 hover:border-neutral-700 hover:bg-neutral-900/60"
             }`}
           >
             {c.name}
-          </button>
+          </Link>
         ))}
         {filtered.length === 0 && (
           <p className="text-xs text-neutral-400 px-2 py-4">No matches.</p>
