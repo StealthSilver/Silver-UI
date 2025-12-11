@@ -1,9 +1,9 @@
 import React from "react";
 import { Button } from "@/app/components/ui/button";
-import { Card } from "@/app/components/ui/card";
-import { Input } from "@/app/components/ui/input";
-import { Loader } from "@/app/components/ui/loader";
-import { Switch } from "@/app/components/ui/switch";
+import { ThemedCardPreview } from "@/app/components/ui/ThemedCardPreview";
+import { ThemedInputPreview } from "@/app/components/ui/ThemedInputPreview";
+import { ThemedLoaderPreview } from "@/app/components/ui/ThemedLoaderPreview";
+import { ThemedSwitchPreview } from "@/app/components/ui/ThemedSwitchPreview";
 
 // Theme-specific button imports
 import { MinimalistButtonPreview } from "@/app/components/ui/minimalist/button";
@@ -112,31 +112,39 @@ export function ButtonDemo() {
   {
     name: "Card",
     slug: "card",
-    description: "Container with border, padding and subtle shadow.",
-    preview: (
-      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        <Card hoverable>
-          <h3 className="font-bold text-lg mb-2">Interactive Card</h3>
-          <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-3">
-            Hover to see the beautiful effect
-          </p>
-          <Button size="sm">Learn More</Button>
-        </Card>
-        <Card className="bg-gradient-to-br from-[var(--primary)]/5 to-transparent">
-          <h3 className="font-bold text-lg mb-2">Gradient Card</h3>
-          <p className="text-sm text-neutral-600 dark:text-neutral-400">
-            With subtle gradient background
-          </p>
-        </Card>
-        <Card>
-          <h3 className="font-bold text-lg mb-2">Simple Card</h3>
-          <p className="text-sm text-neutral-600 dark:text-neutral-400">
-            Clean and elegant design
-          </p>
-        </Card>
-      </div>
-    ),
-    code: `// card.tsx\nimport { cn } from "./utils";\nexport const Card = ({ className, children, ...props }) => (\n  <div className={cn("rounded-xl border bg-white p-4 shadow-sm", className)} {...props}>\n    {children}\n  </div>\n);`,
+    description:
+      "Feature-rich card component with theme-specific designs. Each theme offers unique visual characteristics - from minimalist clean lines to brutalist bold statements, neumorphic soft shadows, maximalist vibrant gradients, and motion-driven animations.",
+    preview: <ThemedCardPreview />,
+    code: `import { useState } from 'react';
+import { ArrowRight, Sparkles, TrendingUp, Zap, Clock, Users } from 'lucide-react';
+import { motion } from 'framer-motion';
+
+interface CardProps {
+  theme?: "minimalist" | "brutalist" | "maximalist" | "neumorphic" | "motion";
+  className?: string;
+}
+
+export function Card({ theme = "minimalist", className }: CardProps) {
+  const [isHovered, setIsHovered] = useState(false);
+
+  // Each theme returns a complete, self-contained card design
+  // Minimalist: Clean, focused with subtle interactions
+  // Brutalist: Raw, bold with stark contrasts and geometric shapes
+  // Maximalist: Rich gradients, multiple decorative elements, vibrant colors
+  // Neumorphic: Soft shadows mimicking physical depth and tactile surfaces
+  // Motion: Spring physics and smooth animations for delightful interactions
+  
+  // See full implementation in the component file
+  return (
+    <div 
+      className={className}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      {/* Theme-specific card content */}
+    </div>
+  );
+}`,
     props: [
       {
         name: "className",
@@ -153,20 +161,37 @@ export function ButtonDemo() {
   {
     name: "Input",
     slug: "input",
-    description: "Text input with variants (default, error) & sizes.",
-    preview: (
-      <div className="flex flex-col gap-4 w-full max-w-md mx-auto">
-        <Input placeholder="Enter your name..." />
-        <Input placeholder="Email address" inputSize="sm" />
-        <Input placeholder="Large input" inputSize="lg" />
-        <Input variant="error" placeholder="Error state example" />
-        <div className="flex gap-2">
-          <Input className="flex-1" placeholder="Search..." />
-          <Button>Search</Button>
-        </div>
-      </div>
-    ),
-    code: `// input.tsx\nimport { cva } from "class-variance-authority";\nimport { cn } from "./utils";\nconst inputVariants = cva(\n  "flex w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm ring-offset-white file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-gray-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",\n  {\n    variants: {\n      variant: { default: "border-gray-300 focus-visible:ring-blue-500", error: "border-red-500 focus-visible:ring-red-500" },\n      size: { sm: "h-8 px-2 text-xs", md: "h-10 px-3 text-sm", lg: "h-12 px-4 text-base" },\n    },\n    defaultVariants: { variant: "default", size: "md" },\n  }\n);\nexport const Input = ({ className, variant, size, ...props }) => (\n  <input className={cn(inputVariants({ variant, size }), className)} {...props} />\n);`,
+    description:
+      "Versatile input component with theme-specific styles and validation. Features include animated labels, icon support, email validation, and unique visual treatments for each theme including gradient borders, neumorphic shadows, and motion-based interactions.",
+    preview: <ThemedInputPreview />,
+    code: `import { useState } from 'react';
+import { Search, Mail, User, AlertCircle, CheckCircle } from 'lucide-react';
+import { motion } from 'framer-motion';
+
+interface InputProps {
+  theme?: "minimalist" | "brutalist" | "maximalist" | "neumorphic" | "motion";
+  icon?: React.ReactNode;
+  validation?: boolean;
+  placeholder?: string;
+}
+
+export function ThemedInput({ theme = "minimalist", icon, validation, placeholder }: InputProps) {
+  const [value, setValue] = useState("");
+  const [focused, setFocused] = useState(false);
+  const [isValid, setIsValid] = useState<boolean | null>(null);
+
+  // Minimalist: Clean borders with subtle focus states
+  // Brutalist: Bold borders, uppercase text, strong visual labels
+  // Maximalist: Animated gradient borders with sparkle effects
+  // Neumorphic: Inset shadows creating soft, tactile appearance
+  // Motion: Floating labels with smooth spring animations
+
+  return (
+    <div className="space-y-6 max-w-md">
+      {/* Theme-specific input implementations */}
+    </div>
+  );
+}`,
     props: [
       {
         name: "variant",
@@ -201,24 +226,29 @@ export function ButtonDemo() {
   {
     name: "Loader",
     slug: "loader",
-    description: "Animated spinner for loading states, with size options.",
-    preview: (
-      <div className="flex gap-8 items-center justify-center">
-        <div className="flex flex-col items-center gap-2">
-          <Loader size="sm" />
-          <span className="text-xs text-neutral-500">Small</span>
-        </div>
-        <div className="flex flex-col items-center gap-2">
-          <Loader size="md" />
-          <span className="text-xs text-neutral-500">Medium</span>
-        </div>
-        <div className="flex flex-col items-center gap-2">
-          <Loader size="lg" />
-          <span className="text-xs text-neutral-500">Large</span>
-        </div>
-      </div>
-    ),
-    code: `// loader.tsx\nimport React from "react";\nimport { cn } from "./utils";\n\ninterface LoaderProps {\n  size?: "sm" | "md" | "lg";\n  className?: string;\n}\n\nconst sizeMap = {\n  sm: "h-4 w-4 border-2",\n  md: "h-8 w-8 border-4",\n  lg: "h-12 w-12 border-8",\n};\n\nexport const Loader: React.FC<LoaderProps> = ({ size = "md", className }) => (\n  <span\n    className={cn(\n      "inline-block animate-spin rounded-full border-t-[--primary] border-r-transparent border-b-[--primary] border-l-transparent",\n      sizeMap[size],\n      className\n    )}\n    aria-label="Loading"\n    role="status"\n  />\n);`,
+    description:
+      "Dynamic loader component with multiple theme-specific animations. Each theme offers unique loading indicators - from minimalist spinners and dots to brutalist jittery squares, maximalist gradient effects with glowing sparkles, neumorphic soft bouncing elements, and motion-driven morphing shapes with wave patterns.",
+    preview: <ThemedLoaderPreview />,
+    code: `import { motion } from 'framer-motion';
+
+interface LoaderProps {
+  theme?: "minimalist" | "brutalist" | "maximalist" | "neumorphic" | "motion";
+  size?: "sm" | "md" | "lg";
+}
+
+export function Loader({ theme = "minimalist", size = "md" }: LoaderProps) {
+  // Minimalist: Spinner, dots, and line loaders with fade animations
+  // Brutalist: Jittery square, abrupt fill bar, pixelated spinner
+  // Maximalist: Gradient spinner with glow, sparkles, animated gradient bar
+  // Neumorphic: Soft embossed spinner, bouncing dots, sliding bubble
+  // Motion: Morphing shape, wave bars, breathing line, orbit dots
+
+  return (
+    <div className="flex items-center gap-8">
+      {/* Multiple themed loader variations */}
+    </div>
+  );
+}`,
     props: [
       {
         name: "size",
@@ -237,16 +267,33 @@ export function ButtonDemo() {
     name: "Switch",
     slug: "switch",
     description:
-      "Toggle switch component with smooth animations and gradient effects.",
-    preview: (
-      <div className="flex flex-col gap-6 items-start">
-        <Switch label="Enable notifications" defaultChecked />
-        <Switch label="Dark mode" />
-        <Switch label="Auto-save" defaultChecked />
-        <Switch label="Disabled option" disabled />
+      "Interactive toggle switch with theme-specific designs and animations. Features smooth state transitions, visual feedback, and unique styling for each theme including minimalist simplicity, brutalist bold text labels, maximalist gradient effects with ripples, neumorphic depth with soft shadows, and motion-based spring physics.",
+    preview: <ThemedSwitchPreview />,
+    code: `import { useState } from 'react';
+import { motion } from 'framer-motion';
+
+interface SwitchProps {
+  theme?: "minimalist" | "brutalist" | "maximalist" | "neumorphic" | "motion";
+  label?: string;
+}
+
+export function Switch({ theme = "minimalist", label }: SwitchProps) {
+  const [isOn, setIsOn] = useState(false);
+
+  // Minimalist: Simple rounded switches with clean transitions
+  // Brutalist: Square switches with ON/OFF text labels and borders
+  // Maximalist: Gradient backgrounds with ripple effects and glow
+  // Neumorphic: Inset/outset shadows creating 3D appearance
+  // Motion: Spring-based animations with scale and blur effects
+
+  return (
+    <div className="space-y-6">
+      <div className="flex items-center gap-6">
+        {/* Theme-specific switch implementation */}
       </div>
-    ),
-    code: `// switch.tsx\nimport React from "react";\nimport { cn } from "./utils";\n\nexport const Switch = ({ className, label, ...props }) => {\n  return (\n    <label className="inline-flex items-center gap-3 cursor-pointer group">\n      <div className="relative">\n        <input type="checkbox" className="sr-only peer" {...props} />\n        <div className={cn(\n          "w-14 h-8 rounded-full transition-all duration-300",\n          "bg-gradient-to-br from-neutral-200 to-neutral-300",\n          "peer-checked:bg-gradient-to-br peer-checked:from-[var(--primary)] peer-checked:to-[var(--primary-hover)]",\n          "peer-checked:shadow-lg peer-checked:shadow-[var(--primary)]/30",\n          className\n        )} />\n        <div className="absolute left-1 top-1 w-6 h-6 rounded-full bg-white shadow-lg peer-checked:translate-x-6 transition-all duration-300" />\n      </div>\n      {label && <span className="text-sm font-medium">{label}</span>}\n    </label>\n  );\n};`,
+    </div>
+  );
+}`,
     props: [
       {
         name: "label",
