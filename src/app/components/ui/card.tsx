@@ -25,6 +25,21 @@ const Card = React.forwardRef<HTMLDivElement, CardProps>(
   ) => {
     const [isHovered, setIsHovered] = useState(false);
 
+    // Filter out HTML events that conflict with framer-motion
+    const {
+      onDrag,
+      onDragStart,
+      onDragEnd,
+      onDragEnter,
+      onDragLeave,
+      onDragOver,
+      onDrop,
+      onAnimationStart,
+      onAnimationEnd,
+      onAnimationIteration,
+      ...restProps
+    } = props;
+
     if (theme === "minimalist") {
       return (
         <div
@@ -321,7 +336,7 @@ const Card = React.forwardRef<HTMLDivElement, CardProps>(
           transition={{ duration: 0.6, ease: "easeOut" }}
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
-          {...props}
+          {...restProps}
         >
           <motion.div
             className="space-y-8"
