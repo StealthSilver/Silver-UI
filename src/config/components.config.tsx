@@ -5,6 +5,13 @@ import { Input } from "@/app/components/ui/input";
 import { Loader } from "@/app/components/ui/loader";
 import { Switch } from "@/app/components/ui/switch";
 
+// Theme-specific button imports
+import { MinimalistButtonPreview } from "@/app/components/ui/minimalist/button";
+import { BrutalistButtonPreview } from "@/app/components/ui/brutalist/button";
+import { MaximalistButtonPreview } from "@/app/components/ui/maximalist/button";
+import { NeumorphicButtonPreview } from "@/app/components/ui/neumorphic/button";
+import { MotionButtonPreview } from "@/app/components/ui/motion/button";
+
 export interface ComponentProp {
   name: string;
   type: string;
@@ -25,48 +32,80 @@ export const components: ComponentMeta[] = [
   {
     name: "Button",
     slug: "button",
-    description: "Primary action button with variants and sizes.",
-    preview: (
-      <div className="flex gap-4 flex-wrap items-center justify-center">
-        <Button>Default</Button>
-        <Button variant="outline">Outline</Button>
-        <Button variant="ghost">Ghost</Button>
-        <Button variant="destructive">Destructive</Button>
-        <Button variant="secondary">Secondary</Button>
-        <Button size="sm">Small</Button>
-        <Button size="lg">Large</Button>
-        <Button disabled>Disabled</Button>
-      </div>
-    ),
-    code: `// button.tsx\nimport { cva } from "class-variance-authority";\nimport { cn } from "./utils";\n\nconst buttonVariants = cva(\n  "inline-flex items-center justify-center rounded-md font-medium transition-colors focus:outline-none",\n  {\n    variants: {\n      variant: {\n        default: "bg-blue-600 text-white hover:bg-blue-700",\n        outline: "border border-gray-300 hover:bg-gray-100",\n      },\n      size: {\n        sm: "px-3 py-1.5 text-sm",\n        md: "px-4 py-2 text-base",\n      },\n    },\n    defaultVariants: { variant: "default", size: "md" },\n  }\n);\n\nexport const Button = ({ className, variant, size, ...props }) => (\n  <button className={cn(buttonVariants({ variant, size }), className)} {...props} />\n);`,
+    description:
+      "A versatile button component with multiple variants and styles. Each theme offers unique visual aesthetics from minimalist simplicity to bold brutalist designs, soft neumorphic touches, vibrant maximalist gradients, and dynamic motion effects.",
+    preview: <MinimalistButtonPreview />,
+    code: `import React from "react";
+import { Heart } from "lucide-react";
+
+interface ButtonProps {
+  variant?: "primary" | "secondary" | "icon";
+  children?: React.ReactNode;
+  onClick?: () => void;
+  className?: string;
+}
+
+export const Button: React.FC<ButtonProps> = ({
+  variant = "primary",
+  children,
+  onClick,
+  className = "",
+}) => {
+  const baseStyles = "transition-all duration-300 tracking-tight";
+
+  const variantStyles = {
+    primary:
+      "px-8 py-3 bg-gray-900 text-white hover:bg-gray-800",
+    secondary:
+      "px-8 py-3 border border-gray-300 text-gray-700 hover:border-gray-900 hover:bg-gray-50",
+    icon: "px-4 py-4 border border-gray-200 rounded-md hover:border-gray-900 hover:bg-gray-50 text-gray-700",
+  };
+
+  return (
+    <button
+      onClick={onClick}
+      className={\`\${baseStyles} \${variantStyles[variant]} \${className}\`}
+    >
+      {children}
+    </button>
+  );
+};
+
+// Usage Example
+export function ButtonDemo() {
+  return (
+    <div className="flex flex-wrap items-center gap-6">
+      <Button variant="primary">Primary Action</Button>
+      <Button variant="secondary">Secondary</Button>
+      <Button variant="icon">
+        <Heart className="w-5 h-5" />
+      </Button>
+    </div>
+  );
+}`,
     props: [
       {
         name: "variant",
-        type: '"default" | "outline"',
-        default: '"default"',
-        description: "Visual style of the button.",
-      },
-      {
-        name: "size",
-        type: '"default" | "sm"',
-        default: '"default"',
-        description: "Size of the button.",
-      },
-      {
-        name: "disabled",
-        type: "boolean",
-        default: "false",
-        description: "Disable the button.",
-      },
-      {
-        name: "className",
-        type: "string",
-        description: "Additional CSS classes.",
+        type: '"primary" | "secondary" | "icon"',
+        default: '"primary"',
+        description:
+          "The visual style variant of the button. Primary for main actions, secondary for alternative actions, and icon for icon-only buttons.",
       },
       {
         name: "children",
         type: "React.ReactNode",
-        description: "Button content.",
+        description: "The content to be displayed inside the button.",
+      },
+      {
+        name: "onClick",
+        type: "() => void",
+        description: "Callback function triggered when the button is clicked.",
+      },
+      {
+        name: "className",
+        type: "string",
+        description:
+          "Additional CSS classes to customize the button's appearance.",
       },
     ],
   },

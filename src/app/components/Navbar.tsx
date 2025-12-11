@@ -1,15 +1,12 @@
 "use client";
 
 import Image from "next/image";
-import React, { useState, useRef, useEffect } from "react";
+import React from "react";
 import { useRouter, usePathname } from "next/navigation";
 import {
   getNavbarStyles,
-  getNavbarTextStyles,
-  getDropdownButtonStyles,
-  getDropdownMenuStyles,
-  getDropdownItemStyles,
   getSearchInputStyles,
+  getLogoStyles,
   type Theme,
 } from "@/lib/theme-styles";
 
@@ -50,47 +47,76 @@ const THEMES = [
 interface NavbarProps {
   query: string;
   setQuery: (q: string) => void;
-  currentTheme: Theme;
 }
 
-const Navbar: React.FC<NavbarProps> = ({ query, setQuery, currentTheme }) => {
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const dropdownRef = useRef<HTMLDivElement>(null);
+const Navbar: React.FC<NavbarProps> = ({ query, setQuery }) => {
   const router = useRouter();
   const pathname = usePathname();
 
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        dropdownRef.current &&
-        !dropdownRef.current.contains(event.target as Node)
-      ) {
-        setIsDropdownOpen(false);
-      }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
+  // Extract current theme from pathname
+  const pathParts = pathname.split("/").filter(Boolean);
+  const currentTheme = pathParts[1] || "minimalist";
+  const theme = currentTheme as Theme;
 
   const handleThemeChange = (themeId: string) => {
     // Extract component slug from current path
-    const pathParts = pathname.split("/");
-    const componentSlug = pathParts[pathParts.length - 1];
+    const pathParts = pathname.split("/").filter(Boolean);
+    // Get the last part as component slug, default to 'button' if not present
+    const componentSlug = pathParts.length >= 3 ? pathParts[2] : "button";
 
     // Navigate to new theme URL
     router.push(`/components/${themeId}/${componentSlug}`);
-    setIsDropdownOpen(false);
   };
 
-  const currentThemeLabel =
-    THEMES.find((t) => t.id === currentTheme)?.label || "Select Theme";
+  const getThemeButtonStyles = (themeId: string) => {
+    const isActive = themeId === currentTheme;
+
+    switch (theme) {
+      case "minimalist":
+        return `px-3 py-1.5 rounded-md text-xs font-medium transition-all duration-300 ${
+          isActive
+            ? "bg-gray-900 dark:bg-white text-white dark:text-gray-900 shadow-md"
+            : "bg-gray-100 dark:bg-neutral-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-neutral-700"
+        }`;
+      case "brutalist":
+        return `px-3 py-1.5 border-[3px] text-xs font-black uppercase transition-all duration-200 ${
+          isActive
+            ? "bg-white text-black border-white shadow-[3px_3px_0_rgba(255,255,255,0.5)]"
+            : "bg-black text-white border-white hover:bg-white hover:text-black"
+        }`;
+      case "maximalist":
+        return `px-3 py-1.5 rounded-lg text-xs font-bold transition-all duration-300 ${
+          isActive
+            ? "bg-white text-purple-700 border-2 border-white shadow-[0_0_15px_rgba(255,255,255,0.5)]"
+            : "bg-white/20 text-white border-2 border-white/30 hover:bg-white/30 hover:border-white/50"
+        }`;
+      case "neumorphic":
+        return `px-3 py-1.5 rounded-lg text-xs font-medium transition-all duration-300 ${
+          isActive
+            ? "shadow-[inset_3px_3px_6px_rgba(0,0,0,0.15),inset_-3px_-3px_6px_rgba(255,255,255,0.8)] dark:shadow-[inset_3px_3px_6px_rgba(0,0,0,0.5),inset_-3px_-3px_6px_rgba(255,255,255,0.1)] text-gray-900 dark:text-white"
+            : "shadow-[3px_3px_6px_rgba(0,0,0,0.12),-3px_-3px_6px_rgba(255,255,255,0.8)] dark:shadow-[3px_3px_6px_rgba(0,0,0,0.4),-3px_-3px_6px_rgba(255,255,255,0.08)] text-gray-700 dark:text-gray-200 hover:shadow-[2px_2px_4px_rgba(0,0,0,0.12),-2px_-2px_4px_rgba(255,255,255,0.8)]"
+        }`;
+      case "motion":
+        return `px-3 py-1.5 rounded-lg text-xs font-medium transition-all duration-300 ${
+          isActive
+            ? "bg-blue-500 text-white shadow-lg scale-105"
+            : "bg-gray-100 dark:bg-neutral-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-neutral-700 hover:scale-105"
+        }`;
+      default:
+        return "px-3 py-1.5 rounded-md text-xs font-medium";
+    }
+  };
 
   return (
-    <nav className="w-full border-b border-neutral-800/80 bg-neutral-950/90 backdrop-blur-xl supports-backdrop-filter:bg-neutral-950/80 dark:bg-neutral-950/90 dark:border-neutral-800/80 dark:supports-backdrop-filter:bg-neutral-950/80">
+    <nav
+      className={`w-full transition-all duration-300 ${getNavbarStyles(theme)}`}
+    >
       <div className="mx-auto px-4 md:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
         <div className="flex items-center gap-2">
-          <a href="/" className="flex items-center gap-2">
+          <a
+            href="/"
+            className={`flex items-center gap-2 ${getLogoStyles(theme)}`}
+          >
             <Image
               src="/logo.svg"
               width={110}
@@ -100,74 +126,38 @@ const Navbar: React.FC<NavbarProps> = ({ query, setQuery, currentTheme }) => {
             />
           </a>
         </div>
-        <div className="flex items-center gap-6">
-          {/* Theme Dropdown */}
-          <div className="relative" ref={dropdownRef}>
-            <button
-              onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-              className="flex items-center gap-2 px-4 py-2 rounded-lg border border-neutral-700 bg-neutral-900/90 text-white text-sm font-medium hover:border-[--primary] transition-colors"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={2}
-                stroke="currentColor"
-                className="h-4 w-4"
+        <div className="flex items-center gap-4">
+          {/* Theme Buttons */}
+          <div className="hidden lg:flex items-center gap-2">
+            {THEMES.map((t) => (
+              <button
+                key={t.id}
+                onClick={() => handleThemeChange(t.id)}
+                className={getThemeButtonStyles(t.id)}
+                title={t.label}
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M9.53 16.122a3 3 0 00-5.78 1.128 2.25 2.25 0 01-2.4 2.245 4.5 4.5 0 008.4-2.245c0-.399-.078-.78-.22-1.128zm0 0a15.998 15.998 0 003.388-1.62m-5.043-.025a15.994 15.994 0 011.622-3.395m3.42 3.42a15.995 15.995 0 004.764-4.648l3.876-5.814a1.151 1.151 0 00-1.597-1.597L14.146 6.32a15.996 15.996 0 00-4.649 4.763m3.42 3.42a6.776 6.776 0 00-3.42-3.42"
-                />
-              </svg>
-              <span>{currentThemeLabel}</span>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={2}
-                stroke="currentColor"
-                className={`h-4 w-4 transition-transform ${
-                  isDropdownOpen ? "rotate-180" : ""
-                }`}
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M19.5 8.25l-7.5 7.5-7.5-7.5"
-                />
-              </svg>
-            </button>
-
-            {isDropdownOpen && (
-              <div className="absolute right-0 mt-2 w-48 rounded-lg border border-neutral-700 bg-neutral-900/95 backdrop-blur-xl shadow-2xl z-50 overflow-hidden">
-                {THEMES.map((theme) => (
-                  <button
-                    key={theme.id}
-                    onClick={() => handleThemeChange(theme.id)}
-                    className={`w-full px-4 py-3 text-left text-sm transition-colors ${
-                      theme.id === currentTheme
-                        ? "bg-[--primary] text-white font-medium"
-                        : "text-neutral-200 hover:bg-neutral-800/80"
-                    }`}
-                  >
-                    {theme.label}
-                  </button>
-                ))}
-              </div>
-            )}
+                {t.label}
+              </button>
+            ))}
           </div>
 
-          <div className="relative w-56 md:w-72">
+          <div className="relative w-48 md:w-64">
             <input
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               type="text"
               placeholder="Search components..."
-              className="peer w-full rounded-lg border border-neutral-700 bg-neutral-900/90 px-4 py-2 text-base text-white placeholder:text-neutral-400 outline-none focus:ring-2 focus:ring-[--primary] transition shadow-sm"
+              className={`peer ${getSearchInputStyles(theme)}`}
             />
-            <div className="pointer-events-none absolute inset-y-0 right-4 flex items-center text-neutral-500 peer-focus:text-[--primary]">
+            <div
+              className={`pointer-events-none absolute inset-y-0 right-4 flex items-center transition-colors ${
+                theme === "brutalist"
+                  ? "text-white peer-focus:text-black"
+                  : theme === "maximalist"
+                  ? "text-white/70 peer-focus:text-white"
+                  : "text-neutral-500 peer-focus:text-blue-500 dark:peer-focus:text-blue-400"
+              }`}
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -190,7 +180,17 @@ const Navbar: React.FC<NavbarProps> = ({ query, setQuery, currentTheme }) => {
               href="https://twitter.com/"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-neutral-400 hover:text-[--primary] transition"
+              className={`transition-all duration-300 ${
+                theme === "brutalist"
+                  ? "text-white hover:text-gray-300 hover:scale-110"
+                  : theme === "maximalist"
+                  ? "text-white hover:text-white/70 hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.5)] hover:scale-110"
+                  : theme === "neumorphic"
+                  ? "text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:scale-110"
+                  : theme === "motion"
+                  ? "text-neutral-400 hover:text-blue-500 dark:hover:text-blue-400 hover:scale-125 hover:rotate-6"
+                  : "text-neutral-400 hover:text-blue-500 dark:hover:text-blue-400 hover:scale-110"
+              }`}
             >
               <TwitterIcon className="h-5 w-5" />
             </a>
@@ -198,7 +198,17 @@ const Navbar: React.FC<NavbarProps> = ({ query, setQuery, currentTheme }) => {
               href="https://linkedin.com/"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-neutral-400 hover:text-[--primary] transition"
+              className={`transition-all duration-300 ${
+                theme === "brutalist"
+                  ? "text-white hover:text-gray-300 hover:scale-110"
+                  : theme === "maximalist"
+                  ? "text-white hover:text-white/70 hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.5)] hover:scale-110"
+                  : theme === "neumorphic"
+                  ? "text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:scale-110"
+                  : theme === "motion"
+                  ? "text-neutral-400 hover:text-blue-500 dark:hover:text-blue-400 hover:scale-125 hover:-rotate-6"
+                  : "text-neutral-400 hover:text-blue-500 dark:hover:text-blue-400 hover:scale-110"
+              }`}
             >
               <LinkedInIcon className="h-5 w-5" />
             </a>
