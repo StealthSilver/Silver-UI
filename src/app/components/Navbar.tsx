@@ -1,5 +1,17 @@
+"use client";
+
 import Image from "next/image";
-import React from "react";
+import React, { useState, useRef, useEffect } from "react";
+import { useRouter, usePathname } from "next/navigation";
+import {
+  getNavbarStyles,
+  getNavbarTextStyles,
+  getDropdownButtonStyles,
+  getDropdownMenuStyles,
+  getDropdownItemStyles,
+  getSearchInputStyles,
+  type Theme,
+} from "@/lib/theme-styles";
 
 const TwitterIcon: React.FC<{ className?: string }> = ({ className }) => (
   <svg
@@ -27,67 +39,174 @@ const LinkedInIcon: React.FC<{ className?: string }> = ({ className }) => (
   </svg>
 );
 
+const THEMES = [
+  { id: "minimalist", label: "Minimalist" },
+  { id: "brutalist", label: "Brutalist" },
+  { id: "maximalist", label: "Maximalist" },
+  { id: "neumorphic", label: "Neumorphic" },
+  { id: "motion", label: "Motion" },
+];
+
 interface NavbarProps {
   query: string;
   setQuery: (q: string) => void;
+  currentTheme: Theme;
 }
 
-const Navbar: React.FC<NavbarProps> = ({ query, setQuery }) => (
-  <nav className="w-full border-b border-neutral-800/80 bg-neutral-950/90 backdrop-blur-xl supports-backdrop-filter:bg-neutral-950/80 dark:bg-neutral-950/90 dark:border-neutral-800/80 dark:supports-backdrop-filter:bg-neutral-950/80">
-    <div className="mx-auto px-4 md:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
-      <div className="flex items-center gap-2">
-        <a href="/" className="flex items-center gap-2">
-          <Image src="/logo.svg" width={110} height={40} alt="Logo" priority />
-        </a>
-      </div>
-      <div className="flex items-center gap-6">
-        <div className="relative w-56 md:w-72">
-          <input
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            type="text"
-            placeholder="Search components..."
-            className="peer w-full rounded-lg border border-neutral-700 bg-neutral-900/90 px-4 py-2 text-base text-white placeholder:text-neutral-400 outline-none focus:ring-2 focus:ring-[--primary] transition shadow-sm"
-          />
-          <div className="pointer-events-none absolute inset-y-0 right-4 flex items-center text-neutral-500 peer-focus:text-[--primary]">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={2}
-              stroke="currentColor"
-              className="h-5 w-5"
-              aria-hidden="true"
+const Navbar: React.FC<NavbarProps> = ({ query, setQuery, currentTheme }) => {
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+  const router = useRouter();
+  const pathname = usePathname();
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
+        setIsDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  const handleThemeChange = (themeId: string) => {
+    // Extract component slug from current path
+    const pathParts = pathname.split("/");
+    const componentSlug = pathParts[pathParts.length - 1];
+
+    // Navigate to new theme URL
+    router.push(`/components/${themeId}/${componentSlug}`);
+    setIsDropdownOpen(false);
+  };
+
+  const currentThemeLabel =
+    THEMES.find((t) => t.id === currentTheme)?.label || "Select Theme";
+
+  return (
+    <nav className="w-full border-b border-neutral-800/80 bg-neutral-950/90 backdrop-blur-xl supports-backdrop-filter:bg-neutral-950/80 dark:bg-neutral-950/90 dark:border-neutral-800/80 dark:supports-backdrop-filter:bg-neutral-950/80">
+      <div className="mx-auto px-4 md:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
+        <div className="flex items-center gap-2">
+          <a href="/" className="flex items-center gap-2">
+            <Image
+              src="/logo.svg"
+              width={110}
+              height={40}
+              alt="Logo"
+              priority
+            />
+          </a>
+        </div>
+        <div className="flex items-center gap-6">
+          {/* Theme Dropdown */}
+          <div className="relative" ref={dropdownRef}>
+            <button
+              onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+              className="flex items-center gap-2 px-4 py-2 rounded-lg border border-neutral-700 bg-neutral-900/90 text-white text-sm font-medium hover:border-[--primary] transition-colors"
             >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M21 21l-4.35-4.35M11 19a8 8 0 100-16 8 8 0 000 16z"
-              />
-            </svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={2}
+                stroke="currentColor"
+                className="h-4 w-4"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M9.53 16.122a3 3 0 00-5.78 1.128 2.25 2.25 0 01-2.4 2.245 4.5 4.5 0 008.4-2.245c0-.399-.078-.78-.22-1.128zm0 0a15.998 15.998 0 003.388-1.62m-5.043-.025a15.994 15.994 0 011.622-3.395m3.42 3.42a15.995 15.995 0 004.764-4.648l3.876-5.814a1.151 1.151 0 00-1.597-1.597L14.146 6.32a15.996 15.996 0 00-4.649 4.763m3.42 3.42a6.776 6.776 0 00-3.42-3.42"
+                />
+              </svg>
+              <span>{currentThemeLabel}</span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={2}
+                stroke="currentColor"
+                className={`h-4 w-4 transition-transform ${
+                  isDropdownOpen ? "rotate-180" : ""
+                }`}
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M19.5 8.25l-7.5 7.5-7.5-7.5"
+                />
+              </svg>
+            </button>
+
+            {isDropdownOpen && (
+              <div className="absolute right-0 mt-2 w-48 rounded-lg border border-neutral-700 bg-neutral-900/95 backdrop-blur-xl shadow-2xl z-50 overflow-hidden">
+                {THEMES.map((theme) => (
+                  <button
+                    key={theme.id}
+                    onClick={() => handleThemeChange(theme.id)}
+                    className={`w-full px-4 py-3 text-left text-sm transition-colors ${
+                      theme.id === currentTheme
+                        ? "bg-[--primary] text-white font-medium"
+                        : "text-neutral-200 hover:bg-neutral-800/80"
+                    }`}
+                  >
+                    {theme.label}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+
+          <div className="relative w-56 md:w-72">
+            <input
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              type="text"
+              placeholder="Search components..."
+              className="peer w-full rounded-lg border border-neutral-700 bg-neutral-900/90 px-4 py-2 text-base text-white placeholder:text-neutral-400 outline-none focus:ring-2 focus:ring-[--primary] transition shadow-sm"
+            />
+            <div className="pointer-events-none absolute inset-y-0 right-4 flex items-center text-neutral-500 peer-focus:text-[--primary]">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={2}
+                stroke="currentColor"
+                className="h-5 w-5"
+                aria-hidden="true"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M21 21l-4.35-4.35M11 19a8 8 0 100-16 8 8 0 000 16z"
+                />
+              </svg>
+            </div>
+          </div>
+          <div className="flex items-center gap-4">
+            <a
+              href="https://twitter.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-neutral-400 hover:text-[--primary] transition"
+            >
+              <TwitterIcon className="h-5 w-5" />
+            </a>
+            <a
+              href="https://linkedin.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-neutral-400 hover:text-[--primary] transition"
+            >
+              <LinkedInIcon className="h-5 w-5" />
+            </a>
           </div>
         </div>
-        <div className="flex items-center gap-4">
-          <a
-            href="https://twitter.com/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-neutral-400 hover:text-[--primary] transition"
-          >
-            <TwitterIcon className="h-5 w-5" />
-          </a>
-          <a
-            href="https://linkedin.com/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-neutral-400 hover:text-[--primary] transition"
-          >
-            <LinkedInIcon className="h-5 w-5" />
-          </a>
-        </div>
       </div>
-    </div>
-  </nav>
-);
+    </nav>
+  );
+};
 
 export default Navbar;

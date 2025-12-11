@@ -103,3 +103,89 @@ body {
   background-size: 200% auto;
   animation: gradient 3s ease infinite;
 }
+
+/* Theme-specific styles */
+
+/* Brutalist Theme */
+.brutalist-theme {
+  font-family: "Arial Black", "Arial Bold", sans-serif;
+}
+
+.brutalist-title {
+  text-shadow: 4px 4px 0px rgba(0, 0, 0, 0.3);
+  letter-spacing: -0.02em;
+}
+
+.brutalist-card {
+  transform: rotate(-0.5deg);
+  transition: all 0.3s ease;
+}
+
+.brutalist-card:hover {
+  transform: rotate(0deg) scale(1.02);
+}
+
+/* Maximalist Theme */
+.maximalist-theme {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+}
+
+.maximalist-card {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-image: linear-gradient(45deg, #ff6ec4, #7873f5, #4facfe) 1;
+}
+
+.maximalist-title {
+  animation: gradient 3s ease infinite, pulse 2s ease infinite;
+}
+
+/* Neumorphic Theme */
+.neumorphic-theme {
+  background: #e0e5ec;
+}
+
+.dark .neumorphic-theme {
+  background: #2c3e50;
+}
+
+.neumorphic-card {
+  background: #e0e5ec;
+  border: none;
+}
+
+.dark .neumorphic-card {
+  background: #2c3e50;
+}
+
+/* Motion Theme */
+.motion-theme {
+  perspective: 1000px;
+}
+
+.motion-card {
+  transform-style: preserve-3d;
+}
+
+.motion-title {
+  animation: gradient 3s ease infinite, float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}

@@ -5,12 +5,14 @@ interface SidebarProps {
   components: { name: string; slug: string }[];
   activeSlug: string;
   filtered: { name: string; slug: string }[];
+  currentTheme: string;
 }
 
 const Sidebar: React.FC<SidebarProps> = ({
   components,
   activeSlug,
   filtered,
+  currentTheme,
 }) => (
   <aside className="hidden md:flex md:flex-col w-72 border-r border-neutral-800 bg-neutral-950/90 backdrop-blur-xl">
     <div className="p-5 flex-1 flex flex-col">
@@ -21,7 +23,7 @@ const Sidebar: React.FC<SidebarProps> = ({
         {filtered.map((c) => (
           <Link
             key={c.slug}
-            href={`/components/${c.slug}`}
+            href={`/components/${currentTheme}/${c.slug}`}
             className={`group w-full text-left px-3 py-2 rounded-md text-sm font-medium transition-colors border block ${
               c.slug === activeSlug
                 ? "bg-[--primary] border-[--primary] text-white shadow-sm"

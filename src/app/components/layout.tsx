@@ -14,8 +14,10 @@ export default function ComponentsLayout({
   const [query, setQuery] = useState("");
   const pathname = usePathname();
 
-  // Extract slug from pathname (e.g., /components/button -> button)
-  const activeSlug = pathname.split("/").pop() || "button";
+  // Extract theme and slug from pathname (e.g., /components/minimalist/button)
+  const pathParts = pathname.split("/").filter(Boolean);
+  const currentTheme = pathParts[1] || "minimalist"; // Default to minimalist
+  const activeSlug = pathParts[2] || "button";
 
   const filtered = components.filter((c) =>
     c.name.toLowerCase().includes(query.toLowerCase())
@@ -29,12 +31,13 @@ export default function ComponentsLayout({
         ["--primary-hover" as any]: "#005a87",
       }}
     >
-      <Navbar query={query} setQuery={setQuery} />
+      <Navbar query={query} setQuery={setQuery} currentTheme={currentTheme} />
       <div className="flex flex-1 overflow-hidden">
         <Sidebar
           components={components}
           activeSlug={activeSlug}
           filtered={filtered}
+          currentTheme={currentTheme}
         />
         <main className="flex-1 py-10 overflow-y-auto">{children}</main>
       </div>

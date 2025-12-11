@@ -3,7 +3,4 @@ export * from "./card";
 export * from "./input";
 export * from "./utils";
 export * from "./loader";
-export * from "./badge";
 export * from "./switch";
-export * from "./avatar";
-export * from "./alert";

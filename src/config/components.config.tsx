@@ -3,10 +3,7 @@ import { Button } from "@/app/components/ui/button";
 import { Card } from "@/app/components/ui/card";
 import { Input } from "@/app/components/ui/input";
 import { Loader } from "@/app/components/ui/loader";
-import { Badge } from "@/app/components/ui/badge";
 import { Switch } from "@/app/components/ui/switch";
-import { Avatar } from "@/app/components/ui/avatar";
-import { Alert, AlertTitle, AlertDescription } from "@/app/components/ui/alert";
 
 export interface ComponentProp {
   name: string;
@@ -198,41 +195,6 @@ export const components: ComponentMeta[] = [
     ],
   },
   {
-    name: "Badge",
-    slug: "badge",
-    description:
-      "Small status indicators and labels with gradient styles and variants.",
-    preview: (
-      <div className="flex gap-3 flex-wrap items-center justify-center">
-        <Badge>Default</Badge>
-        <Badge variant="secondary">Secondary</Badge>
-        <Badge variant="success">Success</Badge>
-        <Badge variant="warning">Warning</Badge>
-        <Badge variant="danger">Danger</Badge>
-        <Badge variant="outline">Outline</Badge>
-      </div>
-    ),
-    code: `// badge.tsx\nimport { cva } from "class-variance-authority";\nimport { cn } from "./utils";\n\nconst badgeVariants = cva(\n  "inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold transition-all duration-300",\n  {\n    variants: {\n      variant: {\n        default: "bg-gradient-to-br from-[var(--primary)] to-[var(--primary-hover)] text-white shadow-lg",\n        secondary: "bg-gradient-to-br from-neutral-100 to-neutral-200 dark:from-neutral-800 dark:to-neutral-900",\n        success: "bg-gradient-to-br from-green-500 to-green-600 text-white shadow-lg",\n        warning: "bg-gradient-to-br from-amber-500 to-amber-600 text-white shadow-lg",\n        danger: "bg-gradient-to-br from-red-500 to-red-600 text-white shadow-lg",\n        outline: "border-2 border-[var(--primary)]/40 bg-white/50 dark:bg-neutral-900/50 backdrop-blur-sm",\n      },\n    },\n    defaultVariants: { variant: "default" },\n  }\n);\n\nexport const Badge = ({ className, variant, ...props }) => (\n  <div className={cn(badgeVariants({ variant }), className)} {...props} />\n);`,
-    props: [
-      {
-        name: "variant",
-        type: '"default" | "secondary" | "success" | "warning" | "danger" | "outline"',
-        default: '"default"',
-        description: "Visual style of the badge.",
-      },
-      {
-        name: "className",
-        type: "string",
-        description: "Additional CSS classes.",
-      },
-      {
-        name: "children",
-        type: "React.ReactNode",
-        description: "Badge content.",
-      },
-    ],
-  },
-  {
     name: "Switch",
     slug: "switch",
     description:
@@ -277,123 +239,6 @@ export const components: ComponentMeta[] = [
         name: "className",
         type: "string",
         description: "Additional CSS classes.",
-      },
-    ],
-  },
-  {
-    name: "Avatar",
-    slug: "avatar",
-    description:
-      "User avatar component with image support, fallback text, and multiple sizes.",
-    preview: (
-      <div className="flex gap-6 items-center flex-wrap justify-center">
-        <div className="flex flex-col items-center gap-2">
-          <Avatar size="sm" fallback="JS" />
-          <span className="text-xs text-neutral-500">Small</span>
-        </div>
-        <div className="flex flex-col items-center gap-2">
-          <Avatar fallback="AB" />
-          <span className="text-xs text-neutral-500">Default</span>
-        </div>
-        <div className="flex flex-col items-center gap-2">
-          <Avatar size="lg" fallback="MK" />
-          <span className="text-xs text-neutral-500">Large</span>
-        </div>
-        <div className="flex flex-col items-center gap-2">
-          <Avatar size="xl" fallback="RS" />
-          <span className="text-xs text-neutral-500">Extra Large</span>
-        </div>
-      </div>
-    ),
-    code: `// avatar.tsx\nimport React from "react";\nimport { cva } from "class-variance-authority";\nimport { cn } from "./utils";\n\nconst avatarVariants = cva(\n  "relative inline-flex items-center justify-center overflow-hidden rounded-full font-semibold transition-all duration-300 shadow-lg",\n  {\n    variants: {\n      size: {\n        sm: "h-8 w-8 text-xs",\n        default: "h-10 w-10 text-sm",\n        lg: "h-14 w-14 text-base",\n        xl: "h-20 w-20 text-xl",\n      },\n    },\n    defaultVariants: { size: "default" },\n  }\n);\n\nexport const Avatar = ({ className, size, src, alt, fallback, ...props }) => {\n  const [imgError, setImgError] = React.useState(false);\n  return (\n    <div className={cn(avatarVariants({ size }), "hover:scale-110", className)} {...props}>\n      {src && !imgError ? (\n        <img src={src} alt={alt || "Avatar"} className="h-full w-full object-cover" onError={() => setImgError(true)} />\n      ) : (\n        <span className="bg-gradient-to-br from-[var(--primary)] to-[var(--primary-hover)] bg-clip-text text-transparent">{fallback || "?"}</span>\n      )}\n    </div>\n  );\n};`,
-    props: [
-      {
-        name: "size",
-        type: '"sm" | "default" | "lg" | "xl"',
-        default: '"default"',
-        description: "Size of the avatar.",
-      },
-      {
-        name: "src",
-        type: "string",
-        description: "Image source URL.",
-      },
-      {
-        name: "alt",
-        type: "string",
-        description: "Image alt text.",
-      },
-      {
-        name: "fallback",
-        type: "string",
-        description:
-          "Fallback text when image fails to load or is not provided.",
-      },
-      {
-        name: "className",
-        type: "string",
-        description: "Additional CSS classes.",
-      },
-    ],
-  },
-  {
-    name: "Alert",
-    slug: "alert",
-    description:
-      "Alert component for displaying important messages with different severity levels.",
-    preview: (
-      <div className="flex flex-col gap-4 w-full">
-        <Alert>
-          <AlertTitle>Default Alert</AlertTitle>
-          <AlertDescription>
-            This is a default alert with gradient background and glassmorphism
-            effect.
-          </AlertDescription>
-        </Alert>
-        <Alert variant="success">
-          <AlertTitle>Success!</AlertTitle>
-          <AlertDescription>
-            Your changes have been saved successfully.
-          </AlertDescription>
-        </Alert>
-        <Alert variant="warning">
-          <AlertTitle>Warning</AlertTitle>
-          <AlertDescription>
-            Please review your settings before continuing.
-          </AlertDescription>
-        </Alert>
-        <Alert variant="danger">
-          <AlertTitle>Error</AlertTitle>
-          <AlertDescription>
-            Something went wrong. Please try again.
-          </AlertDescription>
-        </Alert>
-        <Alert variant="info">
-          <AlertTitle>Information</AlertTitle>
-          <AlertDescription>
-            Here's some helpful information for you.
-          </AlertDescription>
-        </Alert>
-      </div>
-    ),
-    code: `// alert.tsx\nimport React from "react";\nimport { cva } from "class-variance-authority";\nimport { cn } from "./utils";\n\nconst alertVariants = cva(\n  "relative w-full rounded-2xl border-2 p-5 transition-all duration-300 backdrop-blur-sm shadow-lg",\n  {\n    variants: {\n      variant: {\n        default: "border-[var(--primary)]/30 bg-gradient-to-br from-[var(--primary)]/5 via-[var(--primary)]/10 to-transparent",\n        success: "border-green-500/30 bg-gradient-to-br from-green-500/5 via-green-500/10 to-transparent",\n        warning: "border-amber-500/30 bg-gradient-to-br from-amber-500/5 via-amber-500/10 to-transparent",\n        danger: "border-red-500/30 bg-gradient-to-br from-red-500/5 via-red-500/10 to-transparent",\n        info: "border-blue-500/30 bg-gradient-to-br from-blue-500/5 via-blue-500/10 to-transparent",\n      },\n    },\n    defaultVariants: { variant: "default" },\n  }\n);\n\nexport const Alert = ({ className, variant, ...props }) => (\n  <div role="alert" className={cn(alertVariants({ variant }), className)} {...props} />\n);\n\nexport const AlertTitle = ({ className, ...props }) => (\n  <h5 className={cn("mb-2 font-bold text-lg", className)} {...props} />\n);\n\nexport const AlertDescription = ({ className, ...props }) => (\n  <div className={cn("text-sm leading-relaxed opacity-90", className)} {...props} />\n);`,
-    props: [
-      {
-        name: "variant",
-        type: '"default" | "success" | "warning" | "danger" | "info"',
-        default: '"default"',
-        description: "Visual style indicating severity level.",
-      },
-      {
-        name: "className",
-        type: "string",
-        description: "Additional CSS classes.",
-      },
-      {
-        name: "children",
-        type: "React.ReactNode",
-        description:
-          "Alert content (use AlertTitle and AlertDescription components).",
       },
     ],
   },

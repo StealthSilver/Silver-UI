@@ -3,11 +3,25 @@
 import React from "react";
 import { notFound, useParams } from "next/navigation";
 import { components } from "@/config/components.config";
-import { CodeBlock } from "../CodeBlock";
+import { CodeBlock } from "../../CodeBlock";
+import { getThemeStyles } from "@/config/theme.config";
 
-export default function ComponentPage() {
+export default function ThemedComponentPage() {
   const params = useParams();
   const slug = params.slug as string;
+  const theme = params.theme as string;
+
+  // Validate theme
+  const validThemes = [
+    "minimalist",
+    "brutalist",
+    "maximalist",
+    "neumorphic",
+    "motion",
+  ];
+  if (!validThemes.includes(theme)) {
+    notFound();
+  }
 
   const component = components.find((c) => c.slug === slug);
 
@@ -15,24 +29,34 @@ export default function ComponentPage() {
     notFound();
   }
 
+  const themeStyles = getThemeStyles(theme);
+
   return (
-    <div className="mx-auto px-6 md:px-12 max-w-5xl py-8">
-      {/* Hero Header with Gradient */}
-      <div className="mb-12 relative">
+    <div
+      className={`mx-auto px-6 md:px-12 max-w-5xl py-8 ${themeStyles.container}`}
+    >
+      {/* Hero Header with Theme-specific styling */}
+      <div className={`mb-12 relative ${themeStyles.header}`}>
         <div className="absolute inset-0 bg-gradient-to-r from-[var(--primary)]/10 via-transparent to-[var(--primary-hover)]/10 rounded-3xl blur-3xl -z-10" />
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
           <div className="flex items-center gap-4">
             <div className="relative">
-              <span className="inline-block h-12 w-1.5 rounded-full bg-gradient-to-b from-[var(--primary)] to-[var(--primary-hover)] shadow-lg shadow-[var(--primary)]/30" />
+              <span
+                className={`inline-block h-12 w-1.5 rounded-full bg-gradient-to-b from-[var(--primary)] to-[var(--primary-hover)] shadow-lg shadow-[var(--primary)]/30 ${themeStyles.accent}`}
+              />
               <span className="absolute -left-1 top-0 inline-block h-12 w-1.5 rounded-full bg-gradient-to-b from-[var(--primary)] to-[var(--primary-hover)] opacity-30 blur-sm" />
             </div>
-            <h1 className="text-5xl md:text-6xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-[var(--primary)] via-[var(--primary-hover)] to-[var(--primary)] animate-gradient">
+            <h1
+              className={`text-5xl md:text-6xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-[var(--primary)] via-[var(--primary-hover)] to-[var(--primary)] ${themeStyles.title}`}
+            >
               {component.name}
             </h1>
           </div>
         </div>
         {component.description && (
-          <p className="text-neutral-600 dark:text-neutral-300 mt-6 max-w-2xl text-lg leading-relaxed font-light">
+          <p
+            className={`text-neutral-600 dark:text-neutral-300 mt-6 max-w-2xl text-lg leading-relaxed font-light ${themeStyles.description}`}
+          >
             {component.description}
           </p>
         )}
@@ -42,14 +66,18 @@ export default function ComponentPage() {
       <section className="mb-16">
         <div className="flex items-center gap-3 mb-6">
           <div className="h-px flex-1 bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent" />
-          <h2 className="text-2xl font-bold text-neutral-800 dark:text-neutral-100 tracking-tight">
+          <h2
+            className={`text-2xl font-bold text-neutral-800 dark:text-neutral-100 tracking-tight ${themeStyles.sectionTitle}`}
+          >
             Preview
           </h2>
           <div className="h-px flex-1 bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent" />
         </div>
         <div className="relative group">
           <div className="absolute inset-0 bg-gradient-to-br from-[var(--primary)]/20 via-[var(--primary-hover)]/10 to-transparent rounded-3xl blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10" />
-          <div className="rounded-3xl border-2 border-neutral-200/60 dark:border-neutral-800/60 bg-gradient-to-br from-white via-neutral-50/50 to-white dark:from-neutral-900 dark:via-neutral-900/50 dark:to-neutral-800/80 backdrop-blur-xl p-12 shadow-2xl relative overflow-hidden">
+          <div
+            className={`rounded-3xl border-2 border-neutral-200/60 dark:border-neutral-800/60 bg-gradient-to-br from-white via-neutral-50/50 to-white dark:from-neutral-900 dark:via-neutral-900/50 dark:to-neutral-800/80 backdrop-blur-xl p-12 shadow-2xl relative overflow-hidden ${themeStyles.previewCard}`}
+          >
             <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-[var(--primary)]/5 to-transparent rounded-full blur-3xl" />
             <div className="absolute bottom-0 left-0 w-48 h-48 bg-gradient-to-tr from-[var(--primary-hover)]/5 to-transparent rounded-full blur-3xl" />
             <div className="relative z-10">{component.preview}</div>
@@ -61,7 +89,9 @@ export default function ComponentPage() {
       <section className="mb-16">
         <div className="flex items-center gap-3 mb-6">
           <div className="h-px flex-1 bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent" />
-          <h2 className="text-2xl font-bold text-neutral-800 dark:text-neutral-100 tracking-tight">
+          <h2
+            className={`text-2xl font-bold text-neutral-800 dark:text-neutral-100 tracking-tight ${themeStyles.sectionTitle}`}
+          >
             Code
           </h2>
           <div className="h-px flex-1 bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent" />
@@ -76,7 +106,9 @@ export default function ComponentPage() {
       <section className="mb-24">
         <div className="flex items-center gap-3 mb-6">
           <div className="h-px flex-1 bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent" />
-          <h2 className="text-2xl font-bold text-neutral-800 dark:text-neutral-100 tracking-tight">
+          <h2
+            className={`text-2xl font-bold text-neutral-800 dark:text-neutral-100 tracking-tight ${themeStyles.sectionTitle}`}
+          >
             Props
           </h2>
           <div className="h-px flex-1 bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent" />
@@ -84,7 +116,9 @@ export default function ComponentPage() {
         {component.props && component.props.length > 0 ? (
           <div className="relative group">
             <div className="absolute inset-0 bg-gradient-to-br from-[var(--primary)]/10 via-transparent to-[var(--primary-hover)]/10 rounded-2xl blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10" />
-            <div className="overflow-hidden rounded-2xl border-2 border-neutral-200/60 dark:border-neutral-800/60 bg-gradient-to-br from-white via-neutral-50/30 to-white dark:from-neutral-900 dark:via-neutral-900/50 dark:to-neutral-800/80 backdrop-blur-xl shadow-xl">
+            <div
+              className={`overflow-hidden rounded-2xl border-2 border-neutral-200/60 dark:border-neutral-800/60 bg-gradient-to-br from-white via-neutral-50/30 to-white dark:from-neutral-900 dark:via-neutral-900/50 dark:to-neutral-800/80 backdrop-blur-xl shadow-xl ${themeStyles.propsTable}`}
+            >
               <div className="overflow-x-auto">
                 <table className="w-full text-left text-sm">
                   <thead className="border-b-2 border-neutral-200/60 dark:border-neutral-700/60 bg-gradient-to-r from-neutral-50/50 to-transparent dark:from-neutral-800/50">
@@ -104,7 +138,7 @@ export default function ComponentPage() {
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-neutral-200/40 dark:divide-neutral-800/40">
-                    {component.props.map((prop, index) => (
+                    {component.props.map((prop) => (
                       <tr
                         key={prop.name}
                         className="transition-all duration-300 hover:bg-gradient-to-r hover:from-[var(--primary)]/5 hover:to-transparent group/row"
