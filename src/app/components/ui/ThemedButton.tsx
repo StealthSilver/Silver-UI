@@ -1,11 +1,11 @@
 "use client";
 
 import React from "react";
-import { MinimalistButtonPreview } from "./minimalist/button";
-import { BrutalistButtonPreview } from "./brutalist/button";
-import { MaximalistButtonPreview } from "./maximalist/button";
-import { NeumorphicButtonPreview } from "./neumorphic/button";
-import { MotionButtonPreview } from "./motion/button";
+import { MinimalistButtonPreview } from "./minimalist/button/button";
+import { BrutalistButtonPreview } from "./brutalist/button/button";
+import { MaximalistButtonPreview } from "./maximalist/button/button";
+import { NeumorphicButtonPreview } from "./neumorphic/button/button";
+import { MotionButtonPreview } from "./motion/button/button";
 
 interface ThemedButtonProps {
   theme: string;
