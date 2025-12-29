@@ -2,20 +2,11 @@
 
 import React from "react";
 import { useParams } from "next/navigation";
-import { Switch } from "./switch";
+import { ThemedSwitch } from "./ThemedSwitch";
 
 export function ThemedSwitchPreview() {
   const params = useParams();
-  const theme = params.theme as
-    | "minimalist"
-    | "brutalist"
-    | "maximalist"
-    | "neumorphic"
-    | "motion";
+  const theme = params.theme as string;
 
-  return (
-    <div className="flex justify-center">
-      <Switch theme={theme} />
-    </div>
-  );
+  return <ThemedSwitch theme={theme} />;
 }

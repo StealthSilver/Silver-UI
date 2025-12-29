@@ -2,20 +2,11 @@
 
 import React from "react";
 import { useParams } from "next/navigation";
-import { ThemedInput } from "./input-themed";
+import { ThemedInput } from "./ThemedInput";
 
 export function ThemedInputPreview() {
   const params = useParams();
-  const theme = params.theme as
-    | "minimalist"
-    | "brutalist"
-    | "maximalist"
-    | "neumorphic"
-    | "motion";
+  const theme = params.theme as string;
 
-  return (
-    <div className="flex justify-center">
-      <ThemedInput theme={theme} />
-    </div>
-  );
+  return <ThemedInput theme={theme} />;
 }

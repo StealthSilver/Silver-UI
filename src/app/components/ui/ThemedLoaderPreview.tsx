@@ -2,20 +2,11 @@
 
 import React from "react";
 import { useParams } from "next/navigation";
-import { Loader } from "./loader";
+import { ThemedLoader } from "./ThemedLoader";
 
 export function ThemedLoaderPreview() {
   const params = useParams();
-  const theme = params.theme as
-    | "minimalist"
-    | "brutalist"
-    | "maximalist"
-    | "neumorphic"
-    | "motion";
+  const theme = params.theme as string;
 
-  return (
-    <div className="flex justify-center">
-      <Loader theme={theme} />
-    </div>
-  );
+  return <ThemedLoader theme={theme} />;
 }

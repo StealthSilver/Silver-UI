@@ -2,20 +2,11 @@
 
 import React from "react";
 import { useParams } from "next/navigation";
-import { Card } from "./card";
+import { ThemedCard } from "./ThemedCard";
 
 export function ThemedCardPreview() {
   const params = useParams();
-  const theme = params.theme as
-    | "minimalist"
-    | "brutalist"
-    | "maximalist"
-    | "neumorphic"
-    | "motion";
+  const theme = params.theme as string;
 
-  return (
-    <div className="flex justify-center">
-      <Card theme={theme} />
-    </div>
-  );
+  return <ThemedCard theme={theme} />;
 }
