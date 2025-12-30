@@ -120,17 +120,17 @@ export const getSidebarTextStyles = (theme: Theme): string => {
 export const getSidebarHeaderStyles = (theme: Theme): string => {
   switch (theme) {
     case "minimalist":
-      return "text-[11px] font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-200";
+      return "text-[11px] font-normal uppercase tracking-[0.15em] text-neutral-400 dark:text-neutral-500";
     case "brutalist":
-      return "text-[11px] font-black uppercase tracking-wider text-white border-b-2 border-white pb-2";
+      return "text-[11px] font-normal uppercase tracking-[0.15em] text-neutral-400 border-b-2 border-white pb-2";
     case "maximalist":
-      return "text-[11px] font-bold uppercase tracking-wider text-white/90 bg-white/10 rounded px-2 py-1";
+      return "text-[11px] font-normal uppercase tracking-[0.15em] text-neutral-400 bg-white/10 rounded px-2 py-1";
     case "neumorphic":
-      return "text-[11px] font-semibold uppercase tracking-wider text-gray-600 dark:text-gray-300";
+      return "text-[11px] font-normal uppercase tracking-[0.15em] text-neutral-400 dark:text-neutral-500";
     case "motion":
-      return "text-[11px] font-semibold uppercase tracking-wider text-neutral-700 dark:text-neutral-200 transition-all duration-300";
+      return "text-[11px] font-normal uppercase tracking-[0.15em] text-neutral-400 dark:text-neutral-500 transition-all duration-300";
     default:
-      return "text-[11px] font-semibold uppercase tracking-wider text-neutral-200";
+      return "text-[11px] font-normal uppercase tracking-[0.15em] text-neutral-400 dark:text-neutral-500";
   }
 };
 

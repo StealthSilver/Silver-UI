@@ -260,13 +260,13 @@ export default function ThemedComponentPage() {
         {component.installation && component.installation.length > 0 && (
           <section className="mb-16">
             <h2
-              className={`text-2xl font-bold mb-6 ${
+              className={`text-2xl font-semibold mb-6 ${
                 themeType === "minimalist"
                   ? "text-gray-900 dark:text-white"
                   : themeType === "brutalist"
                   ? "text-white font-black uppercase"
                   : themeType === "maximalist"
-                  ? "text-white font-bold"
+                  ? "text-white font-semibold"
                   : themeType === "neumorphic"
                   ? "text-gray-700 dark:text-gray-200"
                   : "text-gray-900 dark:text-white"
@@ -341,7 +341,7 @@ export default function ThemedComponentPage() {
             <div className="relative overflow-hidden">
               {installationTab === "cli" ? (
                 <div
-                  className={`p-6 rounded-lg border transition-all duration-300 ${
+                  className={`p-6 rounded-lg border transition-all duration-300 animate-fadeIn ${
                     themeType === "minimalist"
                       ? "border border-gray-300 dark:border-neutral-700 bg-white dark:bg-neutral-900"
                       : themeType === "brutalist"
@@ -413,13 +413,13 @@ export default function ThemedComponentPage() {
         {component.props && component.props.length > 0 && (
           <section className="mb-24">
             <h2
-              className={`text-2xl font-bold mb-6 ${
+              className={`text-2xl font-semibold mb-6 ${
                 themeType === "minimalist"
                   ? "text-gray-900 dark:text-white"
                   : themeType === "brutalist"
                   ? "text-white font-black uppercase"
                   : themeType === "maximalist"
-                  ? "text-white font-bold"
+                  ? "text-white font-semibold"
                   : themeType === "neumorphic"
                   ? "text-gray-700 dark:text-gray-200"
                   : "text-gray-900 dark:text-white"

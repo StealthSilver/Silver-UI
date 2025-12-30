@@ -36,8 +36,12 @@ const Sidebar: React.FC<SidebarProps> = ({
       )}`}
     >
       <div className="p-5 flex-1 flex flex-col">
-        <h2 className={`mb-3 ${getSidebarHeaderStyles(theme)}`}>
-          Components ({filtered.length})
+        <h2
+          className={`mb-3 tracking-widest uppercase ${getSidebarHeaderStyles(
+            theme
+          )}`}
+        >
+          Basic Components ({filtered.length})
         </h2>
         <div className="space-y-1 overflow-y-auto pr-1 flex-1">
           {filtered.map((c) => (
