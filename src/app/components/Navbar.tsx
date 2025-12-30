@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import React from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import {
   getNavbarStyles,
@@ -10,29 +10,29 @@ import {
   type Theme,
 } from "@/lib/theme-styles";
 
-const TwitterIcon: React.FC<{ className?: string }> = ({ className }) => (
+const XIcon: React.FC<{ className?: string }> = ({ className }) => (
   <svg
     className={className}
     role="img"
-    aria-label="Twitter"
+    aria-label="X (Twitter)"
     viewBox="0 0 24 24"
     fill="currentColor"
     xmlns="http://www.w3.org/2000/svg"
   >
-    <path d="M23.954 4.569c-.885.392-1.83.656-2.825.775 1.014-.608 1.794-1.574 2.163-2.724-.949.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-2.72 0-4.928 2.206-4.928 4.927 0 .386.045.763.127 1.125-4.094-.206-7.725-2.165-10.163-5.144-.424.722-.666 1.561-.666 2.475 0 1.709.87 3.216 2.19 4.099-.807-.026-1.566-.247-2.228-.616v.062c0 2.386 1.698 4.374 3.95 4.827-.414.111-.848.171-1.296.171-.317 0-.626-.03-.928-.086.627 1.956 2.444 3.381 4.6 3.421-1.685 1.321-3.81 2.107-6.116 2.107-.398 0-.79-.023-1.177-.069 2.179 1.397 4.768 2.213 7.557 2.213 9.054 0 14.004-7.496 14.004-13.986 0-.213-.005-.425-.014-.636.961-.693 1.8-1.56 2.46-2.548z" />
+    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24h-6.657l-5.07-6.614-5.848 6.614H2.45l7.773-8.835L1.9 2.25h6.63l4.87 6.442 5.694-6.442zM17.15 18.347h1.84L6.412 3.932H4.457l12.693 14.415z" />
   </svg>
 );
 
-const LinkedInIcon: React.FC<{ className?: string }> = ({ className }) => (
+const GitHubIcon: React.FC<{ className?: string }> = ({ className }) => (
   <svg
     className={className}
     role="img"
-    aria-label="LinkedIn"
+    aria-label="GitHub"
     viewBox="0 0 24 24"
     fill="currentColor"
     xmlns="http://www.w3.org/2000/svg"
   >
-    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.049c.476-.9 1.637-1.85 3.367-1.85 3.602 0 4.267 2.368 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.068-.926-2.068-2.068 0-1.143.924-2.069 2.068-2.069 1.142 0 2.066.926 2.066 2.069 0 1.142-.924 2.068-2.066 2.068zM7.119 20.452H3.554V9h3.565v11.452zM22.225 0H1.771C.792 0 0 .771 0 1.723v20.554C0 23.229.792 24 1.771 24h20.451C23.2 24 24 23.229 24 22.277V1.723C24 .771 23.2 0 22.222 0h.003z" />
+    <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v 3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
   </svg>
 );
 
@@ -52,11 +52,42 @@ interface NavbarProps {
 const Navbar: React.FC<NavbarProps> = ({ query, setQuery }) => {
   const router = useRouter();
   const pathname = usePathname();
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const searchInputRef = useRef<HTMLInputElement>(null);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   // Extract current theme from pathname
   const pathParts = pathname.split("/").filter(Boolean);
   const currentTheme = pathParts[1] || "minimalist";
   const theme = currentTheme as Theme;
+
+  // Handle Command+K for search
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === "k") {
+        e.preventDefault();
+        searchInputRef.current?.focus();
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
+        setIsDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   const handleThemeChange = (themeId: string) => {
     // Extract component slug from current path
@@ -73,145 +104,186 @@ const Navbar: React.FC<NavbarProps> = ({ query, setQuery }) => {
 
     switch (theme) {
       case "minimalist":
-        return `px-3 py-1.5 rounded-md text-xs font-medium transition-all duration-300 ${
+        return `px-2 py-1 rounded-md text-xs font-medium transition-all duration-300 ${
           isActive
             ? "bg-gray-900 dark:bg-white text-white dark:text-gray-900 shadow-md"
             : "bg-gray-100 dark:bg-neutral-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-neutral-700"
         }`;
       case "brutalist":
-        return `px-3 py-1.5 border-[3px] text-xs font-black uppercase transition-all duration-200 ${
+        return `px-2 py-1 border-[3px] text-xs font-black uppercase transition-all duration-200 ${
           isActive
             ? "bg-white text-black border-white shadow-[3px_3px_0_rgba(255,255,255,0.5)]"
             : "bg-black text-white border-white hover:bg-white hover:text-black"
         }`;
       case "maximalist":
-        return `px-3 py-1.5 rounded-lg text-xs font-bold transition-all duration-300 ${
+        return `px-2 py-1 rounded-lg text-xs font-bold transition-all duration-300 ${
           isActive
             ? "bg-white text-purple-700 border-2 border-white shadow-[0_0_15px_rgba(255,255,255,0.5)]"
             : "bg-white/20 text-white border-2 border-white/30 hover:bg-white/30 hover:border-white/50"
         }`;
       case "neumorphic":
-        return `px-3 py-1.5 rounded-lg text-xs font-medium transition-all duration-300 ${
+        return `px-2 py-1 rounded-lg text-xs font-medium transition-all duration-300 ${
           isActive
             ? "shadow-[inset_3px_3px_6px_rgba(0,0,0,0.15),inset_-3px_-3px_6px_rgba(255,255,255,0.8)] dark:shadow-[inset_3px_3px_6px_rgba(0,0,0,0.5),inset_-3px_-3px_6px_rgba(255,255,255,0.1)] text-gray-900 dark:text-white"
             : "shadow-[3px_3px_6px_rgba(0,0,0,0.12),-3px_-3px_6px_rgba(255,255,255,0.8)] dark:shadow-[3px_3px_6px_rgba(0,0,0,0.4),-3px_-3px_6px_rgba(255,255,255,0.08)] text-gray-700 dark:text-gray-200 hover:shadow-[2px_2px_4px_rgba(0,0,0,0.12),-2px_-2px_4px_rgba(255,255,255,0.8)]"
         }`;
       case "motion":
-        return `px-3 py-1.5 rounded-lg text-xs font-medium transition-all duration-300 ${
+        return `px-2 py-1 rounded-lg text-xs font-medium transition-all duration-300 ${
           isActive
             ? "bg-blue-500 text-white shadow-lg scale-105"
             : "bg-gray-100 dark:bg-neutral-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-neutral-700 hover:scale-105"
         }`;
       default:
-        return "px-3 py-1.5 rounded-md text-xs font-medium";
+        return "px-2 py-1 rounded-md text-xs font-medium";
+    }
+  };
+
+  const getDropdownButtonStyles = () => {
+    const themeLabel =
+      THEMES.find((t) => t.id === currentTheme)?.label || "Minimalist";
+    const baseStyles = `px-3 py-2 rounded-md text-xs font-medium transition-all duration-300 flex items-center gap-2 bg-transparent text-white border border-gray-600/50 dark:border-gray-600/50 ${
+      isDropdownOpen ? "bg-gray-800/50 shadow-md" : ""
+    }`;
+    return { styles: baseStyles, label: themeLabel };
+  };
+
+  const getDropdownMenuStyles = () => {
+    return "bg-neutral-950 border border-gray-600/50 dark:border-gray-600/50 rounded-md shadow-lg";
+  };
+
+  const getDropdownItemStyles = (isActive: boolean) => {
+    switch (theme) {
+      case "minimalist":
+        return `w-full block px-4 py-2.5 text-xs font-medium text-left transition-all duration-300 cursor-pointer rounded-lg border ${
+          isActive
+            ? "bg-gray-200 dark:bg-neutral-800 border-gray-300 dark:border-neutral-700 text-gray-900 dark:text-white shadow-md"
+            : "border-transparent text-neutral-700 dark:text-neutral-200 hover:bg-gray-100 dark:hover:bg-neutral-900/60 hover:border-gray-200 dark:hover:border-neutral-700 hover:shadow-sm"
+        }`;
+      case "brutalist":
+        return `w-full block px-4 py-2.5 border-[3px] text-xs font-black uppercase transition-all duration-200 ${
+          isActive
+            ? "bg-white text-black border-white shadow-[4px_4px_0_rgba(255,255,255,0.5)]"
+            : "text-white border-transparent hover:border-white hover:bg-white/10"
+        }`;
+      case "maximalist":
+        return `w-full block px-4 py-2.5 rounded-xl text-xs font-bold transition-all duration-300 ${
+          isActive
+            ? "bg-white/40 shadow-[0_0_20px_rgba(255,255,255,0.5)] text-white border-2 border-white/70"
+            : "text-white/90 hover:bg-white/20 border-2 border-transparent hover:border-white/40 hover:shadow-lg"
+        }`;
+      case "neumorphic":
+        return `w-full block px-4 py-2.5 rounded-2xl text-xs font-medium transition-all duration-300 ${
+          isActive
+            ? "shadow-[inset_6px_6px_12px_rgba(0,0,0,0.15),inset_-6px_-6px_12px_rgba(255,255,255,0.8)] dark:shadow-[inset_6px_6px_12px_rgba(0,0,0,0.6),inset_-6px_-6px_12px_rgba(255,255,255,0.1)] text-gray-900 dark:text-white font-semibold"
+            : "shadow-[6px_6px_12px_rgba(0,0,0,0.12),-6px_-6px_12px_rgba(255,255,255,0.8)] dark:shadow-[6px_6px_12px_rgba(0,0,0,0.4),-6px_-6px_12px_rgba(255,255,255,0.08)] hover:shadow-[3px_3px_8px_rgba(0,0,0,0.12),-3px_-3px_8px_rgba(255,255,255,0.8)] dark:hover:shadow-[3px_3px_8px_rgba(0,0,0,0.4),-3px_-3px_8px_rgba(255,255,255,0.08)] text-gray-700 dark:text-gray-200"
+        }`;
+      case "motion":
+        return `w-full block px-4 py-2.5 rounded-lg text-xs font-medium transition-all duration-300 ${
+          isActive
+            ? "bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/30 dark:to-indigo-900/30 border-l-4 border-blue-500 text-blue-700 dark:text-blue-300 shadow-lg"
+            : "text-gray-700 dark:text-neutral-200 hover:bg-gray-100 dark:hover:bg-neutral-900/60 hover:shadow-md"
+        }`;
+      default:
+        return "w-full block px-4 py-2.5 text-xs font-medium text-left transition-colors cursor-pointer";
     }
   };
 
   return (
     <nav
-      className={`w-full transition-all duration-300 ${getNavbarStyles(theme)}`}
+      className={`w-full transition-all duration-300 overflow-visible relative z-20 border-b border-gray-600/50 dark:border-gray-600/50 shadow-sm`}
+      style={{ backgroundColor: "rgb(10, 10, 10)" }}
     >
-      <div className="mx-auto px-4 md:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
-        <div className="flex items-center gap-2">
-          <a
-            href="/"
-            className={`flex items-center gap-2 ${getLogoStyles(theme)}`}
-          >
-            <Image
-              src="/logo.svg"
-              width={110}
-              height={40}
-              alt="Logo"
-              priority
-            />
-          </a>
-        </div>
-        <div className="flex items-center gap-4">
-          {/* Theme Buttons */}
-          <div className="hidden lg:flex items-center gap-2">
-            {THEMES.map((t) => (
+      <div className="mx-auto max-w-7xl w-full px-6 md:px-8 lg:px-6">
+        <div className="h-14 flex items-center justify-between gap-6">
+          <div className="flex items-center gap-3">
+            <a
+              href="/"
+              className={`flex items-center gap-2 transition-opacity hover:opacity-80`}
+            >
+              <Image
+                src="/logo.svg"
+                width={80}
+                height={28}
+                alt="Logo"
+                priority
+                className="brightness-0 invert"
+              />
+            </a>
+          </div>
+          <div className="flex items-center gap-4 flex-1 justify-end">
+            {/* Theme Dropdown */}
+            <div className="hidden lg:block relative " ref={dropdownRef}>
               <button
-                key={t.id}
-                onClick={() => handleThemeChange(t.id)}
-                className={getThemeButtonStyles(t.id)}
-                title={t.label}
+                onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                className={getDropdownButtonStyles().styles}
               >
-                {t.label}
+                {getDropdownButtonStyles().label}
+                <svg
+                  className={`w-4 h-4 transition-transform ${
+                    isDropdownOpen ? "rotate-180" : ""
+                  }`}
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M19 9l-7 7-7-7"
+                  />
+                </svg>
               </button>
-            ))}
-          </div>
 
-          <div className="relative w-48 md:w-64">
-            <input
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              type="text"
-              placeholder="Search components..."
-              className={`peer ${getSearchInputStyles(theme)}`}
-            />
-            <div
-              className={`pointer-events-none absolute inset-y-0 right-4 flex items-center transition-colors ${
-                theme === "brutalist"
-                  ? "text-white peer-focus:text-black"
-                  : theme === "maximalist"
-                  ? "text-white/70 peer-focus:text-white"
-                  : "text-neutral-500 peer-focus:text-blue-500 dark:peer-focus:text-blue-400"
-              }`}
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={2}
-                stroke="currentColor"
-                className="h-5 w-5"
-                aria-hidden="true"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M21 21l-4.35-4.35M11 19a8 8 0 100-16 8 8 0 000 16z"
-                />
-              </svg>
+              {isDropdownOpen && (
+                <div
+                  className={`absolute top-full right-0 mt-2 min-w-48 ${getDropdownMenuStyles()} z-50 overflow-hidden`}
+                >
+                  {THEMES.map((t) => (
+                    <button
+                      key={t.id}
+                      onClick={() => {
+                        handleThemeChange(t.id);
+                        setIsDropdownOpen(false);
+                      }}
+                      className={getDropdownItemStyles(t.id === currentTheme)}
+                      title={t.label}
+                    >
+                      {t.label}
+                    </button>
+                  ))}
+                </div>
+              )}
             </div>
-          </div>
-          <div className="flex items-center gap-4">
-            <a
-              href="https://twitter.com/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className={`transition-all duration-300 ${
-                theme === "brutalist"
-                  ? "text-white hover:text-gray-300 hover:scale-110"
-                  : theme === "maximalist"
-                  ? "text-white hover:text-white/70 hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.5)] hover:scale-110"
-                  : theme === "neumorphic"
-                  ? "text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:scale-110"
-                  : theme === "motion"
-                  ? "text-neutral-400 hover:text-blue-500 dark:hover:text-blue-400 hover:scale-125 hover:rotate-6"
-                  : "text-neutral-400 hover:text-blue-500 dark:hover:text-blue-400 hover:scale-110"
-              }`}
-            >
-              <TwitterIcon className="h-5 w-5" />
-            </a>
-            <a
-              href="https://linkedin.com/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className={`transition-all duration-300 ${
-                theme === "brutalist"
-                  ? "text-white hover:text-gray-300 hover:scale-110"
-                  : theme === "maximalist"
-                  ? "text-white hover:text-white/70 hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.5)] hover:scale-110"
-                  : theme === "neumorphic"
-                  ? "text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:scale-110"
-                  : theme === "motion"
-                  ? "text-neutral-400 hover:text-blue-500 dark:hover:text-blue-400 hover:scale-125 hover:-rotate-6"
-                  : "text-neutral-400 hover:text-blue-500 dark:hover:text-blue-400 hover:scale-110"
-              }`}
-            >
-              <LinkedInIcon className="h-5 w-5" />
-            </a>
+
+            <div className="relative w-48 md:w-56">
+              <input
+                ref={searchInputRef}
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                type="text"
+                placeholder="Search components... (⌘K)"
+                className={`peer w-full h-8 text-sm px-3 rounded-md bg-transparent text-white placeholder-gray-500 border border-gray-600/50 dark:border-gray-600/50 focus:border-gray-400 focus:outline-none transition-colors flex items-center`}
+              />
+            </div>
+            <div className="flex items-center gap-3">
+              <a
+                href="https://x.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`text-white hover:bg-neutral-900/60 hover:text-white px-2 py-2 rounded-md transition-all duration-300`}
+              >
+                <XIcon className="h-5 w-5" />
+              </a>
+              <a
+                href="https://github.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`text-white hover:bg-neutral-900/60 hover:text-white px-2 py-2 rounded-md transition-all duration-300`}
+              >
+                <GitHubIcon className="h-5 w-5" />
+              </a>
+            </div>
           </div>
         </div>
       </div>

@@ -85,14 +85,19 @@ export default function ComponentsLayout({
         </>
       )}
 
-      <Navbar query={query} setQuery={setQuery} />
-      <div className="flex flex-1 overflow-hidden relative z-10">
-        <Sidebar
-          components={components}
-          activeSlug={activeSlug}
-          filtered={filtered}
-        />
-        <main className="flex-1 py-10 overflow-y-auto">{children}</main>
+      <div
+        className="relative mx-auto max-w-7xl w-full border-l border-r border-gray-600/50 dark:border-gray-600/50"
+        style={{ minHeight: "100vh" }}
+      >
+        <Navbar query={query} setQuery={setQuery} />
+        <div className="flex flex-1 overflow-hidden relative z-0">
+          <Sidebar
+            components={components}
+            activeSlug={activeSlug}
+            filtered={filtered}
+          />
+          <main className="flex-1 py-10 overflow-y-auto">{children}</main>
+        </div>
       </div>
     </div>
   );

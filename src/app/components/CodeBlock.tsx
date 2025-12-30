@@ -32,24 +32,24 @@ export const CodeBlock: React.FC<CodeBlockProps> = ({
             className="rounded-xl bg-neutral-900/90 p-5 overflow-x-auto shadow-lg"
             style={style}
           >
-            {tokens.map((line: any, i: number) => (
-              <div
-                key={i}
-                {...getLineProps({ line, key: i })}
-                className="table-row"
-              >
-                {showLineNumbers && (
-                  <span className="table-cell pr-4 text-muted-foreground/50 select-none text-right w-8">
-                    {i + 1}
+            {tokens.map((line: any, i: number) => {
+              const lineProps = getLineProps({ line });
+              return (
+                <div key={i} {...lineProps} className="table-row">
+                  {showLineNumbers && (
+                    <span className="table-cell pr-4 text-muted-foreground/50 select-none text-right w-8">
+                      {i + 1}
+                    </span>
+                  )}
+                  <span className="table-cell">
+                    {line.map((token: any, key: number) => {
+                      const tokenProps = getTokenProps({ token });
+                      return <span key={key} {...tokenProps} />;
+                    })}
                   </span>
-                )}
-                <span className="table-cell">
-                  {line.map((token: any, key: number) => (
-                    <span key={key} {...getTokenProps({ token, key })} />
-                  ))}
-                </span>
-              </div>
-            ))}
+                </div>
+              );
+            })}
           </pre>
         )}
       </Highlight>
