@@ -63,8 +63,8 @@ const MinimalistLoader = ({
 
 export function MinimalistLoaderPreview() {
   return (
-    <div className="flex justify-center items-center">
-      <MinimalistLoader />
+    <div className="flex justify-center items-center pt-0">
+      <MinimalistLoader className="text-lg" />
     </div>
   );
 }

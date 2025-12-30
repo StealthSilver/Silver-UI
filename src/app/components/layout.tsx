@@ -96,7 +96,7 @@ export default function ComponentsLayout({
             activeSlug={activeSlug}
             filtered={filtered}
           />
-          <main className="flex-1 py-10 overflow-y-auto">{children}</main>
+          <main className="flex-1 overflow-y-auto">{children}</main>
         </div>
       </div>
     </div>
