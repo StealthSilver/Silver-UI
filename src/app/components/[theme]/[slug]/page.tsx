@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import Link from "next/link";
 import { notFound, useParams } from "next/navigation";
 import { components } from "@/config/components.config";
 import { CodeBlock } from "../../CodeBlock";
@@ -14,6 +15,9 @@ import { ThemedButton } from "../../ui/ThemedButton";
 
 export default function ThemedComponentPage() {
   const [showCode, setShowCode] = useState(false);
+  const [installationTab, setInstallationTab] = useState<"cli" | "manual">(
+    "cli"
+  );
   const params = useParams();
   const slug = params.slug as string;
   const theme = params.theme as string;
@@ -63,10 +67,10 @@ export default function ThemedComponentPage() {
       <div
         className={`mx-auto px-6 md:px-8 lg:px-24 max-w-7xl py-10 md:py-12 ${themeStyles.container}`}
       >
-        {/* Header with component name and description */}
-        <div className="mb-12">
+        {/* Component Header */}
+        <div className="mb-8">
           <h1
-            className={`text-3xl md:text-4xl font-bold mb-4 ${
+            className={`text-3xl md:text-4xl font-bold mb-3 ${
               themeType === "minimalist"
                 ? "text-gray-900 dark:text-white"
                 : themeType === "brutalist"
@@ -82,13 +86,13 @@ export default function ThemedComponentPage() {
           </h1>
           {component.description && (
             <p
-              className={`text-base leading-relaxed max-w-2xl ${
+              className={`text-sm leading-relaxed max-w-xl ${
                 themeType === "minimalist"
                   ? "text-gray-600 dark:text-gray-400"
                   : themeType === "brutalist"
-                  ? "text-white font-bold uppercase tracking-wide"
+                  ? "text-white/80"
                   : themeType === "maximalist"
-                  ? "text-white/90"
+                  ? "text-white/80"
                   : themeType === "neumorphic"
                   ? "text-gray-600 dark:text-gray-300"
                   : "text-gray-600 dark:text-gray-400 transition-colors duration-300"
@@ -101,61 +105,76 @@ export default function ThemedComponentPage() {
 
         {/* Preview Section with Toggle */}
         <section className="mb-16">
-          {/* Toggle Buttons */}
-          <div className="flex gap-2 mb-6">
+          {/* Toggle Buttons - Top Right */}
+          <div className="flex gap-3 mb-6 justify-end items-center">
             <button
               onClick={() => setShowCode(false)}
-              className={`px-4 py-2 rounded-lg font-medium transition-all ${
+              className={`px-4 py-2 text-sm font-medium transition-all ${
                 !showCode
                   ? themeType === "minimalist"
-                    ? "bg-gray-900 dark:bg-white text-white dark:text-gray-900 shadow-md"
+                    ? "text-gray-900 dark:text-white border-b-2 border-gray-900 dark:border-white"
                     : themeType === "brutalist"
-                    ? "bg-white text-black border-[3px] border-white shadow-[3px_3px_0_rgba(255,255,255,0.5)]"
+                    ? "text-white border-b-[3px] border-white"
                     : themeType === "maximalist"
-                    ? "bg-white text-purple-700 border-2 border-white shadow-[0_0_15px_rgba(255,255,255,0.5)]"
+                    ? "text-white border-b-2 border-white"
                     : themeType === "neumorphic"
-                    ? "shadow-[inset_3px_3px_6px_rgba(0,0,0,0.15),inset_-3px_-3px_6px_rgba(255,255,255,0.8)] dark:shadow-[inset_3px_3px_6px_rgba(0,0,0,0.5),inset_-3px_-3px_6px_rgba(255,255,255,0.1)] text-gray-900 dark:text-white"
-                    : "bg-blue-500 text-white shadow-lg scale-105"
+                    ? "text-gray-700 dark:text-gray-200 border-b-2 border-gray-700 dark:border-gray-200"
+                    : "text-gray-900 dark:text-white border-b-2 border-gray-900 dark:border-white"
                   : themeType === "minimalist"
-                  ? "bg-gray-200 dark:bg-neutral-800 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-neutral-700"
+                  ? "text-gray-500 dark:text-gray-500 border-b-2 border-transparent"
                   : themeType === "brutalist"
-                  ? "bg-black text-white border-[3px] border-white hover:bg-white hover:text-black"
+                  ? "text-white/50 border-b-[3px] border-transparent"
                   : themeType === "maximalist"
-                  ? "bg-white/20 text-white border-2 border-white/30 hover:bg-white/30 hover:border-white/50"
+                  ? "text-white/50 border-b-2 border-transparent"
                   : themeType === "neumorphic"
-                  ? "shadow-[3px_3px_6px_rgba(0,0,0,0.12),-3px_-3px_6px_rgba(255,255,255,0.8)] dark:shadow-[3px_3px_6px_rgba(0,0,0,0.4),-3px_-3px_6px_rgba(255,255,255,0.08)] text-gray-700 dark:text-gray-200 hover:shadow-[2px_2px_4px_rgba(0,0,0,0.12),-2px_-2px_4px_rgba(255,255,255,0.8)]"
-                  : "bg-gray-100 dark:bg-neutral-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-neutral-700 hover:scale-105"
+                  ? "text-gray-500 dark:text-gray-500 border-b-2 border-transparent"
+                  : "text-gray-500 dark:text-gray-500 border-b-2 border-transparent"
               }`}
             >
-              Preview
+              <span>⊡</span> Preview
             </button>
             <button
               onClick={() => setShowCode(true)}
-              className={`px-4 py-2 rounded-lg font-medium transition-all ${
+              className={`px-4 py-2 text-sm font-medium transition-all ${
                 showCode
                   ? themeType === "minimalist"
-                    ? "bg-gray-900 dark:bg-white text-white dark:text-gray-900 shadow-md"
+                    ? "text-gray-900 dark:text-white border-b-2 border-gray-900 dark:border-white"
                     : themeType === "brutalist"
-                    ? "bg-white text-black border-[3px] border-white shadow-[3px_3px_0_rgba(255,255,255,0.5)]"
+                    ? "text-white border-b-[3px] border-white"
                     : themeType === "maximalist"
-                    ? "bg-white text-purple-700 border-2 border-white shadow-[0_0_15px_rgba(255,255,255,0.5)]"
+                    ? "text-white border-b-2 border-white"
                     : themeType === "neumorphic"
-                    ? "shadow-[inset_3px_3px_6px_rgba(0,0,0,0.15),inset_-3px_-3px_6px_rgba(255,255,255,0.8)] dark:shadow-[inset_3px_3px_6px_rgba(0,0,0,0.5),inset_-3px_-3px_6px_rgba(255,255,255,0.1)] text-gray-900 dark:text-white"
-                    : "bg-blue-500 text-white shadow-lg scale-105"
+                    ? "text-gray-700 dark:text-gray-200 border-b-2 border-gray-700 dark:border-gray-200"
+                    : "text-gray-900 dark:text-white border-b-2 border-gray-900 dark:border-white"
                   : themeType === "minimalist"
-                  ? "bg-gray-200 dark:bg-neutral-800 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-neutral-700"
+                  ? "text-gray-500 dark:text-gray-500 border-b-2 border-transparent"
                   : themeType === "brutalist"
-                  ? "bg-black text-white border-[3px] border-white hover:bg-white hover:text-black"
+                  ? "text-white/50 border-b-[3px] border-transparent"
                   : themeType === "maximalist"
-                  ? "bg-white/20 text-white border-2 border-white/30 hover:bg-white/30 hover:border-white/50"
+                  ? "text-white/50 border-b-2 border-transparent"
                   : themeType === "neumorphic"
-                  ? "shadow-[3px_3px_6px_rgba(0,0,0,0.12),-3px_-3px_6px_rgba(255,255,255,0.8)] dark:shadow-[3px_3px_6px_rgba(0,0,0,0.4),-3px_-3px_6px_rgba(255,255,255,0.08)] text-gray-700 dark:text-gray-200 hover:shadow-[2px_2px_4px_rgba(0,0,0,0.12),-2px_-2px_4px_rgba(255,255,255,0.8)]"
-                  : "bg-gray-100 dark:bg-neutral-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-neutral-700 hover:scale-105"
+                  ? "text-gray-500 dark:text-gray-500 border-b-2 border-transparent"
+                  : "text-gray-500 dark:text-gray-500 border-b-2 border-transparent"
               }`}
             >
-              Code
+              <span>&lt;/&gt;</span> Code
             </button>
           </div>
+
+          {/* Horizontal Line */}
+          <div
+            className={`mb-6 ${
+              themeType === "minimalist"
+                ? "border-b border-gray-300 dark:border-neutral-700"
+                : themeType === "brutalist"
+                ? "border-b-[2px] border-white"
+                : themeType === "maximalist"
+                ? "border-b border-white/50"
+                : themeType === "neumorphic"
+                ? "border-b border-gray-300 dark:border-neutral-700"
+                : "border-b border-gray-300 dark:border-neutral-700"
+            }`}
+          />
 
           {/* Preview or Code Content */}
           <div
@@ -203,39 +222,103 @@ export default function ThemedComponentPage() {
             >
               Installation
             </h2>
-            <div
-              className={`rounded-lg border transition-all duration-300 ${
-                themeType === "minimalist"
-                  ? "border border-gray-300 dark:border-neutral-700 bg-white dark:bg-neutral-900 p-8 shadow-md"
-                  : themeType === "brutalist"
-                  ? "border-[3px] border-white bg-black p-8 shadow-[4px_4px_0_rgba(255,255,255,0.5)]"
-                  : themeType === "maximalist"
-                  ? "rounded-xl border-2 border-white/70 bg-white/40 shadow-[0_0_20px_rgba(255,255,255,0.5)] backdrop-blur-sm p-8"
-                  : themeType === "neumorphic"
-                  ? "rounded-2xl border-none shadow-[6px_6px_12px_rgba(0,0,0,0.12),-6px_-6px_12px_rgba(255,255,255,0.8)] dark:shadow-[6px_6px_12px_rgba(0,0,0,0.4),-6px_-6px_12px_rgba(255,255,255,0.08)] p-8"
-                  : "border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-900 p-8 shadow-md"
-              }`}
-            >
-              <ol className="space-y-4 list-decimal list-inside">
-                {component.installation.map((step, index) => (
-                  <li
-                    key={index}
+
+            {/* Installation Tabs */}
+            <div className="flex gap-4 mb-6 border-b border-gray-300 dark:border-neutral-700">
+              <button
+                onClick={() => setInstallationTab("cli")}
+                className={`px-4 py-3 font-medium transition-all text-sm ${
+                  installationTab === "cli"
+                    ? themeType === "minimalist"
+                      ? "border-b-2 border-gray-900 dark:border-white text-gray-900 dark:text-white"
+                      : themeType === "brutalist"
+                      ? "border-b-2 border-white text-white"
+                      : themeType === "maximalist"
+                      ? "border-b-2 border-white text-white"
+                      : "border-b-2 border-gray-900 dark:border-white text-gray-900 dark:text-white"
+                    : themeType === "minimalist"
+                    ? "text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
+                    : "text-gray-400 hover:text-gray-200"
+                }`}
+              >
+                CLI
+              </button>
+              <button
+                onClick={() => setInstallationTab("manual")}
+                className={`px-4 py-3 font-medium transition-all text-sm ${
+                  installationTab === "manual"
+                    ? themeType === "minimalist"
+                      ? "border-b-2 border-gray-900 dark:border-white text-gray-900 dark:text-white"
+                      : themeType === "brutalist"
+                      ? "border-b-2 border-white text-white"
+                      : themeType === "maximalist"
+                      ? "border-b-2 border-white text-white"
+                      : "border-b-2 border-gray-900 dark:border-white text-gray-900 dark:text-white"
+                    : themeType === "minimalist"
+                    ? "text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
+                    : "text-gray-400 hover:text-gray-200"
+                }`}
+              >
+                Manual
+              </button>
+            </div>
+
+            {/* Tab Content */}
+            <div>
+              {installationTab === "cli" ? (
+                <div
+                  className={`p-6 rounded-lg border transition-all duration-300 ${
+                    themeType === "minimalist"
+                      ? "border border-gray-300 dark:border-neutral-700 bg-white dark:bg-neutral-900"
+                      : themeType === "brutalist"
+                      ? "border-[3px] border-white bg-black"
+                      : themeType === "maximalist"
+                      ? "rounded-xl border-2 border-white/70 bg-white/40 backdrop-blur-sm"
+                      : "border border-gray-300 dark:border-neutral-700 bg-white dark:bg-neutral-900"
+                  }`}
+                >
+                  <p
                     className={`${
                       themeType === "minimalist"
                         ? "text-gray-700 dark:text-gray-300"
                         : themeType === "brutalist"
-                        ? "text-white font-bold uppercase tracking-wide"
-                        : themeType === "maximalist"
-                        ? "text-white/90"
-                        : themeType === "neumorphic"
-                        ? "text-gray-700 dark:text-gray-200"
-                        : "text-neutral-700 dark:text-neutral-300"
+                        ? "text-white/80"
+                        : "text-white/80"
                     }`}
                   >
-                    {step}
-                  </li>
-                ))}
-              </ol>
+                    CLI installation coming soon...
+                  </p>
+                </div>
+              ) : (
+                <div
+                  className={`p-6 rounded-lg border transition-all duration-300 ${
+                    themeType === "minimalist"
+                      ? "border border-gray-300 dark:border-neutral-700 bg-white dark:bg-neutral-900"
+                      : themeType === "brutalist"
+                      ? "border-[3px] border-white bg-black"
+                      : themeType === "maximalist"
+                      ? "rounded-xl border-2 border-white/70 bg-white/40 backdrop-blur-sm"
+                      : "border border-gray-300 dark:border-neutral-700 bg-white dark:bg-neutral-900"
+                  }`}
+                >
+                  <ol className="space-y-4 list-decimal list-inside">
+                    {component.installation.map((step, index) => (
+                      <li
+                        key={index}
+                        className={`${
+                          themeType === "minimalist"
+                            ? "text-gray-700 dark:text-gray-300"
+                            : themeType === "brutalist"
+                            ? "text-white/80"
+                            : "text-white/80"
+                        }`}
+                      >
+                        {step}
+                      </li>
+                    ))}
+                  </ol>
+                </div>
+              )}
             </div>
           </section>
         )}

@@ -246,7 +246,7 @@ export function ThemedInput({ theme = "minimalist", icon, validation, placeholde
     name: "Loader",
     slug: "loader",
     description:
-      "Dynamic loader component with multiple theme-specific animations. Each theme offers unique loading indicators - from minimalist spinners and dots to brutalist jittery squares, maximalist gradient effects with glowing sparkles, neumorphic soft bouncing elements, and motion-driven morphing shapes with wave patterns.",
+      "Animated loading indicator component with theme-specific designs.",
     preview: <ThemedLoaderPreview />,
     installation: [
       "Copy the loader component file to your project's UI components directory",
@@ -262,15 +262,9 @@ interface LoaderProps {
 }
 
 export function Loader({ theme = "minimalist", size = "md" }: LoaderProps) {
-  // Minimalist: Spinner, dots, and line loaders with fade animations
-  // Brutalist: Jittery square, abrupt fill bar, pixelated spinner
-  // Maximalist: Gradient spinner with glow, sparkles, animated gradient bar
-  // Neumorphic: Soft embossed spinner, bouncing dots, sliding bubble
-  // Motion: Morphing shape, wave bars, breathing line, orbit dots
-
   return (
     <div className="flex items-center gap-8">
-      {/* Multiple themed loader variations */}
+      {/* Loader implementation */}
     </div>
   );
 }`,
