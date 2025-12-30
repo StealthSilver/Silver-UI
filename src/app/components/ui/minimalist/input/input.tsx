@@ -1,79 +1,59 @@
 "use client";
 
 import React, { useState } from "react";
+import { motion } from "motion/react";
 import { cn } from "@/lib/utils";
-import { User, Mail } from "lucide-react";
 
 export interface MinimalistInputProps
-  extends React.InputHTMLAttributes<HTMLInputElement> {
+  extends Omit<
+    React.InputHTMLAttributes<HTMLInputElement>,
+    | "onDrag"
+    | "onDragStart"
+    | "onDragEnd"
+    | "onAnimationStart"
+    | "onAnimationEnd"
+    | "onAnimationIteration"
+    | "size"
+  > {
   icon?: React.ReactNode;
-  validation?: boolean;
-  label?: string;
 }
 
-export const MinimalistInput: React.FC<MinimalistInputProps> = ({
-  className,
-  type = "text",
-  icon,
-  validation,
-  label,
-  ...props
-}) => {
-  const [value, setValue] = useState("");
-  const [isValid, setIsValid] = useState<boolean | null>(null);
-
-  const validateEmail = (val: string) => {
-    if (!val) {
-      setIsValid(null);
-      return;
-    }
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    setIsValid(emailRegex.test(val));
-  };
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const val = e.target.value;
-    setValue(val);
-    if (validation && type === "email") {
-      validateEmail(val);
-    }
-    props.onChange?.(e);
-  };
+export const MinimalistInput = React.forwardRef<
+  HTMLInputElement,
+  MinimalistInputProps
+>(({ className, type = "text", icon, disabled = false, ...props }, ref) => {
+  const [isFocused, setIsFocused] = useState(false);
 
   return (
-    <div className="space-y-6 max-w-md">
+    <motion.div className="w-full">
       <div className="relative group">
-        {icon || (
-          <User className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 transition-colors duration-300 group-focus-within:text-gray-900" />
-        )}
-        <input
+        <motion.input
+          ref={ref}
           type={type}
-          value={value}
-          onChange={handleChange}
-          placeholder={props.placeholder || "Full name"}
+          onFocus={() => setIsFocused(true)}
+          onBlur={() => setIsFocused(false)}
+          disabled={disabled}
           className={cn(
-            "w-full px-4 py-3 border border-gray-300 bg-white text-gray-900 placeholder-gray-400 focus:outline-none focus:border-gray-900 transition-all duration-300 pl-12",
+            "w-full bg-neutral-900 text-white placeholder-neutral-500",
+            "transition-all duration-200 rounded-lg border border-neutral-800",
+            "px-4 py-3 text-base font-medium",
+            "focus:outline-none focus:border-neutral-700 focus:ring-1 focus:ring-neutral-700",
+            "disabled:opacity-50 disabled:cursor-not-allowed",
             className
           )}
           {...props}
         />
       </div>
-      <div className="relative group">
-        <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 transition-colors duration-300 group-focus-within:text-gray-900" />
-        <input
-          type="email"
-          placeholder="Email address"
-          className="w-full px-4 py-3 border border-gray-300 bg-white text-gray-900 placeholder-gray-400 focus:outline-none focus:border-gray-900 transition-all duration-300 pl-12"
-        />
-      </div>
-    </div>
+    </motion.div>
   );
-};
+});
+
+MinimalistInput.displayName = "MinimalistInput";
 
 export function MinimalistInputPreview() {
   return (
-    <div className="flex justify-center">
-      <MinimalistInput />
+    <div className="flex items-center justify-center py-12 w-full max-w-md">
+      <MinimalistInput placeholder="Enter text..." />
     </div>
   );
 }

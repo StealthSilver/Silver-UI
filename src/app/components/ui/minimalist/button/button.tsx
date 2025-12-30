@@ -1,48 +1,49 @@
-import React from "react";
-import { Heart } from "lucide-react";
+"use client";
 
-export interface ButtonProps {
-  variant?: "primary" | "secondary" | "icon";
+import React from "react";
+import { motion } from "motion/react";
+import { cn } from "@/lib/utils";
+
+export interface ButtonProps
+  extends Omit<
+    React.ButtonHTMLAttributes<HTMLButtonElement>,
+    | "onDrag"
+    | "onDragStart"
+    | "onDragEnd"
+    | "onAnimationStart"
+    | "onAnimationEnd"
+    | "onAnimationIteration"
+  > {
   children?: React.ReactNode;
-  onClick?: () => void;
-  className?: string;
 }
 
-export const MinimalistButton: React.FC<ButtonProps> = ({
-  variant = "primary",
-  children,
-  onClick,
-  className = "",
-}) => {
-  const baseStyles = "transition-all duration-300 tracking-tight";
-
-  const variantStyles = {
-    primary:
-      "px-8 py-3 bg-gray-900 text-white hover:bg-gray-800 dark:bg-white dark:text-gray-900 dark:hover:bg-gray-100",
-    secondary:
-      "px-8 py-3 border border-gray-300 text-gray-700 hover:border-gray-900 hover:bg-gray-50 dark:border-gray-600 dark:text-gray-300 dark:hover:border-gray-400 dark:hover:bg-gray-800",
-    icon: "px-4 py-4 border border-gray-200 rounded-md hover:border-gray-900 hover:bg-gray-50 text-gray-700 dark:border-gray-700 dark:text-gray-300 dark:hover:border-gray-400 dark:hover:bg-gray-800",
-  };
+export const MinimalistButton = React.forwardRef<
+  HTMLButtonElement,
+  ButtonProps
+>(({ children, className, disabled, ...props }, ref) => {
+  const baseStyles =
+    "relative inline-flex items-center justify-center font-medium transition-colors duration-200 px-6 py-3 text-base rounded-lg bg-neutral-950 text-white hover:bg-neutral-800 focus:outline-none focus:ring-2 focus:ring-neutral-700 focus:ring-offset-1 focus:ring-offset-white disabled:opacity-50 disabled:cursor-not-allowed";
 
   return (
-    <button
-      onClick={onClick}
-      className={`${baseStyles} ${variantStyles[variant]} ${className}`}
+    <motion.button
+      ref={ref}
+      disabled={disabled}
+      whileHover={{ scale: disabled ? 1 : 1.01 }}
+      whileTap={{ scale: disabled ? 1 : 0.99 }}
+      className={cn(baseStyles, className)}
+      {...props}
     >
       {children}
-    </button>
+    </motion.button>
   );
-};
+});
 
-// Example usage component for preview
+MinimalistButton.displayName = "MinimalistButton";
+
 export function MinimalistButtonPreview() {
   return (
-    <div className="flex flex-wrap items-center gap-6">
-      <MinimalistButton variant="primary">Primary Action</MinimalistButton>
-      <MinimalistButton variant="secondary">Secondary</MinimalistButton>
-      <MinimalistButton variant="icon">
-        <Heart className="w-5 h-5" />
-      </MinimalistButton>
+    <div className="flex items-center justify-center py-12">
+      <MinimalistButton>Get Started</MinimalistButton>
     </div>
   );
 }

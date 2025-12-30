@@ -69,4 +69,4 @@ export function MinimalistLoaderPreview() {
   );
 }
 
-export { MinimalistLoader as default };
+export { MinimalistLoader };

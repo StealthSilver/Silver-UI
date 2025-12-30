@@ -16,7 +16,7 @@ import { ThemedButton } from "../../ui/ThemedButton";
 export default function ThemedComponentPage() {
   const [showCode, setShowCode] = useState(false);
   const [installationTab, setInstallationTab] = useState<"cli" | "manual">(
-    "cli"
+    "manual"
   );
   const params = useParams();
   const slug = params.slug as string;
@@ -257,7 +257,7 @@ export default function ThemedComponentPage() {
         </section>
 
         {/* Installation Section */}
-        {component.installation && component.installation.length > 0 && (
+        {component && (
           <section className="mb-16">
             <h2
               className={`text-2xl font-semibold mb-6 ${
@@ -281,7 +281,7 @@ export default function ThemedComponentPage() {
                 themeType === "minimalist"
                   ? "border-gray-300 dark:border-neutral-700"
                   : themeType === "brutalist"
-                  ? "border-b-[2px] border-white"
+                  ? "border-b-2 border-white"
                   : themeType === "maximalist"
                   ? "border-white/50"
                   : "border-gray-300 dark:border-neutral-700"
@@ -337,75 +337,263 @@ export default function ThemedComponentPage() {
               </button>
             </div>
 
-            {/* Tab Content with smooth fade transition */}
-            <div className="relative overflow-hidden">
-              {installationTab === "cli" ? (
-                <div
-                  className={`p-6 rounded-lg border transition-all duration-300 animate-fadeIn ${
+            {/* Tab Content */}
+            {installationTab === "cli" ? (
+              <div
+                className={`p-6 rounded-lg border transition-all duration-300 animate-fadeIn ${
+                  themeType === "minimalist"
+                    ? "border border-gray-300 dark:border-neutral-700 bg-white dark:bg-neutral-900"
+                    : themeType === "brutalist"
+                    ? "border-[3px] border-white bg-black"
+                    : themeType === "maximalist"
+                    ? "rounded-xl border-2 border-white/70 bg-white/40 backdrop-blur-sm"
+                    : "border border-gray-300 dark:border-neutral-700 bg-white dark:bg-neutral-900"
+                }`}
+              >
+                <p
+                  className={`${
                     themeType === "minimalist"
-                      ? "border border-gray-300 dark:border-neutral-700 bg-white dark:bg-neutral-900"
+                      ? "text-gray-700 dark:text-gray-300"
                       : themeType === "brutalist"
-                      ? "border-[3px] border-white bg-black"
-                      : themeType === "maximalist"
-                      ? "rounded-xl border-2 border-white/70 bg-white/40 backdrop-blur-sm"
-                      : "border border-gray-300 dark:border-neutral-700 bg-white dark:bg-neutral-900"
+                      ? "text-white/80"
+                      : "text-white/80"
                   }`}
                 >
-                  <p
-                    className={`${
+                  CLI installation coming soon...
+                </p>
+              </div>
+            ) : (
+              <div className="space-y-6 animate-fadeIn">
+                {/* Step 1: Install packages */}
+                <div className="flex gap-4 pb-6 relative">
+                  {/* Vertical line connector */}
+                  <div className="absolute left-4 top-8 bottom-0 w-0.5 bg-gray-600/50 dark:bg-gray-600/50" />
+
+                  <div
+                    className={`shrink-0 w-8 h-8 rounded-full flex items-center justify-center font-semibold text-sm z-10 ${
                       themeType === "minimalist"
-                        ? "text-gray-700 dark:text-gray-300"
+                        ? "bg-gray-600/50 dark:bg-gray-600/50 text-white dark:text-white"
                         : themeType === "brutalist"
-                        ? "text-white/80"
-                        : "text-white/80"
+                        ? "bg-gray-600/50 text-white border-2 border-gray-600/50"
+                        : themeType === "maximalist"
+                        ? "bg-gray-600/50 text-white border border-gray-600/50"
+                        : themeType === "neumorphic"
+                        ? "bg-gray-600/50 dark:bg-gray-600/50 text-white dark:text-white"
+                        : "bg-gray-600/50 dark:bg-gray-600/50 text-white dark:text-white"
                     }`}
                   >
-                    CLI installation coming soon...
-                  </p>
-                </div>
-              ) : (
-                <div className="space-y-6 animate-fadeIn">
-                  {component.installation.map((step, index) => (
-                    <div key={index} className="flex gap-4">
-                      {/* Step number circle */}
-                      <div
-                        className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center font-semibold text-sm ${
-                          themeType === "minimalist"
-                            ? "bg-gray-900 dark:bg-white text-white dark:text-gray-900"
-                            : themeType === "brutalist"
-                            ? "bg-white text-black border-[2px] border-white"
-                            : themeType === "maximalist"
-                            ? "bg-white/30 text-white border border-white/50"
-                            : themeType === "neumorphic"
-                            ? "shadow-[3px_3px_6px_rgba(0,0,0,0.12),-3px_-3px_6px_rgba(255,255,255,0.8)] dark:shadow-[3px_3px_6px_rgba(0,0,0,0.4),-3px_-3px_6px_rgba(255,255,255,0.08)]"
-                            : "bg-gray-900 dark:bg-white text-white dark:text-gray-900"
-                        }`}
-                      >
-                        {index + 1}
-                      </div>
-                      {/* Step content */}
-                      <div className="flex-1 pt-1">
-                        <p
-                          className={`${
-                            themeType === "minimalist"
-                              ? "text-gray-700 dark:text-gray-300"
-                              : themeType === "brutalist"
-                              ? "text-white/80"
-                              : themeType === "maximalist"
-                              ? "text-white/80"
-                              : themeType === "neumorphic"
-                              ? "text-gray-700 dark:text-gray-300"
-                              : "text-gray-700 dark:text-gray-300"
-                          }`}
-                        >
-                          {step}
-                        </p>
-                      </div>
+                    1
+                  </div>
+                  <div className="flex-1 pt-1">
+                    <p
+                      className={`font-medium mb-3 ${
+                        themeType === "minimalist"
+                          ? "text-gray-900 dark:text-white"
+                          : themeType === "brutalist"
+                          ? "text-white"
+                          : themeType === "maximalist"
+                          ? "text-white"
+                          : "text-gray-900 dark:text-white"
+                      }`}
+                    >
+                      Install the packages
+                    </p>
+                    <div
+                      className={`rounded-lg border overflow-hidden ${
+                        themeType === "minimalist"
+                          ? "border border-gray-300 dark:border-neutral-700 bg-white dark:bg-neutral-900"
+                          : themeType === "brutalist"
+                          ? "border-[3px] border-white bg-black"
+                          : themeType === "maximalist"
+                          ? "rounded-xl border-2 border-white/70 bg-white/40 backdrop-blur-sm"
+                          : "border border-gray-300 dark:border-neutral-700 bg-white dark:bg-neutral-900"
+                      }`}
+                    >
+                      <CodeBlock
+                        code={`npm i motion clsx tailwind-merge`}
+                        language="bash"
+                        isInstallation={true}
+                      />
                     </div>
-                  ))}
+                  </div>
                 </div>
-              )}
-            </div>
+
+                {/* Step 2: Add util file */}
+                <div className="flex gap-4 pb-6 relative">
+                  {/* Vertical line connector */}
+                  <div className="absolute left-4 top-8 bottom-0 w-0.5 bg-gray-600/50 dark:bg-gray-600/50" />
+
+                  <div
+                    className={`shrink-0 w-8 h-8 rounded-full flex items-center justify-center font-semibold text-sm z-10 ${
+                      themeType === "minimalist"
+                        ? "bg-gray-600/50 dark:bg-gray-600/50 text-white dark:text-white"
+                        : themeType === "brutalist"
+                        ? "bg-gray-600/50 text-white border-2 border-gray-600/50"
+                        : themeType === "maximalist"
+                        ? "bg-gray-600/50 text-white border border-gray-600/50"
+                        : themeType === "neumorphic"
+                        ? "bg-gray-600/50 dark:bg-gray-600/50 text-white dark:text-white"
+                        : "bg-gray-600/50 dark:bg-gray-600/50 text-white dark:text-white"
+                    }`}
+                  >
+                    2
+                  </div>
+                  <div className="flex-1 pt-1">
+                    <p
+                      className={`font-medium mb-3 ${
+                        themeType === "minimalist"
+                          ? "text-gray-900 dark:text-white"
+                          : themeType === "brutalist"
+                          ? "text-white"
+                          : themeType === "maximalist"
+                          ? "text-white"
+                          : "text-gray-900 dark:text-white"
+                      }`}
+                    >
+                      Add util file
+                    </p>
+                    <p
+                      className={`text-sm mb-3 ${
+                        themeType === "minimalist"
+                          ? "text-gray-600 dark:text-gray-400"
+                          : themeType === "brutalist"
+                          ? "text-white/70"
+                          : themeType === "maximalist"
+                          ? "text-white/70"
+                          : "text-gray-600 dark:text-gray-400"
+                      }`}
+                    >
+                      lib/utils.ts
+                    </p>
+                    <div
+                      className={`rounded-lg border overflow-hidden ${
+                        themeType === "minimalist"
+                          ? "border border-gray-300 dark:border-neutral-700 bg-white dark:bg-neutral-900"
+                          : themeType === "brutalist"
+                          ? "border-[3px] border-white bg-black"
+                          : themeType === "maximalist"
+                          ? "rounded-xl border-2 border-white/70 bg-white/40 backdrop-blur-sm"
+                          : "border border-gray-300 dark:border-neutral-700 bg-white dark:bg-neutral-900"
+                      }`}
+                    >
+                      <CodeBlock
+                        code={`import { ClassValue, clsx } from "clsx";
+import { twMerge } from "tailwind-merge";
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
+}`}
+                        language="tsx"
+                        isInstallation={true}
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                {/* Step 3: Copy component code */}
+                <div className="flex gap-4 pb-6 relative">
+                  {/* Vertical line connector */}
+                  <div className="absolute left-4 top-8 bottom-0 w-0.5 bg-gray-600/50 dark:bg-gray-600/50" />
+
+                  <div
+                    className={`shrink-0 w-8 h-8 rounded-full flex items-center justify-center font-semibold text-sm z-10 ${
+                      themeType === "minimalist"
+                        ? "bg-gray-600/50 dark:bg-gray-600/50 text-white dark:text-white"
+                        : themeType === "brutalist"
+                        ? "bg-gray-600/50 text-white border-2 border-gray-600/50"
+                        : themeType === "maximalist"
+                        ? "bg-gray-600/50 text-white border border-gray-600/50"
+                        : themeType === "neumorphic"
+                        ? "bg-gray-600/50 dark:bg-gray-600/50 text-white dark:text-white"
+                        : "bg-gray-600/50 dark:bg-gray-600/50 text-white dark:text-white"
+                    }`}
+                  >
+                    3
+                  </div>
+                  <div className="flex-1 pt-1">
+                    <p
+                      className={`font-medium mb-3 ${
+                        themeType === "minimalist"
+                          ? "text-gray-900 dark:text-white"
+                          : themeType === "brutalist"
+                          ? "text-white"
+                          : themeType === "maximalist"
+                          ? "text-white"
+                          : "text-gray-900 dark:text-white"
+                      }`}
+                    >
+                      Copy and paste the following code into your project
+                    </p>
+                    <div
+                      className={`rounded-lg border overflow-hidden ${
+                        themeType === "minimalist"
+                          ? "border border-gray-300 dark:border-neutral-700 bg-white dark:bg-neutral-900"
+                          : themeType === "brutalist"
+                          ? "border-[3px] border-white bg-black"
+                          : themeType === "maximalist"
+                          ? "rounded-xl border-2 border-white/70 bg-white/40 backdrop-blur-sm"
+                          : "border border-gray-300 dark:border-neutral-700 bg-white dark:bg-neutral-900"
+                      }`}
+                    >
+                      <CodeBlock
+                        code={component.code}
+                        language="tsx"
+                        isInstallation={true}
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                {/* Step 4: Update import paths (no line after) */}
+                <div className="flex gap-4 relative">
+                  <div
+                    className={`shrink-0 w-8 h-8 rounded-full flex items-center justify-center font-semibold text-sm z-10 ${
+                      themeType === "minimalist"
+                        ? "bg-gray-600/50 dark:bg-gray-600/50 text-white dark:text-white"
+                        : themeType === "brutalist"
+                        ? "bg-gray-600/50 text-white border-2 border-gray-600/50"
+                        : themeType === "maximalist"
+                        ? "bg-gray-600/50 text-white border border-gray-600/50"
+                        : themeType === "neumorphic"
+                        ? "bg-gray-600/50 dark:bg-gray-600/50 text-white dark:text-white"
+                        : "bg-gray-600/50 dark:bg-gray-600/50 text-white dark:text-white"
+                    }`}
+                  >
+                    4
+                  </div>
+                  <div className="flex-1 pt-1">
+                    <p
+                      className={`font-medium mb-3 ${
+                        themeType === "minimalist"
+                          ? "text-gray-900 dark:text-white"
+                          : themeType === "brutalist"
+                          ? "text-white"
+                          : themeType === "maximalist"
+                          ? "text-white"
+                          : "text-gray-900 dark:text-white"
+                      }`}
+                    >
+                      Update the import paths to match your project setup
+                    </p>
+                    <p
+                      className={`text-sm ${
+                        themeType === "minimalist"
+                          ? "text-gray-600 dark:text-gray-400"
+                          : themeType === "brutalist"
+                          ? "text-white/70"
+                          : themeType === "maximalist"
+                          ? "text-white/70"
+                          : "text-gray-600 dark:text-gray-400"
+                      }`}
+                    >
+                      Ensure the import paths (like @/lib/utils, motion/react,
+                      etc.) match your project's structure. Adjust the paths
+                      based on where you place the component and utility files.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            )}
           </section>
         )}
 

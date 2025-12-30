@@ -1,70 +1,62 @@
 "use client";
 
 import React, { useState } from "react";
+import { motion } from "motion/react";
 import { cn } from "@/lib/utils";
 
 export interface MinimalistSwitchProps
-  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "type"> {
-  label?: string;
+  extends Omit<
+    React.InputHTMLAttributes<HTMLInputElement>,
+    | "type"
+    | "onDrag"
+    | "onDragStart"
+    | "onDragEnd"
+    | "onAnimationStart"
+    | "onAnimationEnd"
+    | "onAnimationIteration"
+    | "size"
+  > {
+  disabled?: boolean;
 }
 
 export const MinimalistSwitch = React.forwardRef<
   HTMLInputElement,
   MinimalistSwitchProps
->(({ className, label, ...props }, ref) => {
+>(({ className, disabled = false, ...props }, ref) => {
   const [isOn, setIsOn] = useState(false);
-  const [isOn2, setIsOn2] = useState(true);
 
   return (
-    <div className="space-y-6">
-      <div className="flex items-center gap-6">
-        <div
-          onClick={() => setIsOn(!isOn)}
-          className={cn(
-            "relative w-14 h-7 rounded-full cursor-pointer transition-all duration-300",
-            isOn ? "bg-gray-900" : "bg-gray-300",
-            className
-          )}
-        >
-          <div
-            className={cn(
-              "absolute top-1 w-5 h-5 bg-white rounded-full transition-all duration-300 shadow-sm",
-              isOn ? "right-1" : "left-1"
-            )}
-          />
-        </div>
-        <span className="text-sm text-gray-600 transition-colors duration-300">
-          {isOn ? "Enabled" : "Disabled"}
-        </span>
-      </div>
-
-      <div className="flex items-center gap-6">
-        <div
-          onClick={() => setIsOn2(!isOn2)}
-          className={cn(
-            "relative w-14 h-7 rounded-full cursor-pointer transition-all duration-300",
-            isOn2 ? "bg-gray-900" : "bg-gray-300"
-          )}
-        >
-          <div
-            className={cn(
-              "absolute top-1 w-5 h-5 bg-white rounded-full transition-all duration-300 shadow-sm",
-              isOn2 ? "right-1" : "left-1"
-            )}
-          />
-        </div>
-        <span className="text-sm text-gray-600 transition-colors duration-300">
-          {isOn2 ? "Active" : "Inactive"}
-        </span>
-      </div>
-    </div>
+    <motion.div
+      onClick={() => !disabled && setIsOn(!isOn)}
+      className={cn(
+        "relative w-14 h-7 rounded-full cursor-pointer transition-all duration-300",
+        isOn ? "bg-neutral-700" : "bg-neutral-800",
+        disabled && "opacity-50 cursor-not-allowed",
+        className
+      )}
+      role="switch"
+      aria-checked={isOn}
+      tabIndex={disabled ? -1 : 0}
+      onKeyDown={(e) => {
+        if (!disabled && (e.key === "Enter" || e.key === " ")) {
+          setIsOn(!isOn);
+        }
+      }}
+    >
+      <motion.div
+        animate={{ x: isOn ? 28 : 4 }}
+        transition={{ type: "spring", stiffness: 500, damping: 30 }}
+        className="absolute top-1 w-5 h-5 rounded-full bg-white transition-all duration-300"
+      />
+    </motion.div>
   );
 });
+
 MinimalistSwitch.displayName = "MinimalistSwitch";
 
 export function MinimalistSwitchPreview() {
   return (
-    <div className="flex justify-center">
+    <div className="flex items-center justify-center py-12">
       <MinimalistSwitch />
     </div>
   );
