@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import Navbar from "./Navbar";
 import Sidebar from "./Sidebar";
@@ -13,7 +13,13 @@ export default function ComponentsLayout({
   children: React.ReactNode;
 }) {
   const [query, setQuery] = useState("");
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const pathname = usePathname();
+
+  // Close sidebar when route changes
+  useEffect(() => {
+    setIsSidebarOpen(false);
+  }, [pathname]);
 
   // Extract theme and slug from pathname (e.g., /components/minimalist/button)
   const pathParts = pathname.split("/").filter(Boolean);
@@ -86,17 +92,33 @@ export default function ComponentsLayout({
       )}
 
       <div
-        className="relative mx-auto max-w-7xl w-full border-l border-r border-gray-600/50 dark:border-gray-600/50"
-        style={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}
+        className="relative mx-auto max-w-7xl w-full border-l border-r border-gray-600/50 dark:border-gray-600/50 flex flex-col"
+        style={{ minHeight: "100vh" }}
       >
-        <Navbar query={query} setQuery={setQuery} />
+        <Navbar
+          query={query}
+          setQuery={setQuery}
+          onMenuToggle={() => setIsSidebarOpen(!isSidebarOpen)}
+          isSidebarOpen={isSidebarOpen}
+        />
+
+        {/* Mobile overlay when sidebar is open */}
+        {isSidebarOpen && (
+          <div
+            className="fixed inset-0 bg-black/50 z-30 md:hidden"
+            onClick={() => setIsSidebarOpen(false)}
+          />
+        )}
+
         <div className="flex flex-1 relative z-0 overflow-hidden">
           <Sidebar
             components={components}
             activeSlug={activeSlug}
             filtered={filtered}
+            isOpen={isSidebarOpen}
+            onClose={() => setIsSidebarOpen(false)}
           />
-          <main className="flex-1 overflow-y-auto overflow-x-hidden">
+          <main className="flex-1 overflow-y-auto overflow-x-hidden w-full">
             {children}
           </main>
         </div>

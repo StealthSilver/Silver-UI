@@ -15,12 +15,16 @@ interface SidebarProps {
   components: { name: string; slug: string }[];
   activeSlug: string;
   filtered: { name: string; slug: string }[];
+  isOpen?: boolean;
+  onClose?: () => void;
 }
 
 const Sidebar: React.FC<SidebarProps> = ({
   components,
   activeSlug,
   filtered,
+  isOpen = false,
+  onClose,
 }) => {
   const pathname = usePathname();
 
@@ -31,24 +35,57 @@ const Sidebar: React.FC<SidebarProps> = ({
 
   return (
     <aside
-      className={`hidden md:flex md:flex-col w-72 backdrop-blur-xl transition-all duration-300 ${getSidebarStyles(
+      className={`fixed md:relative top-14 left-0 h-[calc(100vh-56px)] md:h-auto w-72 backdrop-blur-xl transition-all duration-300 z-40 ${getSidebarStyles(
         theme
-      )}`}
+      )} ${isOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"}`}
     >
-      <div className="p-5 flex-1 flex flex-col">
+      <div className="p-4 sm:p-5 flex-1 flex flex-col h-full overflow-y-auto">
+        {/* Mobile Close Button */}
+        <div className="flex items-center justify-between mb-4 md:hidden">
+          <h2
+            className={`tracking-widest uppercase ${getSidebarHeaderStyles(
+              theme
+            )}`}
+          >
+            Components
+          </h2>
+          <button
+            onClick={onClose}
+            className="p-1 hover:bg-gray-700/50 rounded transition-colors"
+            aria-label="Close sidebar"
+          >
+            <svg
+              className="w-5 h-5 text-white"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M6 18L18 6M6 6l12 12"
+              />
+            </svg>
+          </button>
+        </div>
+
+        {/* Desktop Header */}
         <h2
-          className={`mb-3 tracking-widest uppercase ${getSidebarHeaderStyles(
+          className={`hidden md:block mb-3 tracking-widest uppercase ${getSidebarHeaderStyles(
             theme
           )}`}
         >
           Basic Components ({filtered.length})
         </h2>
-        <div className="space-y-1 overflow-y-auto pr-1 flex-1">
+
+        {/* Components List */}
+        <div className="space-y-1 overflow-y-auto pr-2 flex-1">
           {filtered.map((c) => (
             <Link
               key={c.slug}
               href={`/components/${currentTheme}/${c.slug}`}
-              className={`group w-full block ${getSidebarItemStyles(
+              className={`group w-full block text-sm sm:text-base ${getSidebarItemStyles(
                 theme,
                 c.slug === activeSlug
               )}`}
@@ -70,6 +107,8 @@ const Sidebar: React.FC<SidebarProps> = ({
             </p>
           )}
         </div>
+
+        {/* Footer Tip */}
         <div
           className={`pt-4 text-[10px] ${
             theme === "brutalist"

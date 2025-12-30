@@ -284,3 +284,34 @@ body {
     opacity: 0.8;
   }
 }
+
+/* Responsive utilities */
+@media (max-width: 768px) {
+  /* Ensure sidebar doesn't block content on mobile */
+  body {
+    overflow-x: hidden;
+  }
+
+  /* Prevent layout shift from scrollbar on mobile */
+  html {
+    scrollbar-width: none;
+  }
+
+  html::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* Support for mobile-first design */
+@layer base {
+  /* Ensure proper touch targets on mobile */
+  @media (max-width: 640px) {
+    button {
+      min-height: 2.5rem; /* 40px */
+    }
+
+    a {
+      min-height: 2.5rem;
+    }
+  }
+}
