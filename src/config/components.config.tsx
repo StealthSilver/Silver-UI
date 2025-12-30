@@ -177,6 +177,12 @@ export function Card({ theme = "minimalist", className }: CardProps) {
     description:
       "Versatile input component with theme-specific styles and validation. Features include animated labels, icon support, email validation, and unique visual treatments for each theme including gradient borders, neumorphic shadows, and motion-based interactions.",
     preview: <ThemedInputPreview />,
+    installation: [
+      "Copy the input component file to your project's UI components directory",
+      "Import the component: import { Input } from '@/app/components/ui/input'",
+      "Use the Input component with your desired props and theme",
+      "Add validation by passing the validation prop and handling onChange events",
+    ],
     code: `import { useState } from 'react';
 import { Search, Mail, User, AlertCircle, CheckCircle } from 'lucide-react';
 import { motion } from 'framer-motion';
@@ -242,6 +248,12 @@ export function ThemedInput({ theme = "minimalist", icon, validation, placeholde
     description:
       "Dynamic loader component with multiple theme-specific animations. Each theme offers unique loading indicators - from minimalist spinners and dots to brutalist jittery squares, maximalist gradient effects with glowing sparkles, neumorphic soft bouncing elements, and motion-driven morphing shapes with wave patterns.",
     preview: <ThemedLoaderPreview />,
+    installation: [
+      "Copy the loader component file to your project's UI components directory",
+      "Import the component: import { Loader } from '@/app/components/ui/loader'",
+      "Use the Loader component with the desired size and theme props",
+      "Customize the animation by modifying the CSS animations in the component",
+    ],
     code: `import { motion } from 'framer-motion';
 
 interface LoaderProps {
@@ -282,6 +294,12 @@ export function Loader({ theme = "minimalist", size = "md" }: LoaderProps) {
     description:
       "Interactive toggle switch with theme-specific designs and animations. Features smooth state transitions, visual feedback, and unique styling for each theme including minimalist simplicity, brutalist bold text labels, maximalist gradient effects with ripples, neumorphic depth with soft shadows, and motion-based spring physics.",
     preview: <ThemedSwitchPreview />,
+    installation: [
+      "Copy the switch component file to your project's UI components directory",
+      "Import the component: import { Switch } from '@/app/components/ui/switch'",
+      "Wrap Switch in a form or manage state with useState hook",
+      "Use the onChange handler to capture toggle events and update application state",
+    ],
     code: `import { useState } from 'react';
 import { motion } from 'framer-motion';
 
