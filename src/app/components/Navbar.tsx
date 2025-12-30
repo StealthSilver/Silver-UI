@@ -201,13 +201,14 @@ const Navbar: React.FC<NavbarProps> = ({
       style={{ backgroundColor: "rgb(10, 10, 10)" }}
     >
       <div className="mx-auto max-w-7xl w-full px-4 sm:px-6 md:px-8 lg:px-6">
-        <div className="h-14 flex items-center justify-between gap-3 sm:gap-6">
+        {/* Mobile Layout (< md breakpoint) */}
+        <div className="md:hidden h-14 flex items-center justify-between gap-3">
           {/* Left section - Logo and Menu Button */}
-          <div className="flex items-center gap-2 sm:gap-3">
+          <div className="flex items-center gap-2">
             {/* Mobile Menu Button */}
             <button
               onClick={onMenuToggle}
-              className="md:hidden p-2 hover:bg-neutral-800/60 rounded-md transition-colors"
+              className="p-2 hover:bg-neutral-800/60 rounded-md transition-colors"
               aria-label="Toggle sidebar"
             >
               <svg
@@ -242,21 +243,60 @@ const Navbar: React.FC<NavbarProps> = ({
             </a>
           </div>
 
-          {/* Middle section - Search (hidden on very small screens) */}
-          <div className="hidden sm:block relative flex-1 max-w-xs md:max-w-xs">
-            <input
-              ref={searchInputRef}
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              type="text"
-              placeholder="Search... (⌘K)"
-              className={`peer w-full h-8 text-xs sm:text-sm px-3 rounded-md bg-transparent text-white placeholder-gray-500 border border-gray-600/50 dark:border-gray-600/50 focus:border-gray-400 focus:outline-none transition-colors`}
-            />
+          {/* Right section - Social Links */}
+          <div className="flex items-center gap-2">
+            <a
+              href="https://x.com/silver_srs"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`text-white hover:bg-neutral-800/60 hover:text-white p-2 rounded-md transition-all duration-300`}
+              aria-label="X (Twitter)"
+            >
+              <XIcon className="h-4 w-4" />
+            </a>
+            <a
+              href="https://github.com/StealthSilver/Silver-UI"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`text-white hover:bg-neutral-800/60 hover:text-white p-2 rounded-md transition-all duration-300`}
+              aria-label="GitHub"
+            >
+              <GitHubIcon className="h-4 w-4" />
+            </a>
           </div>
+        </div>
 
-          {/* Right section - Theme selector and social links */}
-          <div className="flex items-center gap-2 sm:gap-4">
-            {/* Theme Dropdown - Hidden on mobile */}
+        {/* Mobile Search Bar - Shown on small screens only */}
+        <div className="md:hidden pb-3">
+          <input
+            ref={searchInputRef}
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            type="text"
+            placeholder="Search components..."
+            className={`w-full h-8 text-xs px-3 rounded-md bg-transparent text-white placeholder-gray-500 border border-gray-600/50 dark:border-gray-600/50 focus:border-gray-400 focus:outline-none transition-colors`}
+          />
+        </div>
+
+        {/* Desktop Layout (md and above) - Original Design */}
+        <div className="hidden md:flex items-center justify-between gap-6 h-14">
+          <div className="flex items-center gap-3">
+            <a
+              href="/"
+              className={`flex items-center gap-2 transition-opacity hover:opacity-80`}
+            >
+              <Image
+                src="/logo.svg"
+                width={80}
+                height={28}
+                alt="Logo"
+                priority
+                className="brightness-0 invert"
+              />
+            </a>
+          </div>
+          <div className="flex items-center gap-4 flex-1 justify-end">
+            {/* Theme Dropdown */}
             <div className="hidden lg:block relative" ref={dropdownRef}>
               <button
                 onClick={() => setIsDropdownOpen(!isDropdownOpen)}
@@ -301,38 +341,35 @@ const Navbar: React.FC<NavbarProps> = ({
               )}
             </div>
 
-            {/* Social Links */}
-            <a
-              href="https://x.com/silver_srs"
-              target="_blank"
-              rel="noopener noreferrer"
-              className={`text-white hover:bg-neutral-800/60 hover:text-white p-2 rounded-md transition-all duration-300`}
-              aria-label="X (Twitter)"
-            >
-              <XIcon className="h-4 w-4 sm:h-5 sm:w-5" />
-            </a>
-            <a
-              href="https://github.com/StealthSilver/Silver-UI"
-              target="_blank"
-              rel="noopener noreferrer"
-              className={`text-white hover:bg-neutral-800/60 hover:text-white p-2 rounded-md transition-all duration-300`}
-              aria-label="GitHub"
-            >
-              <GitHubIcon className="h-4 w-4 sm:h-5 sm:w-5" />
-            </a>
+            <div className="relative w-48 md:w-56">
+              <input
+                ref={searchInputRef}
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                type="text"
+                placeholder="Search components... (⌘K)"
+                className={`peer w-full h-8 text-sm px-3 rounded-md bg-transparent text-white placeholder-gray-500 border border-gray-600/50 dark:border-gray-600/50 focus:border-gray-400 focus:outline-none transition-colors flex items-center`}
+              />
+            </div>
+            <div className="flex items-center gap-3">
+              <a
+                href="https://x.com/silver_srs"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`text-white hover:bg-neutral-800/60 hover:text-white px-2 py-2 rounded-md transition-all duration-300`}
+              >
+                <XIcon className="h-5 w-5" />
+              </a>
+              <a
+                href="https://github.com/StealthSilver/Silver-UI"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`text-white hover:bg-neutral-800/60 hover:text-white px-2 py-2 rounded-md transition-all duration-300`}
+              >
+                <GitHubIcon className="h-5 w-5" />
+              </a>
+            </div>
           </div>
-        </div>
-
-        {/* Mobile Search Bar - Shown on small screens only */}
-        <div className="sm:hidden pb-3">
-          <input
-            ref={searchInputRef}
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            type="text"
-            placeholder="Search components..."
-            className={`w-full h-8 text-xs px-3 rounded-md bg-transparent text-white placeholder-gray-500 border border-gray-600/50 dark:border-gray-600/50 focus:border-gray-400 focus:outline-none transition-colors`}
-          />
         </div>
       </div>
     </nav>
