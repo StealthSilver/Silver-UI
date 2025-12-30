@@ -268,7 +268,7 @@ const Navbar: React.FC<NavbarProps> = ({ query, setQuery }) => {
             </div>
             <div className="flex items-center gap-3">
               <a
-                href="https://x.com/"
+                href="https://x.com/silver_srs"
                 target="_blank"
                 rel="noopener noreferrer"
                 className={`text-white hover:bg-neutral-900/60 hover:text-white px-2 py-2 rounded-md transition-all duration-300`}
@@ -276,7 +276,7 @@ const Navbar: React.FC<NavbarProps> = ({ query, setQuery }) => {
                 <XIcon className="h-5 w-5" />
               </a>
               <a
-                href="https://github.com/"
+                href="https://github.com/StealthSilver/Silver-UI"
                 target="_blank"
                 rel="noopener noreferrer"
                 className={`text-white hover:bg-neutral-900/60 hover:text-white px-2 py-2 rounded-md transition-all duration-300`}

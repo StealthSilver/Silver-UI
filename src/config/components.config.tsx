@@ -26,6 +26,7 @@ export interface ComponentMeta {
   code: string;
   description?: string;
   props?: ComponentProp[];
+  installation?: string[];
 }
 
 export const components: ComponentMeta[] = [
@@ -35,6 +36,12 @@ export const components: ComponentMeta[] = [
     description:
       "A versatile button component with multiple variants and styles. Each theme offers unique visual aesthetics from minimalist simplicity to bold brutalist designs, soft neumorphic touches, vibrant maximalist gradients, and dynamic motion effects.",
     preview: <MinimalistButtonPreview />,
+    installation: [
+      "Copy the button component file to your project's UI components directory",
+      "Import the component in your desired file: import { Button } from '@/app/components/ui/button'",
+      "Use the Button component with your desired variant and props",
+      "Customize the styles by modifying the tailwind classes in the component",
+    ],
     code: `import React from "react";
 import { Heart } from "lucide-react";
 
@@ -115,6 +122,12 @@ export function ButtonDemo() {
     description:
       "Feature-rich card component with theme-specific designs. Each theme offers unique visual characteristics - from minimalist clean lines to brutalist bold statements, neumorphic soft shadows, maximalist vibrant gradients, and motion-driven animations.",
     preview: <ThemedCardPreview />,
+    installation: [
+      "Copy the card component file to your project's UI components directory",
+      "Import the component: import { Card } from '@/app/components/ui/card'",
+      "Wrap your card content with the Card component",
+      "Apply theme-specific styles by passing the theme prop to customize appearance",
+    ],
     code: `import { useState } from 'react';
 import { ArrowRight, Sparkles, TrendingUp, Zap, Clock, Users } from 'lucide-react';
 import { motion } from 'framer-motion';
