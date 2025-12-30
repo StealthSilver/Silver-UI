@@ -2,4 +2,4 @@ export {
   MinimalistSwitch,
   MinimalistSwitchPreview,
   type MinimalistSwitchProps,
-} from "./switch";
+} from "./switch/switch";

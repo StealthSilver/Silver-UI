@@ -2,4 +2,4 @@ export {
   NeumorphicCard,
   NeumorphicCardPreview,
   type NeumorphicCardProps,
-} from "./card";
+} from "./card/card";

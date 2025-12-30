@@ -4,11 +4,12 @@ import React from "react";
 import { cn } from "@/lib/utils";
 import { ArrowRight, Clock, Users } from "lucide-react";
 
-interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface MinimalistCardProps
+  extends React.HTMLAttributes<HTMLDivElement> {
   hoverable?: boolean;
 }
 
-export const MinimalistCard: React.FC<CardProps> = ({
+export const MinimalistCard: React.FC<MinimalistCardProps> = ({
   className,
   hoverable = false,
   children,

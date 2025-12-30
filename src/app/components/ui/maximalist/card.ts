@@ -2,4 +2,4 @@ export {
   MaximalistCard,
   MaximalistCardPreview,
   type MaximalistCardProps,
-} from "./card";
+} from "./card/card";

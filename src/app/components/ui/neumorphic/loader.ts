@@ -2,4 +2,4 @@ export {
   NeumorphicLoader,
   NeumorphicLoaderPreview,
   type NeumorphicLoaderProps,
-} from "./loader";
+} from "./loader/loader";

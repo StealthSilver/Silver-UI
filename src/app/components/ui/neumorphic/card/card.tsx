@@ -4,11 +4,12 @@ import React from "react";
 import { cn } from "@/lib/utils";
 import { Sparkles, TrendingUp, Users } from "lucide-react";
 
-interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface NeumorphicCardProps
+  extends React.HTMLAttributes<HTMLDivElement> {
   hoverable?: boolean;
 }
 
-export const NeumorphicCard: React.FC<CardProps> = ({
+export const NeumorphicCard: React.FC<NeumorphicCardProps> = ({
   className,
   hoverable = false,
   children,

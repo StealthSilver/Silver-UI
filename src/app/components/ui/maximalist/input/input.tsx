@@ -4,13 +4,14 @@ import React, { useState } from "react";
 import { cn } from "@/lib/utils";
 import { Search, Mail, AlertCircle, CheckCircle } from "lucide-react";
 
-interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+export interface MaximalistInputProps
+  extends React.InputHTMLAttributes<HTMLInputElement> {
   icon?: React.ReactNode;
   validation?: boolean;
   label?: string;
 }
 
-export const MaximalistInput: React.FC<InputProps> = ({
+export const MaximalistInput: React.FC<MaximalistInputProps> = ({
   className,
   type = "text",
   ...props

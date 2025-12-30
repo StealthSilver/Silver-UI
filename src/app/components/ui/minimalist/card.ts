@@ -2,4 +2,4 @@ export {
   MinimalistCard,
   MinimalistCardPreview,
   type MinimalistCardProps,
-} from "./card";
+} from "./card/card";

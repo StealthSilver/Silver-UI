@@ -2,4 +2,4 @@ export {
   MaximalistSwitch,
   MaximalistSwitchPreview,
   type MaximalistSwitchProps,
-} from "./switch";
+} from "./switch/switch";

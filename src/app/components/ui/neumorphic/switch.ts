@@ -2,4 +2,4 @@ export {
   NeumorphicSwitch,
   NeumorphicSwitchPreview,
   type NeumorphicSwitchProps,
-} from "./switch";
+} from "./switch/switch";

@@ -4,12 +4,12 @@ import React from "react";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 
-interface LoaderProps {
+export interface MotionLoaderProps {
   size?: "sm" | "md" | "lg";
   className?: string;
 }
 
-export const MotionLoader: React.FC<LoaderProps> = ({
+export const MotionLoader: React.FC<MotionLoaderProps> = ({
   size = "md",
   className,
 }) => {

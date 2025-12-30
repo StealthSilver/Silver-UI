@@ -1,1 +1,5 @@
-export { MotionCard, MotionCardPreview, type MotionCardProps } from "./card";
+export {
+  MotionCard,
+  MotionCardPreview,
+  type MotionCardProps,
+} from "./card/card";

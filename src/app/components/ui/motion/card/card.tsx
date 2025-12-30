@@ -5,11 +5,11 @@ import { cn } from "@/lib/utils";
 import { ArrowRight, TrendingUp, Users, Zap } from "lucide-react";
 import { motion } from "framer-motion";
 
-interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface MotionCardProps extends React.HTMLAttributes<HTMLDivElement> {
   hoverable?: boolean;
 }
 
-export const MotionCard: React.FC<CardProps> = ({
+export const MotionCard: React.FC<MotionCardProps> = ({
   className,
   hoverable = false,
   children,

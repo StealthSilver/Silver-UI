@@ -5,13 +5,14 @@ import { cn } from "@/lib/utils";
 import { Search, Mail, AlertCircle, CheckCircle } from "lucide-react";
 import { motion } from "framer-motion";
 
-interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+export interface MotionInputProps
+  extends React.InputHTMLAttributes<HTMLInputElement> {
   icon?: React.ReactNode;
   validation?: boolean;
   label?: string;
 }
 
-export const MotionInput: React.FC<InputProps> = ({
+export const MotionInput: React.FC<MotionInputProps> = ({
   className,
   type = "text",
   ...props

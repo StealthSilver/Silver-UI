@@ -3,7 +3,7 @@
 import React from "react";
 import { cn } from "@/lib/utils";
 
-interface LoaderProps {
+export interface MinimalistLoaderProps {
   size?: "sm" | "md" | "lg";
   className?: string;
 }
@@ -14,7 +14,7 @@ const sizeMap = {
   lg: "h-12 w-12 border-8",
 };
 
-export const MinimalistLoader: React.FC<LoaderProps> = ({
+export const MinimalistLoader: React.FC<MinimalistLoaderProps> = ({
   size = "md",
   className,
 }) => {

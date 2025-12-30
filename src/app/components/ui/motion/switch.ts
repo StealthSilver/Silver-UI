@@ -2,4 +2,4 @@ export {
   MotionSwitch,
   MotionSwitchPreview,
   type MotionSwitchProps,
-} from "./switch";
+} from "./switch/switch";

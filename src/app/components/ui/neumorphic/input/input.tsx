@@ -4,13 +4,14 @@ import React, { useState } from "react";
 import { cn } from "@/lib/utils";
 import { Search, Mail } from "lucide-react";
 
-interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+export interface NeumorphicInputProps
+  extends React.InputHTMLAttributes<HTMLInputElement> {
   icon?: React.ReactNode;
   validation?: boolean;
   label?: string;
 }
 
-export const NeumorphicInput: React.FC<InputProps> = ({
+export const NeumorphicInput: React.FC<NeumorphicInputProps> = ({
   className,
   type = "text",
   ...props

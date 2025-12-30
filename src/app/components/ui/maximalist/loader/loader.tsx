@@ -3,12 +3,12 @@
 import React from "react";
 import { cn } from "@/lib/utils";
 
-interface LoaderProps {
+export interface MaximalistLoaderProps {
   size?: "sm" | "md" | "lg";
   className?: string;
 }
 
-export const MaximalistLoader: React.FC<LoaderProps> = ({
+export const MaximalistLoader: React.FC<MaximalistLoaderProps> = ({
   size = "md",
   className,
 }) => {

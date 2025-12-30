@@ -3,12 +3,12 @@
 import React from "react";
 import { cn } from "@/lib/utils";
 
-interface LoaderProps {
+export interface NeumorphicLoaderProps {
   size?: "sm" | "md" | "lg";
   className?: string;
 }
 
-export const NeumorphicLoader: React.FC<LoaderProps> = ({
+export const NeumorphicLoader: React.FC<NeumorphicLoaderProps> = ({
   size = "md",
   className,
 }) => {

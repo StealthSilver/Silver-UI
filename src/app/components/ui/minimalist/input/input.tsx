@@ -4,13 +4,14 @@ import React, { useState } from "react";
 import { cn } from "@/lib/utils";
 import { User, Mail } from "lucide-react";
 
-interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+export interface MinimalistInputProps
+  extends React.InputHTMLAttributes<HTMLInputElement> {
   icon?: React.ReactNode;
   validation?: boolean;
   label?: string;
 }
 
-export const MinimalistInput: React.FC<InputProps> = ({
+export const MinimalistInput: React.FC<MinimalistInputProps> = ({
   className,
   type = "text",
   icon,

@@ -4,11 +4,12 @@ import React from "react";
 import { cn } from "@/lib/utils";
 import { Sparkles, Zap } from "lucide-react";
 
-interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface MaximalistCardProps
+  extends React.HTMLAttributes<HTMLDivElement> {
   hoverable?: boolean;
 }
 
-export const MaximalistCard: React.FC<CardProps> = ({
+export const MaximalistCard: React.FC<MaximalistCardProps> = ({
   className,
   hoverable = false,
   children,
