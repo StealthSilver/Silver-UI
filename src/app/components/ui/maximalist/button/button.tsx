@@ -1,7 +1,7 @@
 import React from "react";
 import { Heart, Sparkles, Zap, Star } from "lucide-react";
 
-interface ButtonProps {
+export interface ButtonProps {
   variant?: "primary" | "secondary" | "icon";
   children?: React.ReactNode;
   onClick?: () => void;

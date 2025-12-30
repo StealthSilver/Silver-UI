@@ -3,11 +3,12 @@
 import React from "react";
 import { cn } from "@/lib/utils";
 
-interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface BrutalistCardProps
+  extends React.HTMLAttributes<HTMLDivElement> {
   hoverable?: boolean;
 }
 
-export const BrutalistCard: React.FC<CardProps> = ({
+export const BrutalistCard: React.FC<BrutalistCardProps> = ({
   className,
   hoverable = false,
   children,

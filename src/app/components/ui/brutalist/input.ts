@@ -2,4 +2,4 @@ export {
   BrutalistInput,
   BrutalistInputPreview,
   type BrutalistInputProps,
-} from "./input";
+} from "./input/input";

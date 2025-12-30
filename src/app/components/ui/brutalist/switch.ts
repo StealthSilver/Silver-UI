@@ -2,4 +2,4 @@ export {
   BrutalistSwitch,
   BrutalistSwitchPreview,
   type BrutalistSwitchProps,
-} from "./switch";
+} from "./switch/switch";

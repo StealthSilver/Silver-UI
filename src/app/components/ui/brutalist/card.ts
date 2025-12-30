@@ -2,4 +2,4 @@ export {
   BrutalistCard,
   BrutalistCardPreview,
   type BrutalistCardProps,
-} from "./card";
+} from "./card/card";

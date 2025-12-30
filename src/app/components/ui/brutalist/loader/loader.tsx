@@ -3,12 +3,12 @@
 import React from "react";
 import { cn } from "@/lib/utils";
 
-interface LoaderProps {
+export interface BrutalistLoaderProps {
   size?: "sm" | "md" | "lg";
   className?: string;
 }
 
-export const BrutalistLoader: React.FC<LoaderProps> = ({
+export const BrutalistLoader: React.FC<BrutalistLoaderProps> = ({
   size = "md",
   className,
 }) => {

@@ -2,4 +2,4 @@ export {
   BrutalistLoader,
   BrutalistLoaderPreview,
   type BrutalistLoaderProps,
-} from "./loader";
+} from "./loader/loader";
