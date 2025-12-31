@@ -51,7 +51,7 @@ const Sidebar: React.FC<SidebarProps> = ({
           </h2>
           <button
             onClick={onClose}
-            className="p-1 hover:bg-gray-700/50 rounded transition-colors"
+            className="p-1 hover:bg-gray-700/50 rounded transition-colors flex-shrink-0"
             aria-label="Close sidebar"
           >
             <svg
@@ -85,16 +85,22 @@ const Sidebar: React.FC<SidebarProps> = ({
             <Link
               key={c.slug}
               href={`/components/${currentTheme}/${c.slug}`}
-              onClick={() => {
-                // Ensure sidebar closes after navigation on mobile
-                if (onClose) {
-                  onClose();
-                }
-              }}
-              className={`group w-full block text-sm sm:text-base cursor-pointer pointer-events-auto ${getSidebarItemStyles(
+              className={`group w-full block text-sm sm:text-base cursor-pointer pointer-events-auto transition-all ${getSidebarItemStyles(
                 theme,
                 c.slug === activeSlug
               )}`}
+              onClickCapture={() => {
+                // Close sidebar on mobile after link click
+                if (
+                  onClose &&
+                  typeof window !== "undefined" &&
+                  window.innerWidth < 768
+                ) {
+                  setTimeout(() => {
+                    onClose();
+                  }, 0);
+                }
+              }}
             >
               {c.name}
             </Link>

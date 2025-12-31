@@ -266,7 +266,7 @@ const Navbar: React.FC<NavbarProps> = ({
           </div>
         </div>
 
-        {/* Mobile Search Bar - Shown on small screens only */}
+        {/* Mobile Search Bar */}
         <div className="md:hidden pb-3">
           <input
             ref={searchInputRef}
