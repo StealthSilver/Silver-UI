@@ -35,11 +35,11 @@ const Sidebar: React.FC<SidebarProps> = ({
 
   return (
     <aside
-      className={`fixed md:relative top-14 left-0 h-[calc(100vh-56px)] md:h-auto w-72 backdrop-blur-xl transition-all duration-300 z-40 ${getSidebarStyles(
+      className={`fixed md:relative top-14 left-0 h-[calc(100vh-56px)] md:h-auto w-72 backdrop-blur-xl transition-all duration-300 z-40 pointer-events-auto ${getSidebarStyles(
         theme
       )} ${isOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"}`}
     >
-      <div className="p-4 sm:p-5 flex-1 flex flex-col h-full overflow-y-auto">
+      <div className="p-4 sm:p-5 flex-1 flex flex-col h-full overflow-y-auto pointer-events-auto">
         {/* Mobile Close Button */}
         <div className="flex items-center justify-between mb-4 md:hidden">
           <h2
@@ -80,12 +80,18 @@ const Sidebar: React.FC<SidebarProps> = ({
         </h2>
 
         {/* Components List */}
-        <div className="space-y-1 overflow-y-auto pr-2 flex-1">
+        <div className="space-y-1 overflow-y-auto pr-2 flex-1 min-w-0">
           {filtered.map((c) => (
             <Link
               key={c.slug}
               href={`/components/${currentTheme}/${c.slug}`}
-              className={`group w-full block text-sm sm:text-base ${getSidebarItemStyles(
+              onClick={() => {
+                // Ensure sidebar closes after navigation on mobile
+                if (onClose) {
+                  onClose();
+                }
+              }}
+              className={`group w-full block text-sm sm:text-base cursor-pointer pointer-events-auto ${getSidebarItemStyles(
                 theme,
                 c.slug === activeSlug
               )}`}
