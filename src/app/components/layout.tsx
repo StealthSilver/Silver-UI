@@ -15,11 +15,19 @@ export default function ComponentsLayout({
   const [query, setQuery] = useState("");
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const pathname = usePathname();
+  const [previousPathname, setPreviousPathname] = useState(pathname);
 
-  // Close sidebar when route changes
+  // Close sidebar when route changes (only on mobile)
   useEffect(() => {
-    setIsSidebarOpen(false);
-  }, [pathname]);
+    if (pathname !== previousPathname) {
+      // Small delay to ensure navigation completes first
+      const timer = setTimeout(() => {
+        setIsSidebarOpen(false);
+      }, 100);
+      setPreviousPathname(pathname);
+      return () => clearTimeout(timer);
+    }
+  }, [pathname, previousPathname]);
 
   // Extract theme and slug from pathname (e.g., /components/minimalist/button)
   const pathParts = pathname.split("/").filter(Boolean);

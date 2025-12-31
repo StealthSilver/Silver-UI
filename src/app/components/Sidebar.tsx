@@ -89,18 +89,6 @@ const Sidebar: React.FC<SidebarProps> = ({
                 theme,
                 c.slug === activeSlug
               )}`}
-              onClick={() => {
-                // Close sidebar on mobile after link click
-                if (
-                  onClose &&
-                  typeof window !== "undefined" &&
-                  window.innerWidth < 768
-                ) {
-                  setTimeout(() => {
-                    onClose();
-                  }, 50);
-                }
-              }}
             >
               {c.name}
             </Link>
