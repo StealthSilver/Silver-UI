@@ -110,15 +110,16 @@ export default function ComponentsLayout({
           isSidebarOpen={isSidebarOpen}
         />
 
-        {/* Mobile overlay when sidebar is open */}
+        {/* Mobile overlay when sidebar is open - positioned to not block sidebar */}
         {isSidebarOpen && (
           <div
-            className="fixed inset-0 bg-black/50 z-30 md:hidden"
+            className="fixed inset-0 top-14 bg-black/50 z-30 md:hidden md:pointer-events-none"
             onClick={() => setIsSidebarOpen(false)}
+            style={{ pointerEvents: "auto" }}
           />
         )}
 
-        <div className="flex flex-1 relative z-0 overflow-hidden">
+        <div className="flex flex-1 relative overflow-hidden">
           <Sidebar
             components={components}
             activeSlug={activeSlug}
