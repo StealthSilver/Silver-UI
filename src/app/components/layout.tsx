@@ -119,7 +119,7 @@ export default function ComponentsLayout({
           />
         )}
 
-        <div className="flex flex-1 relative overflow-hidden">
+        <div className="flex flex-1 relative h-full">
           <Sidebar
             components={components}
             activeSlug={activeSlug}
@@ -127,7 +127,7 @@ export default function ComponentsLayout({
             isOpen={isSidebarOpen}
             onClose={() => setIsSidebarOpen(false)}
           />
-          <main className="flex-1 overflow-y-auto overflow-x-hidden w-full">
+          <main className="flex-1 overflow-y-auto overflow-x-hidden w-full h-[calc(100vh-theme(spacing.14))]">
             {children}
           </main>
         </div>

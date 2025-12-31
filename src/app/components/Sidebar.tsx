@@ -35,7 +35,7 @@ const Sidebar: React.FC<SidebarProps> = ({
 
   return (
     <aside
-      className={`fixed md:relative top-14 left-0 h-[calc(100vh-56px)] md:min-h-[calc(100vh-56px)] w-72 backdrop-blur-xl transition-all duration-300 z-50 ${getSidebarStyles(
+      className={`fixed md:relative left-0  md:top-auto h-[calc(100vh-56px)] md:h-[calc(100vh-56px)] w-72 backdrop-blur-xl transition-all duration-300 z-50 ${getSidebarStyles(
         theme
       )} ${isOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"}`}
     >
