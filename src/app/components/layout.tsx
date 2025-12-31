@@ -105,7 +105,7 @@ export default function ComponentsLayout({
         {/* Mobile overlay when sidebar is open */}
         {isSidebarOpen && (
           <div
-            className="fixed inset-0 bg-black/50 z-30 md:hidden pointer-events-auto"
+            className="fixed inset-0 bg-black/50 z-30 md:hidden"
             onClick={() => setIsSidebarOpen(false)}
           />
         )}

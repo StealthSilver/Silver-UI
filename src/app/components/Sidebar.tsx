@@ -35,7 +35,7 @@ const Sidebar: React.FC<SidebarProps> = ({
 
   return (
     <aside
-      className={`fixed md:relative left-0 h-[calc(100vh-56px)] md:h-auto w-72 backdrop-blur-xl transition-all duration-300 z-40 pointer-events-auto ${getSidebarStyles(
+      className={`fixed md:relative top-14 left-0 h-[calc(100vh-56px)] md:h-full w-72 backdrop-blur-xl transition-all duration-300 z-40 pointer-events-auto ${getSidebarStyles(
         theme
       )} ${isOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"}`}
     >
@@ -89,7 +89,7 @@ const Sidebar: React.FC<SidebarProps> = ({
                 theme,
                 c.slug === activeSlug
               )}`}
-              onClickCapture={() => {
+              onClick={() => {
                 // Close sidebar on mobile after link click
                 if (
                   onClose &&
@@ -98,7 +98,7 @@ const Sidebar: React.FC<SidebarProps> = ({
                 ) {
                   setTimeout(() => {
                     onClose();
-                  }, 0);
+                  }, 50);
                 }
               }}
             >
