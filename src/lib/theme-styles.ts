@@ -90,10 +90,10 @@ export const getSidebarItemStyles = (
           : "shadow-[6px_6px_12px_rgba(0,0,0,0.12),-6px_-6px_12px_rgba(255,255,255,0.8)] dark:shadow-[6px_6px_12px_rgba(0,0,0,0.4),-6px_-6px_12px_rgba(255,255,255,0.08)] hover:shadow-[3px_3px_8px_rgba(0,0,0,0.12),-3px_-3px_8px_rgba(255,255,255,0.8)] dark:hover:shadow-[3px_3px_8px_rgba(0,0,0,0.4),-3px_-3px_8px_rgba(255,255,255,0.08)] text-gray-700 dark:text-gray-200"
       }`;
     case "motion":
-      return `w-full px-3 py-2 rounded-xl text-sm font-medium transition-all duration-300 block relative group ${
+      return `w-full px-4 py-3 rounded-xl text-sm font-medium transition-all duration-300 block relative group border-2 ${
         isActive
-          ? "bg-blue-500/20 text-blue-400 shadow-lg overflow-hidden before:absolute before:inset-0 before:bg-gradient-to-r before:from-transparent before:via-white/30 before:to-transparent before:-translate-x-full before:group-hover:translate-x-full before:transition-transform before:duration-600 before:pointer-events-none after:absolute after:inset-0 after:bg-white/10 after:rounded-full after:blur-xl after:opacity-0 after:group-hover:opacity-100 after:transition-opacity after:duration-400"
-          : "text-gray-300 dark:text-neutral-300 hover:bg-neutral-700/50 hover:text-white hover:shadow-md hover:translate-x-1"
+          ? "bg-blue-500/15 text-blue-400 shadow-lg border-blue-400/40 hover:shadow-xl hover:scale-105 hover:-translate-y-0.5 overflow-hidden before:absolute before:inset-0 before:bg-gradient-to-r before:from-transparent before:via-white/30 before:to-transparent before:-translate-x-full before:group-hover:translate-x-full before:transition-transform before:duration-600 before:pointer-events-none after:absolute after:inset-0 after:bg-white/20 after:rounded-full after:blur-xl after:opacity-0 after:group-hover:opacity-100 after:transition-opacity after:duration-400"
+          : "border-gray-300 dark:border-gray-700 text-gray-700 dark:text-neutral-300 hover:border-blue-500 hover:text-blue-500 dark:hover:border-blue-400 dark:hover:text-blue-400 hover:shadow-lg hover:scale-105 overflow-hidden"
       }`;
     default:
       return "px-3 py-2 rounded-md text-sm font-medium";
