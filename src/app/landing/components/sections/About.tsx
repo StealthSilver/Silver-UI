@@ -169,9 +169,9 @@ export const About = () => {
           className="grid md:grid-cols-4 gap-6 pt-12 border-t border-white/10"
         >
           {[
-            { number: "5", label: "Design Themes" },
-            { number: "5+", label: "Components" },
-            { number: "100%", label: "TypeScript" },
+            { number: "5+", label: "Design Themes" },
+            { number: "25+", label: "Components" },
+            { number: "100%", label: "Responsive" },
             { number: "∞", label: "Customizable" },
           ].map((stat, index) => (
             <div
