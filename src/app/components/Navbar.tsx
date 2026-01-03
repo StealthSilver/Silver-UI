@@ -320,25 +320,35 @@ const Navbar: React.FC<NavbarProps> = ({
 
               {isDropdownOpen && (
                 <div
-                  className={`absolute top-full right-0 mt-2 min-w-48 ${getDropdownMenuStyles()} z-50 overflow-hidden`}
+                  className={`absolute top-full right-0 mt-2 min-w-48 ${getDropdownMenuStyles()} z-50 overflow-visible`}
                 >
                   {THEMES.map((t) => (
-                    <button
-                      key={t.id}
-                      onClick={() => {
-                        if (!t.disabled) {
-                          handleThemeChange(t.id);
-                          setIsDropdownOpen(false);
-                        }
-                      }}
-                      disabled={t.disabled}
-                      className={`${getDropdownItemStyles(
-                        t.id === currentTheme
-                      )} ${t.disabled ? "opacity-50 cursor-not-allowed" : ""}`}
-                      title={t.disabled ? `${t.label} (disabled)` : t.label}
-                    >
-                      {t.label}
-                    </button>
+                    <div key={t.id} className="relative group">
+                      <button
+                        onClick={() => {
+                          if (!t.disabled) {
+                            handleThemeChange(t.id);
+                            setIsDropdownOpen(false);
+                          }
+                        }}
+                        disabled={t.disabled}
+                        className={`${getDropdownItemStyles(
+                          t.id === currentTheme
+                        )} ${
+                          t.disabled ? "opacity-50 cursor-not-allowed" : ""
+                        } flex items-center justify-start w-full`}
+                        title={t.disabled ? `${t.label} (disabled)` : t.label}
+                      >
+                        <span>{t.label}</span>
+                      </button>
+                      {t.disabled && (
+                        <div className="absolute bottom-full right-0 mb-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none">
+                          <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-semibold bg-gray-700 text-gray-100 whitespace-nowrap">
+                            Coming soon
+                          </span>
+                        </div>
+                      )}
+                    </div>
                   ))}
                 </div>
               )}
