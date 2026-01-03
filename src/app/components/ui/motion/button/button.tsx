@@ -16,15 +16,14 @@ export const MotionButton: React.FC<ButtonProps> = ({
   onClick,
   className = "",
 }) => {
-  const baseStyles =
-    "transition-all duration-300 font-medium relative overflow-hidden group";
+  const baseStyles = "transition-all duration-300 font-medium relative group";
 
   const variantStyles = {
     primary:
-      "px-8 py-3 bg-blue-500 text-white rounded-xl hover:shadow-xl hover:scale-105 hover:-translate-y-0.5",
+      "px-8 py-3 bg-blue-500 text-white rounded-xl hover:shadow-xl hover:scale-105 hover:-translate-y-0.5 overflow-hidden",
     secondary:
-      "px-8 py-3 border-2 border-gray-300 text-gray-700 rounded-xl hover:border-blue-500 hover:text-blue-500 hover:shadow-lg hover:scale-105 dark:border-gray-600 dark:text-gray-300 dark:hover:border-blue-400 dark:hover:text-blue-400",
-    icon: "px-4 py-4 bg-blue-500 text-white rounded-xl hover:shadow-xl hover:scale-110",
+      "px-8 py-3 border-2 border-gray-300 text-gray-700 rounded-xl hover:border-blue-500 hover:text-blue-500 hover:shadow-lg hover:scale-105 dark:border-gray-600 dark:text-gray-300 dark:hover:border-blue-400 dark:hover:text-blue-400 overflow-hidden",
+    icon: "px-4 py-4 bg-blue-500 text-white rounded-xl hover:shadow-xl hover:scale-110 overflow-hidden",
   };
 
   return (

@@ -37,11 +37,11 @@ const Sidebar: React.FC<SidebarProps> = ({
     <aside
       className={`fixed md:relative left-0  md:top-auto h-[calc(100vh-56px)] md:h-[calc(100vh-56px)] w-72 backdrop-blur-xl transition-all duration-300 z-50 ${getSidebarStyles(
         theme
-      )} ${isOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"}`}
+      )} ${isOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"} ${theme === "motion" ? "overflow-visible" : ""}`}
     >
       <div className="p-4 sm:p-5 flex-1 flex flex-col h-full overflow-y-auto">
         {/* Mobile Close Button */}
-        <div className="flex items-center justify-between mb-4 md:hidden">
+        <div className="flex items-center justify-between mb-4 md:hidden px-0">
           <h2
             className={`tracking-widest uppercase ${getSidebarHeaderStyles(
               theme
@@ -80,12 +80,12 @@ const Sidebar: React.FC<SidebarProps> = ({
         </h2>
 
         {/* Components List */}
-        <div className="space-y-1 overflow-y-auto pr-2 flex-1 min-w-0">
+        <div className={`space-y-1 flex-1 min-w-0 ${theme === "motion" ? "overflow-y-auto overflow-x-visible" : "overflow-y-auto"}`}>
           {filtered.map((c) => (
             <Link
               key={c.slug}
               href={`/components/${currentTheme}/${c.slug}`}
-              className={`group w-full block text-sm sm:text-base cursor-pointer transition-all ${getSidebarItemStyles(
+              className={`group block text-sm sm:text-base cursor-pointer transition-all ${getSidebarItemStyles(
                 theme,
                 c.slug === activeSlug
               )}`}
