@@ -13,81 +13,69 @@ export const MotionLoader: React.FC<MotionLoaderProps> = ({
   size = "md",
   className,
 }) => {
-  const sizeClasses = {
-    sm: "w-8 h-8",
-    md: "w-12 h-12",
-    lg: "w-16 h-16",
-  };
+  const ballCount = 5;
+  const containerWidth = size === "sm" ? 120 : size === "lg" ? 200 : 160;
+  const containerHeight = size === "sm" ? 80 : size === "lg" ? 140 : 110;
+  const ballSize = size === "sm" ? 6 : size === "lg" ? 12 : 10;
 
-  const innerSizeClasses = {
-    sm: "w-6 h-6",
-    md: "w-10 h-10",
-    lg: "w-14 h-14",
-  };
+  const colors = [
+    "from-blue-500 to-blue-600",
+    "from-blue-400 to-blue-500",
+    "from-blue-500 to-blue-600",
+    "from-blue-400 to-blue-500",
+    "from-blue-500 to-blue-600",
+  ];
 
   return (
-    <div className={cn("flex items-center justify-center", className)}>
-      <motion.div
-        className={cn(
-          "relative rounded-full bg-gradient-to-r from-blue-500 to-blue-600 shadow-lg shadow-blue-500/50",
-          sizeClasses[size]
-        )}
-        animate={{
-          scale: [1, 1.1, 1],
-          opacity: [0.8, 1, 0.8],
-          boxShadow: [
-            "0 0 20px 0 rgba(59, 130, 246, 0.5)",
-            "0 0 40px 0 rgba(59, 130, 246, 0.8)",
-            "0 0 20px 0 rgba(59, 130, 246, 0.5)",
-          ],
-        }}
-        transition={{
-          duration: 2,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
-      >
-        <motion.div
-          className={cn(
-            "absolute inset-0 rounded-full bg-gradient-to-r from-blue-400 to-blue-500",
-            innerSizeClasses[size]
-          )}
-          style={{
-            top: "50%",
-            left: "50%",
-            translateX: "-50%",
-            translateY: "-50%",
-          }}
-          animate={{
-            scale: [0.6, 0.8, 0.6],
-            opacity: [0.4, 0.2, 0.4],
-          }}
-          transition={{
-            duration: 2,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-        />
-      </motion.div>
+    <div
+      className={cn("relative", className)}
+      style={{
+        width: containerWidth,
+        height: containerHeight,
+        perspective: "1000px",
+      }}
+    >
+      {/* Juggling balls */}
+      {Array.from({ length: ballCount }).map((_, i) => {
+        const animationDelay = (i / ballCount) * 0.6;
+        const startX = -containerWidth / 2;
+        const endX = containerWidth / 2;
+
+        return (
+          <motion.div
+            key={i}
+            className={cn("absolute rounded-full bg-gradient-to-br", colors[i])}
+            style={{
+              width: ballSize,
+              height: ballSize,
+              boxShadow: `0 0 12px rgba(59, 130, 246, 0.6), inset -1px -1px 3px rgba(0, 0, 0, 0.3)`,
+            }}
+            animate={{
+              x: [startX, 0, endX],
+              y: [0, -containerHeight + 20, 0],
+              opacity: [1, 1, 1],
+            }}
+            transition={{
+              duration: 1.2,
+              repeat: Infinity,
+              ease: [0.42, 0, 0.58, 1], // Parabolic easing
+              delay: animationDelay,
+            }}
+            initial={{
+              x: startX,
+              y: 0,
+            }}
+          />
+        );
+      })}
     </div>
   );
 };
 
 export function MotionLoaderPreview() {
   return (
-    <div className="flex items-center justify-center gap-12 py-12">
-      <div className="flex flex-col items-center gap-2">
-        <MotionLoader size="sm" />
-        <span className="text-xs text-gray-500">Small</span>
-      </div>
-      <div className="flex flex-col items-center gap-2">
-        <MotionLoader size="md" />
-        <span className="text-xs text-gray-500">Medium</span>
-      </div>
-      <div className="flex flex-col items-center gap-2">
-        <MotionLoader size="lg" />
-        <span className="text-xs text-gray-500">Large</span>
-      </div>
+    <div className="flex items-center justify-center py-12">
+      <MotionLoader size="md" />
     </div>
   );
 }
