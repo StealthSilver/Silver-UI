@@ -148,7 +148,7 @@ const Navbar: React.FC<NavbarProps> = ({
   const getDropdownButtonStyles = () => {
     const themeLabel =
       THEMES.find((t) => t.id === currentTheme)?.label || "Minimalist";
-    const baseStyles = `px-3 py-2 rounded-md text-xs font-medium transition-all duration-300 flex items-center gap-2 bg-transparent text-white border border-gray-600/50 dark:border-gray-600/50 ${
+    const baseStyles = `p-2 rounded-md text-xs font-medium transition-all duration-300 flex items-center gap-1 bg-transparent text-white border border-gray-600/50 dark:border-gray-600/50 ${
       isDropdownOpen ? "bg-gray-800/50 shadow-md" : ""
     }`;
     return { styles: baseStyles, label: themeLabel };
