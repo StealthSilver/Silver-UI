@@ -120,10 +120,14 @@ export const About = () => {
                 Apply any of our 5 carefully crafted themes to transform the
                 look and feel of your components instantly.
               </p>
-            </div>
+            </motion.div>
 
             {/* Component Showcase 2 */}
-            <div className="bg-white/2 backdrop-blur-sm border border-white/10 rounded-2xl p-8 hover:border-[#0070a8]/30 transition-colors duration-300">
+            <motion.div
+              whileHover={{ y: -5 }}
+              transition={{ duration: 0.3, ease: "easeOut" }}
+              className="bg-white/2 backdrop-blur-sm border border-white/10 rounded-2xl p-8 hover:border-[#0070a8]/30 transition-colors duration-300"
+            >
               <div className="flex items-center gap-3 mb-4">
                 <Code className="w-5 h-5 text-[#0070a8]" />
                 <h4 className="text-sm font-semibold text-gray-300 font-public-sans">
@@ -134,10 +138,14 @@ export const About = () => {
                 Every component comes with clean, well-documented code that's
                 ready to be copied directly into your project.
               </p>
-            </div>
+            </motion.div>
 
             {/* Component Showcase 3 */}
-            <div className="bg-white/2 backdrop-blur-sm border border-white/10 rounded-2xl p-8 hover:border-[#0070a8]/30 transition-colors duration-300">
+            <motion.div
+              whileHover={{ y: -5 }}
+              transition={{ duration: 0.3, ease: "easeOut" }}
+              className="bg-white/2 backdrop-blur-sm border border-white/10 rounded-2xl p-8 hover:border-[#0070a8]/30 transition-colors duration-300"
+            >
               <div className="flex items-center gap-3 mb-4">
                 <Zap className="w-5 h-5 text-[#0070a8]" />
                 <h4 className="text-sm font-semibold text-gray-300 font-public-sans">
@@ -148,7 +156,7 @@ export const About = () => {
                 With full TypeScript support and flexible props, customize any
                 component to match your exact requirements.
               </p>
-            </div>
+            </motion.div>
           </motion.div>
         </div>
 
