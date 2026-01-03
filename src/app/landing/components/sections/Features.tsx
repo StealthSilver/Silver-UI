@@ -97,13 +97,13 @@ export const Features = () => {
               className="group relative"
             >
               {/* Card Background */}
-              <div className="absolute inset-0 bg-linear-to-br from-blue-500/5 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-xl" />
+              <div className="absolute inset-0 bg-linear-to-br from-[#0070a8]/5 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-xl" />
 
               {/* Card Border */}
-              <div className="relative p-6 rounded-2xl border border-white/10 hover:border-blue-400/30 transition-colors duration-300 bg-white/2 backdrop-blur-sm h-full">
+              <div className="relative p-6 rounded-2xl border border-white/10 hover:border-[#0070a8]/30 transition-colors duration-300 bg-white/2 backdrop-blur-sm h-full">
                 {/* Icon Container */}
-                <div className="mb-4 p-3 w-fit rounded-lg bg-blue-500/10 group-hover:bg-blue-500/20 transition-colors duration-300">
-                  <div className="text-blue-400 group-hover:text-blue-300 transition-colors duration-300">
+                <div className="mb-4 p-3 w-fit rounded-lg bg-[#0070a8]/10 group-hover:bg-[#0070a8]/20 transition-colors duration-300">
+                  <div className="text-[#0070a8] group-hover:text-[#008fd7] transition-colors duration-300">
                     {feature.icon}
                   </div>
                 </div>
@@ -117,7 +117,7 @@ export const Features = () => {
                 </p>
 
                 {/* Hover indicator */}
-                <div className="absolute top-0 right-0 w-24 h-24 bg-blue-400/5 rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10" />
+                <div className="absolute top-0 right-0 w-24 h-24 bg-[#0070a8]/5 rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10" />
               </div>
             </motion.div>
           ))}

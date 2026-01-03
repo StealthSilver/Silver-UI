@@ -89,7 +89,7 @@ export const About = () => {
             >
               <Link
                 href="/components"
-                className="inline-flex px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-xl transition-all duration-300 font-medium"
+                className="inline-flex px-8 py-3 bg-[#0070a8] hover:bg-[#008fd7] text-white rounded-xl transition-all duration-300 font-medium"
               >
                 Explore Components →
               </Link>
@@ -105,9 +105,13 @@ export const About = () => {
             className="space-y-8"
           >
             {/* Component Showcase 1 */}
-            <div className="bg-white/2 backdrop-blur-sm border border-white/10 rounded-2xl p-8 hover:border-blue-400/30 transition-colors duration-300">
+            <motion.div
+              whileHover={{ y: -5 }}
+              transition={{ duration: 0.3, ease: "easeOut" }}
+              className="bg-white/2 backdrop-blur-sm border border-white/10 rounded-2xl p-8 hover:border-[#0070a8]/30 transition-colors duration-300"
+            >
               <div className="flex items-center gap-3 mb-4">
-                <Sparkles className="w-5 h-5 text-blue-400" />
+                <Sparkles className="w-5 h-5 text-[#0070a8]" />
                 <h4 className="text-sm font-semibold text-gray-300 font-public-sans">
                   5 Design Themes
                 </h4>
@@ -119,9 +123,9 @@ export const About = () => {
             </div>
 
             {/* Component Showcase 2 */}
-            <div className="bg-white/2 backdrop-blur-sm border border-white/10 rounded-2xl p-8 hover:border-blue-400/30 transition-colors duration-300">
+            <div className="bg-white/2 backdrop-blur-sm border border-white/10 rounded-2xl p-8 hover:border-[#0070a8]/30 transition-colors duration-300">
               <div className="flex items-center gap-3 mb-4">
-                <Code className="w-5 h-5 text-blue-400" />
+                <Code className="w-5 h-5 text-[#0070a8]" />
                 <h4 className="text-sm font-semibold text-gray-300 font-public-sans">
                   Copy-Paste Ready
                 </h4>
@@ -133,9 +137,9 @@ export const About = () => {
             </div>
 
             {/* Component Showcase 3 */}
-            <div className="bg-white/2 backdrop-blur-sm border border-white/10 rounded-2xl p-8 hover:border-blue-400/30 transition-colors duration-300">
+            <div className="bg-white/2 backdrop-blur-sm border border-white/10 rounded-2xl p-8 hover:border-[#0070a8]/30 transition-colors duration-300">
               <div className="flex items-center gap-3 mb-4">
-                <Zap className="w-5 h-5 text-blue-400" />
+                <Zap className="w-5 h-5 text-[#0070a8]" />
                 <h4 className="text-sm font-semibold text-gray-300 font-public-sans">
                   Highly Customizable
                 </h4>
@@ -166,7 +170,7 @@ export const About = () => {
               key={index}
               className="text-center py-8 hover:bg-white/2 rounded-xl transition-colors duration-300"
             >
-              <div className="text-3xl md:text-4xl font-bold text-blue-400 mb-2">
+              <div className="text-3xl md:text-4xl font-bold text-[#0070a8] mb-2">
                 {stat.number}
               </div>
               <div className="text-gray-400 text-sm font-roboto">
@@ -174,44 +178,6 @@ export const About = () => {
               </div>
             </div>
           ))}
-        </motion.div>
-
-        {/* Component Overview Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
-          viewport={{ once: true }}
-          className="mt-20 pt-12 border-t border-white/10"
-        >
-          <h3 className="text-2xl font-semibold font-public-sans mb-8 text-center">
-            Component Library
-          </h3>
-          <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-4">
-            {[
-              { name: "Buttons", description: "Versatile & themed" },
-              { name: "Cards", description: "Rich & flexible" },
-              { name: "Inputs", description: "Interactive & validated" },
-              { name: "Loaders", description: "Animated & smooth" },
-              { name: "Switches", description: "Accessible & stylish" },
-            ].map((component, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 10 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.4, delay: index * 0.1 }}
-                viewport={{ once: true }}
-                className="bg-white/2 border border-white/10 rounded-xl p-4 text-center hover:bg-blue-500/5 hover:border-blue-400/30 transition-all duration-300"
-              >
-                <div className="font-semibold text-white font-public-sans">
-                  {component.name}
-                </div>
-                <div className="text-xs text-gray-400 mt-1 font-roboto">
-                  {component.description}
-                </div>
-              </motion.div>
-            ))}
-          </div>
         </motion.div>
       </div>
     </section>

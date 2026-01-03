@@ -7,6 +7,34 @@ import { DottedGlowBackground } from "../ui/DottedGlow";
 export const Cta = () => {
   return (
     <section className="relative flex flex-col items-center justify-center text-center max-w-7xl mx-auto px-6 py-20 bg-black text-white overflow-hidden">
+      {/* Animated background elements */}
+      <motion.div
+        animate={{
+          x: [0, 50, 0],
+          y: [0, 30, 0],
+        }}
+        transition={{
+          duration: 12,
+          repeat: Infinity,
+          repeatType: "reverse",
+          ease: "easeInOut",
+        }}
+        className="absolute top-0 left-1/4 w-96 h-96 bg-[#0070a8] rounded-full blur-[120px] opacity-5 pointer-events-none"
+      />
+      <motion.div
+        animate={{
+          x: [0, -50, 0],
+          y: [0, -30, 0],
+        }}
+        transition={{
+          duration: 14,
+          repeat: Infinity,
+          repeatType: "reverse",
+          ease: "easeInOut",
+        }}
+        className="absolute bottom-0 right-1/3 w-96 h-96 bg-cyan-500 rounded-full blur-[120px] opacity-5 pointer-events-none"
+      />
+
       <motion.h1
         initial={{ y: 10, filter: "blur(10px)", opacity: 0 }}
         animate={{ y: 0, filter: "blur(0px)", opacity: 1 }}
