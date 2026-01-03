@@ -7,20 +7,6 @@ import { DottedGlowBackground } from "../ui/DottedGlow";
 export const Cta = () => {
   return (
     <section className="relative flex flex-col items-center justify-center text-center max-w-7xl mx-auto px-6 py-20 bg-black text-white overflow-hidden">
-      <DottedGlowBackground
-        className="absolute inset-0 pointer-events-none mask-radial-to-75% mask-radial-at-center opacity-5 sm:opacity-20 dark:opacity-70"
-        opacity={1}
-        gap={4}
-        radius={1.2}
-        colorLightVar="--color-neutral-600"
-        glowColorLightVar="--color-neutral-300"
-        colorDarkVar="--color-neutral-400"
-        glowColorDarkVar="--color-neutral-100"
-        backgroundOpacity={0}
-        speedMin={0.3}
-        speedMax={0.9}
-        speedScale={1}
-      />
       <motion.h1
         initial={{ y: 10, filter: "blur(10px)", opacity: 0 }}
         animate={{ y: 0, filter: "blur(0px)", opacity: 1 }}
