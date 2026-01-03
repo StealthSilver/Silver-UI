@@ -28,16 +28,16 @@ export const MotionLoader: React.FC<MotionLoaderProps> = ({
 
   return (
     <div
-      className={cn("relative", className)}
+      className={cn("relative flex items-center justify-center", className)}
       style={{
         width: containerWidth,
         height: containerHeight,
         perspective: "1000px",
       }}
     >
-      {/* Juggling balls */}
+      {/* Bouncing balls */}
       {Array.from({ length: ballCount }).map((_, i) => {
-        const animationDelay = (i / ballCount) * 0.6;
+        const animationDelay = (i / ballCount) * 0.4;
         const startX = -containerWidth / 2;
         const endX = containerWidth / 2;
 
@@ -51,19 +51,17 @@ export const MotionLoader: React.FC<MotionLoaderProps> = ({
               boxShadow: `0 0 12px rgba(59, 130, 246, 0.6), inset -1px -1px 3px rgba(0, 0, 0, 0.3)`,
             }}
             animate={{
-              x: [startX, 0, endX],
-              y: [0, -containerHeight + 20, 0],
-              opacity: [1, 1, 1],
+              x: [startX, endX, startX],
             }}
             transition={{
-              duration: 1.2,
+              duration: 1.6,
               repeat: Infinity,
-              ease: [0.42, 0, 0.58, 1], // Parabolic easing
+              ease: "easeInOut",
               delay: animationDelay,
+              times: [0, 0.5, 1],
             }}
             initial={{
               x: startX,
-              y: 0,
             }}
           />
         );
