@@ -241,8 +241,66 @@ const Navbar: React.FC<NavbarProps> = ({
             </a>
           </div>
 
-          {/* Right section - Social Links */}
+          {/* Right section - Theme Dropdown and Social Links */}
           <div className="flex items-center gap-2">
+            {/* Theme Dropdown */}
+            <div className="relative" ref={dropdownRef}>
+              <button
+                onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                className={getDropdownButtonStyles().styles}
+              >
+                <svg
+                  className={`w-4 h-4 transition-transform ${
+                    isDropdownOpen ? "rotate-180" : ""
+                  }`}
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M19 9l-7 7-7-7"
+                  />
+                </svg>
+              </button>
+
+              {isDropdownOpen && (
+                <div
+                  className={`absolute top-full right-0 mt-2 min-w-48 ${getDropdownMenuStyles()} z-50 overflow-visible`}
+                >
+                  {THEMES.map((t) => (
+                    <div key={t.id} className="relative group">
+                      <button
+                        onClick={() => {
+                          if (!t.disabled) {
+                            handleThemeChange(t.id);
+                            setIsDropdownOpen(false);
+                          }
+                        }}
+                        disabled={t.disabled}
+                        className={`${getDropdownItemStyles(
+                          t.id === currentTheme
+                        )} ${
+                          t.disabled ? "opacity-50 cursor-not-allowed" : ""
+                        } flex items-center justify-start w-full`}
+                        title={t.disabled ? `${t.label} (disabled)` : t.label}
+                      >
+                        <span>{t.label}</span>
+                      </button>
+                      {t.disabled && (
+                        <div className="absolute bottom-full right-0 mb-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none">
+                          <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-semibold bg-gray-700 text-gray-100 whitespace-nowrap">
+                            Coming soon
+                          </span>
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
             <a
               href="https://x.com/silver_srs"
               target="_blank"
@@ -295,7 +353,7 @@ const Navbar: React.FC<NavbarProps> = ({
           </div>
           <div className="flex items-center gap-4 flex-1 justify-end">
             {/* Theme Dropdown */}
-            <div className="hidden lg:block relative" ref={dropdownRef}>
+            <div className="relative" ref={dropdownRef}>
               <button
                 onClick={() => setIsDropdownOpen(!isDropdownOpen)}
                 className={getDropdownButtonStyles().styles}
