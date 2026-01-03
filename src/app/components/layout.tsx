@@ -87,14 +87,14 @@ export default function ComponentsLayout({
 
       {theme === "motion" && (
         <>
-          <div className="fixed top-10 right-10 w-2 h-2 bg-blue-500 rounded-full animate-ping" />
+          {/* Left side - 1 dot */}
+          <div className="fixed top-1/3 left-20 w-24 h-24 bg-blue-500/40 rounded-full blur-3xl animate-pulse" />
+
+          {/* Right side - 2 dots */}
+          <div className="fixed top-1/4 right-20 w-32 h-32 bg-indigo-500/30 rounded-full blur-3xl animate-pulse" />
           <div
-            className="fixed bottom-10 left-10 w-2 h-2 bg-indigo-500 rounded-full animate-ping"
-            style={{ animationDelay: "0.5s" }}
-          />
-          <div
-            className="fixed top-1/2 right-20 w-2 h-2 bg-purple-500 rounded-full animate-ping"
-            style={{ animationDelay: "1s" }}
+            className="fixed bottom-1/4 right-10 w-28 h-28 bg-purple-500/35 rounded-full blur-3xl animate-pulse"
+            style={{ animationDelay: "0.7s" }}
           />
         </>
       )}
