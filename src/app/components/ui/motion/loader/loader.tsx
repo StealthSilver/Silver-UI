@@ -13,6 +13,7 @@ export const MotionLoader: React.FC<MotionLoaderProps> = ({
   size = "md",
   className,
 }) => {
+  const dotCount = 12;
   const sizeClasses = {
     sm: "w-8 h-8",
     md: "w-12 h-12",
@@ -20,67 +21,70 @@ export const MotionLoader: React.FC<MotionLoaderProps> = ({
   };
 
   const dotSizeClasses = {
-    sm: "w-1.5 h-1.5",
-    md: "w-2 h-2",
-    lg: "w-3 h-3",
+    sm: "w-1 h-1",
+    md: "w-1.5 h-1.5",
+    lg: "w-2 h-2",
   };
 
   return (
     <div className={cn("flex items-center justify-center", className)}>
-      <div className={cn("relative", sizeClasses[size])}>
-        {/* Outer rotating gradient ring */}
-        <motion.div
-          className={cn(
-            "absolute inset-0 rounded-full border-2 border-transparent",
-            "bg-gradient-to-r from-blue-500 to-blue-500 bg-clip-border",
-            "shadow-lg shadow-blue-500/50"
-          )}
-          animate={{ rotate: 360 }}
-          transition={{
-            duration: 2,
-            repeat: Infinity,
-            ease: "linear",
-          }}
-        >
-          {/* Border mask effect */}
-          <div className="absolute inset-0.5 bg-neutral-900 rounded-full" />
-          <div className="absolute inset-1 rounded-full border border-blue-400/50" />
-        </motion.div>
+      <motion.div
+        className={cn("relative", sizeClasses[size])}
+        animate={{ rotate: 360 }}
+        transition={{
+          duration: 3,
+          repeat: Infinity,
+          ease: "linear",
+        }}
+      >
+        {Array.from({ length: dotCount }).map((_, i) => {
+          const angle = (i / dotCount) * 360;
+          const baseRadius = size === "sm" ? 12 : size === "lg" ? 24 : 18;
 
-        {/* Inner pulsing circle */}
-        <motion.div
-          className={cn(
-            "absolute inset-3 rounded-full",
-            "bg-gradient-to-br from-blue-500/80 to-blue-500/80",
-            "shadow-lg shadow-blue-500/40 backdrop-blur-sm"
-          )}
-          animate={{
-            scale: [0.9, 1.1, 0.9],
-            opacity: [0.6, 1, 0.6],
-          }}
-          transition={{
-            duration: 1.5,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-        />
-
-        {/* Shimmer effect overlay */}
-        <motion.div
-          className={cn(
-            "absolute inset-0 rounded-full",
-            "bg-gradient-to-r from-transparent via-white/20 to-transparent"
-          )}
-          animate={{
-            rotate: 360,
-          }}
-          transition={{
-            duration: 3,
-            repeat: Infinity,
-            ease: "linear",
-          }}
-        />
-      </div>
+          return (
+            <motion.div
+              key={i}
+              className={cn(
+                "absolute rounded-full",
+                "bg-blue-500 shadow-lg shadow-blue-400/50",
+                dotSizeClasses[size]
+              )}
+              style={{
+                left: "50%",
+                top: "50%",
+                translateX: "-50%",
+                translateY: "-50%",
+              }}
+              animate={{
+                x: Math.cos((angle * Math.PI) / 180) * baseRadius,
+                y: Math.sin((angle * Math.PI) / 180) * baseRadius,
+                opacity: [0.2, 1, 0.2],
+                scale: [0.5, 1.2, 0.5],
+              }}
+              transition={{
+                x: {
+                  duration: 0,
+                },
+                y: {
+                  duration: 0,
+                },
+                opacity: {
+                  duration: 3,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                  delay: (i / dotCount) * 0.5,
+                },
+                scale: {
+                  duration: 3,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                  delay: (i / dotCount) * 0.5,
+                },
+              }}
+            />
+          );
+        })}
+      </motion.div>
     </div>
   );
 };

@@ -70,7 +70,7 @@ export const MotionSwitch = React.forwardRef<
             "flex items-center justify-center"
           )}
           animate={{
-            x: isOn ? 24 : 2,
+            x: isOn ? 32 : 2,
           }}
           transition={{
             type: "spring",
