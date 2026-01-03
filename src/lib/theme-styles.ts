@@ -66,34 +66,34 @@ export const getSidebarItemStyles = (
 ): string => {
   switch (theme) {
     case "minimalist":
-      return `px-3 py-2 rounded-lg text-sm font-medium transition-all duration-300 border ${
+      return `px-3 py-2 rounded-lg text-sm font-medium transition-all duration-300 border relative overflow-hidden ${
         isActive
-          ? "bg-gray-200 dark:bg-neutral-800 border-gray-300 dark:border-neutral-700 text-gray-900 dark:text-white shadow-md"
+          ? "bg-gray-200 dark:bg-neutral-800 border-gray-300 dark:border-neutral-700 text-gray-900 dark:text-white shadow-md after:absolute after:inset-0 after:bg-gradient-to-r after:from-transparent after:via-white/40 after:to-transparent after:transition-transform after:duration-600"
           : "border-transparent text-neutral-700 dark:text-neutral-200 hover:bg-gray-100 dark:hover:bg-neutral-900/60 hover:border-gray-200 dark:hover:border-neutral-700 hover:shadow-sm"
       }`;
     case "brutalist":
-      return `px-3 py-2 border-[3px] text-sm font-black uppercase transition-all duration-200 ${
+      return `px-3 py-2 border-[3px] text-sm font-black uppercase transition-all duration-200 relative overflow-hidden ${
         isActive
-          ? "bg-white text-black border-white shadow-[4px_4px_0_rgba(255,255,255,0.5)]"
-          : "text-white border-transparent hover:border-white hover:bg-white/10 hover:translate-x-1"
+          ? "bg-white text-black border-white shadow-[4px_4px_0_rgba(255,255,255,0.5)] after:absolute after:inset-0 after:bg-gradient-to-r after:from-transparent after:via-white/50 after:to-transparent after:transition-transform after:duration-600"
+          : "text-white border-transparent hover:border-white hover:bg-white/10"
       }`;
     case "maximalist":
-      return `px-3 py-2 rounded-xl text-sm font-bold transition-all duration-300 ${
+      return `px-3 py-2 rounded-xl text-sm font-bold transition-all duration-300 relative overflow-hidden ${
         isActive
-          ? "bg-white/40 shadow-[0_0_20px_rgba(255,255,255,0.5)] text-white border-2 border-white/70 scale-105"
-          : "text-white/90 hover:bg-white/20 border-2 border-transparent hover:border-white/40 hover:shadow-lg hover:scale-102"
+          ? "bg-white/40 shadow-[0_0_20px_rgba(255,255,255,0.5)] text-white border-2 border-white/70 after:absolute after:inset-0 after:bg-gradient-to-r after:from-transparent after:via-white/50 after:to-transparent after:transition-transform after:duration-600"
+          : "text-white/90 hover:bg-white/20 border-2 border-transparent hover:border-white/40 hover:shadow-lg"
       }`;
     case "neumorphic":
-      return `mx-2 my-1 px-3 py-2 rounded-2xl text-sm font-medium transition-all duration-300 ${
+      return `mx-2 my-1 px-3 py-2 rounded-2xl text-sm font-medium transition-all duration-300 relative overflow-hidden ${
         isActive
-          ? "shadow-[inset_6px_6px_12px_rgba(0,0,0,0.15),inset_-6px_-6px_12px_rgba(255,255,255,0.8)] dark:shadow-[inset_6px_6px_12px_rgba(0,0,0,0.6),inset_-6px_-6px_12px_rgba(255,255,255,0.1)] text-gray-900 dark:text-white font-semibold"
+          ? "shadow-[inset_6px_6px_12px_rgba(0,0,0,0.15),inset_-6px_-6px_12px_rgba(255,255,255,0.8)] dark:shadow-[inset_6px_6px_12px_rgba(0,0,0,0.6),inset_-6px_-6px_12px_rgba(255,255,255,0.1)] text-gray-900 dark:text-white font-semibold after:absolute after:inset-0 after:bg-gradient-to-r after:from-transparent after:via-white/40 after:to-transparent after:transition-transform after:duration-600"
           : "shadow-[6px_6px_12px_rgba(0,0,0,0.12),-6px_-6px_12px_rgba(255,255,255,0.8)] dark:shadow-[6px_6px_12px_rgba(0,0,0,0.4),-6px_-6px_12px_rgba(255,255,255,0.08)] hover:shadow-[3px_3px_8px_rgba(0,0,0,0.12),-3px_-3px_8px_rgba(255,255,255,0.8)] dark:hover:shadow-[3px_3px_8px_rgba(0,0,0,0.4),-3px_-3px_8px_rgba(255,255,255,0.08)] text-gray-700 dark:text-gray-200"
       }`;
     case "motion":
-      return `w-full px-4 py-3 rounded-xl text-sm font-medium transition-all duration-300 block relative group border-2 ${
+      return `w-full px-2 py-2 rounded-xl text-sm font-medium transition-all duration-300 block relative overflow-hidden border ${
         isActive
-          ? "bg-blue-500/15 text-blue-400 shadow-lg border-blue-400/40 hover:shadow-xl hover:scale-105 hover:-translate-y-0.5 overflow-hidden before:absolute before:inset-0 before:bg-gradient-to-r before:from-transparent before:via-white/30 before:to-transparent before:-translate-x-full before:group-hover:translate-x-full before:transition-transform before:duration-600 before:pointer-events-none after:absolute after:inset-0 after:bg-white/20 after:rounded-full after:blur-xl after:opacity-0 after:group-hover:opacity-100 after:transition-opacity after:duration-400"
-          : "border-gray-300 dark:border-gray-700 text-gray-700 dark:text-neutral-300 hover:border-blue-500 hover:text-blue-500 dark:hover:border-blue-400 dark:hover:text-blue-400 hover:shadow-lg hover:scale-105 overflow-hidden"
+          ? "bg-blue-500/15 text-blue-400 shadow-lg border-blue-400/30 after:absolute after:inset-0 after:bg-gradient-to-r after:from-transparent after:via-white/40 after:to-transparent after:transition-transform after:duration-600"
+          : "border-gray-300/50 dark:border-gray-700/50 text-gray-700 dark:text-neutral-300 hover:border-blue-500 hover:text-blue-500 dark:hover:border-blue-400 dark:hover:text-blue-400 hover:shadow-lg"
       }`;
     default:
       return "px-3 py-2 rounded-md text-sm font-medium";

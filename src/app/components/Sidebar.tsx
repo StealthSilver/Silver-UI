@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
@@ -27,21 +27,31 @@ const Sidebar: React.FC<SidebarProps> = ({
   onClose,
 }) => {
   const pathname = usePathname();
+  const [shineSlug, setShineSlug] = useState<string | null>(null);
 
   // Extract current theme from pathname
   const pathParts = pathname.split("/").filter(Boolean);
   const currentTheme = pathParts[1] || "minimalist";
   const theme = currentTheme as Theme;
 
+  // Trigger shine animation when active slug changes
+  useEffect(() => {
+    setShineSlug(activeSlug);
+    const timer = setTimeout(() => {
+      setShineSlug(null);
+    }, 600); // Duration of the shine animation
+    return () => clearTimeout(timer);
+  }, [activeSlug]);
+
   return (
     <aside
       className={`fixed md:relative left-0  md:top-auto h-[calc(100vh-56px)] md:h-[calc(100vh-56px)] w-72 backdrop-blur-xl transition-all duration-300 z-50 ${getSidebarStyles(
         theme
-      )} ${isOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"} ${
-        theme === "motion" ? "overflow-visible" : ""
-      }`}
+      )} ${
+        isOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"
+      } overflow-visible`}
     >
-      <div className="p-4 sm:p-5 flex-1 flex flex-col h-full overflow-y-auto">
+      <div className="p-4 sm:p-5 flex-1 flex flex-col h-full overflow-y-auto overflow-x-visible">
         {/* Mobile Close Button */}
         <div className="flex items-center justify-between mb-4 md:hidden px-0">
           <h2
@@ -83,20 +93,20 @@ const Sidebar: React.FC<SidebarProps> = ({
 
         {/* Components List */}
         <div
-          className={`space-y-1 flex-1 min-w-0 ${
-            theme === "motion"
-              ? "overflow-y-auto overflow-x-visible"
-              : "overflow-y-auto"
-          }`}
+          className={`space-y-1 flex-1 min-w-0 overflow-y-auto overflow-x-visible`}
         >
           {filtered.map((c) => (
             <Link
               key={c.slug}
               href={`/components/${currentTheme}/${c.slug}`}
-              className={`group block text-sm sm:text-base cursor-pointer transition-all ${getSidebarItemStyles(
+              className={`group block text-sm sm:text-base cursor-pointer transition-all relative overflow-hidden ${getSidebarItemStyles(
                 theme,
                 c.slug === activeSlug
-              )}`}
+              )} ${
+                c.slug === shineSlug
+                  ? "after:translate-x-full"
+                  : "after:-translate-x-full"
+              }`}
               onClick={() => {
                 // Close sidebar on mobile when a component is selected
                 if (
