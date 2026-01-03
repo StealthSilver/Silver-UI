@@ -37,11 +37,11 @@ const GitHubIcon: React.FC<{ className?: string }> = ({ className }) => (
 );
 
 const THEMES = [
-  { id: "minimalist", label: "Minimalist" },
-  { id: "brutalist", label: "Brutalist" },
-  { id: "maximalist", label: "Maximalist" },
-  { id: "neumorphic", label: "Neumorphic" },
-  { id: "motion", label: "Motion" },
+  { id: "minimalist", label: "Minimalist", disabled: false },
+  { id: "motion", label: "Motion", disabled: false },
+  { id: "brutalist", label: "Brutalist", disabled: true },
+  { id: "maximalist", label: "Maximalist", disabled: true },
+  { id: "neumorphic", label: "Neumorphic", disabled: true },
 ];
 
 interface NavbarProps {
@@ -328,11 +328,16 @@ const Navbar: React.FC<NavbarProps> = ({
                     <button
                       key={t.id}
                       onClick={() => {
-                        handleThemeChange(t.id);
-                        setIsDropdownOpen(false);
+                        if (!t.disabled) {
+                          handleThemeChange(t.id);
+                          setIsDropdownOpen(false);
+                        }
                       }}
-                      className={getDropdownItemStyles(t.id === currentTheme)}
-                      title={t.label}
+                      disabled={t.disabled}
+                      className={`${getDropdownItemStyles(
+                        t.id === currentTheme
+                      )} ${t.disabled ? "opacity-50 cursor-not-allowed" : ""}`}
+                      title={t.disabled ? `${t.label} (disabled)` : t.label}
                     >
                       {t.label}
                     </button>
