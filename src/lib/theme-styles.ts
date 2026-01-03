@@ -92,7 +92,7 @@ export const getSidebarItemStyles = (
     case "motion":
       return `px-3 py-2 rounded-lg text-sm font-medium transition-all duration-300 hover:translate-x-2 ${
         isActive
-          ? "bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/30 dark:to-indigo-900/30 border-l-4 border-blue-500 text-blue-700 dark:text-blue-300 shadow-lg scale-105"
+          ? "bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/30 dark:to-indigo-900/30 text-blue-700 dark:text-blue-300 shadow-lg scale-105 hover:shadow-[0_0_15px_rgba(59,130,246,0.5),inset_0_0_20px_rgba(59,130,246,0.2)] dark:hover:shadow-[0_0_15px_rgba(59,130,246,0.3),inset_0_0_20px_rgba(59,130,246,0.1)] relative overflow-hidden before:absolute before:inset-0 before:bg-gradient-to-r before:from-transparent before:via-white before:to-transparent before:opacity-0 before:hover:opacity-30 before:animate-shimmer"
           : "text-gray-700 dark:text-neutral-200 hover:bg-gray-100 dark:hover:bg-neutral-900/60 hover:shadow-md"
       }`;
     default:

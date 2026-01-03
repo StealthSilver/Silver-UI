@@ -185,10 +185,8 @@ const Navbar: React.FC<NavbarProps> = ({
             : "shadow-[6px_6px_12px_rgba(0,0,0,0.12),-6px_-6px_12px_rgba(255,255,255,0.8)] dark:shadow-[6px_6px_12px_rgba(0,0,0,0.4),-6px_-6px_12px_rgba(255,255,255,0.08)] hover:shadow-[3px_3px_8px_rgba(0,0,0,0.12),-3px_-3px_8px_rgba(255,255,255,0.8)] dark:hover:shadow-[3px_3px_8px_rgba(0,0,0,0.4),-3px_-3px_8px_rgba(255,255,255,0.08)] text-gray-700 dark:text-gray-200"
         }`;
       case "motion":
-        return `w-full block px-4 py-2.5 rounded-lg text-xs font-medium transition-all duration-300 ${
-          isActive
-            ? "bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/30 dark:to-indigo-900/30 border-l-4 border-blue-500 text-blue-700 dark:text-blue-300 shadow-lg"
-            : "text-gray-700 dark:text-neutral-200 hover:bg-gray-100 dark:hover:bg-neutral-900/60 hover:shadow-md"
+        return `w-full block px-4 py-2.5 text-left text-xs font-medium transition-all duration-300 text-white ${
+          isActive ? "bg-blue-500/20 text-white" : "hover:bg-blue-500/15"
         }`;
       default:
         return "w-full block px-4 py-2.5 text-xs font-medium text-left transition-colors cursor-pointer";
