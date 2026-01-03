@@ -193,6 +193,19 @@ body {
   animation: shimmer 2s infinite;
 }
 
+@keyframes ripple {
+  0% {
+    width: 10px;
+    height: 10px;
+    opacity: 1;
+  }
+  100% {
+    width: 200px;
+    height: 200px;
+    opacity: 0;
+  }
+}
+
 .bg-gradient-radial {
   background: radial-gradient(circle, var(--tw-gradient-stops));
 }

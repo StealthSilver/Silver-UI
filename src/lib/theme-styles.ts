@@ -54,7 +54,7 @@ export const getSidebarStyles = (theme: Theme): string => {
     case "neumorphic":
       return "bg-gray-200 dark:bg-neutral-800 border-none shadow-[8px_0_32px_rgba(0,0,0,0.06)] dark:shadow-[8px_0_32px_rgba(0,0,0,0.3)]";
     case "motion":
-      return "bg-gray-50/80 dark:bg-neutral-950/80 border-r border-neutral-100 dark:border-neutral-800 backdrop-blur-xl transition-all duration-500 hover:shadow-2xl";
+      return "bg-gradient-to-b from-neutral-900/80 via-neutral-800/70 to-neutral-900/80 border-r border-neutral-700/30 backdrop-blur-xl transition-all duration-500 hover:shadow-2xl";
     default:
       return "bg-gray-50 dark:bg-neutral-950/90 border-r border-neutral-800";
   }
@@ -90,10 +90,10 @@ export const getSidebarItemStyles = (
           : "shadow-[6px_6px_12px_rgba(0,0,0,0.12),-6px_-6px_12px_rgba(255,255,255,0.8)] dark:shadow-[6px_6px_12px_rgba(0,0,0,0.4),-6px_-6px_12px_rgba(255,255,255,0.08)] hover:shadow-[3px_3px_8px_rgba(0,0,0,0.12),-3px_-3px_8px_rgba(255,255,255,0.8)] dark:hover:shadow-[3px_3px_8px_rgba(0,0,0,0.4),-3px_-3px_8px_rgba(255,255,255,0.08)] text-gray-700 dark:text-gray-200"
       }`;
     case "motion":
-      return `px-3 py-2 rounded-lg text-sm font-medium transition-all duration-300 hover:translate-x-2 ${
+      return `px-3 py-2 rounded-xl text-sm font-medium transition-all duration-300 ${
         isActive
-          ? "bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/30 dark:to-indigo-900/30 text-blue-700 dark:text-blue-300 shadow-lg scale-105 hover:shadow-[0_0_15px_rgba(59,130,246,0.5),inset_0_0_20px_rgba(59,130,246,0.2)] dark:hover:shadow-[0_0_15px_rgba(59,130,246,0.3),inset_0_0_20px_rgba(59,130,246,0.1)] relative overflow-hidden before:absolute before:inset-0 before:bg-gradient-to-r before:from-transparent before:via-white before:to-transparent before:opacity-0 before:hover:opacity-30 before:animate-shimmer"
-          : "text-gray-700 dark:text-neutral-200 hover:bg-gray-100 dark:hover:bg-neutral-900/60 hover:shadow-md"
+          ? "bg-blue-500 text-white shadow-lg hover:shadow-[0_0_15px_rgba(59,130,246,0.5)] hover:scale-105 hover:-translate-y-0.5 relative overflow-hidden group before:absolute before:inset-0 before:bg-gradient-to-r before:from-transparent before:via-white/20 before:to-transparent before:opacity-0 before:group-hover:opacity-100 before:transition-opacity before:duration-400"
+          : "text-gray-300 dark:text-neutral-300 hover:bg-neutral-700/50 hover:text-white hover:shadow-md hover:translate-x-1 relative overflow-hidden group before:absolute before:inset-0 before:bg-white/10 before:rounded-full before:blur-xl before:opacity-0 before:group-hover:opacity-100 before:transition-opacity before:duration-400"
       }`;
     default:
       return "px-3 py-2 rounded-md text-sm font-medium";

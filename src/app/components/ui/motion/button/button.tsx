@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { Heart, Send, ArrowRight } from "lucide-react";
 
 export interface ButtonProps {
@@ -39,6 +39,66 @@ export const MotionButton: React.FC<ButtonProps> = ({
   );
 };
 
+// Like button component with bounce and ripple effect
+interface LikeButtonProps {
+  className?: string;
+}
+
+const LikeButton: React.FC<LikeButtonProps> = ({ className = "" }) => {
+  const [isLiked, setIsLiked] = useState(false);
+  const [ripples, setRipples] = useState<
+    Array<{ id: number; x: number; y: number }>
+  >([]);
+
+  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    // Toggle liked state
+    setIsLiked(!isLiked);
+
+    // Create ripple effect
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const id = Date.now();
+
+    setRipples([...ripples, { id, x, y }]);
+
+    // Remove ripple after animation
+    setTimeout(() => {
+      setRipples((prev) => prev.filter((r) => r.id !== id));
+    }, 600);
+  };
+
+  return (
+    <button
+      onClick={handleClick}
+      className={`px-4 py-4 bg-blue-500 text-white rounded-xl hover:shadow-xl hover:scale-110 relative overflow-hidden group transition-all duration-300 ${className}`}
+    >
+      {/* Ripple effects */}
+      {ripples.map((ripple) => (
+        <span
+          key={ripple.id}
+          className="absolute bg-white/40 rounded-full animate-ripple pointer-events-none"
+          style={{
+            left: `${ripple.x}px`,
+            top: `${ripple.y}px`,
+            width: "10px",
+            height: "10px",
+            transform: "translate(-50%, -50%)",
+            animation: "ripple 0.6s ease-out",
+          }}
+        />
+      ))}
+
+      <Heart
+        className={`w-5 h-5 relative z-10 transition-all duration-300 ${
+          isLiked ? "animate-bounce fill-white" : ""
+        }`}
+        fill={isLiked ? "white" : "none"}
+      />
+    </button>
+  );
+};
+
 // Example usage component for preview
 export function MotionButtonPreview() {
   return (
@@ -55,9 +115,7 @@ export function MotionButtonPreview() {
           <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
         </span>
       </MotionButton>
-      <MotionButton variant="icon">
-        <Heart className="w-5 h-5 group-hover:rotate-12 group-hover:scale-110 transition-transform" />
-      </MotionButton>
+      <LikeButton />
     </div>
   );
 }
