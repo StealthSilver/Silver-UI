@@ -17,10 +17,7 @@ export const MotionSwitch = React.forwardRef<
 
   return (
     <motion.div
-      className={cn(
-        "flex items-center gap-4 group cursor-pointer",
-        className
-      )}
+      className={cn("flex items-center gap-4 group cursor-pointer", className)}
       onClick={() => setIsOn(!isOn)}
       whileTap={{ scale: 0.98 }}
       initial={{ opacity: 0, y: 10 }}
@@ -33,7 +30,7 @@ export const MotionSwitch = React.forwardRef<
           "relative w-14 h-7 rounded-xl overflow-hidden transition-all duration-500",
           "border border-neutral-700/50",
           isOn
-            ? "bg-gradient-to-r from-blue-500/30 to-purple-600/30 border-blue-500/50"
+            ? "bg-gradient-to-r from-blue-500/30 to-blue-500/30 border-blue-500/50"
             : "bg-gradient-to-r from-neutral-800/50 to-neutral-700/50 border-neutral-600/50"
         )}
         animate={{
@@ -80,22 +77,7 @@ export const MotionSwitch = React.forwardRef<
             stiffness: 400,
             damping: 25,
           }}
-        >
-          {/* Inner dot animation */}
-          <motion.div
-            className="w-1.5 h-1.5 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full"
-            animate={{
-              scale: isOn ? [1, 1.3, 1] : 0,
-              opacity: isOn ? 1 : 0,
-            }}
-            transition={{
-              duration: 0.6,
-              repeat: Infinity,
-              ease: "easeInOut",
-              delay: 0.2,
-            }}
-          />
-        </motion.div>
+        />
 
         {/* Pulse effect when on */}
         {isOn && (
