@@ -37,7 +37,9 @@ const Sidebar: React.FC<SidebarProps> = ({
     <aside
       className={`fixed md:relative left-0  md:top-auto h-[calc(100vh-56px)] md:h-[calc(100vh-56px)] w-72 backdrop-blur-xl transition-all duration-300 z-50 ${getSidebarStyles(
         theme
-      )} ${isOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"} ${theme === "motion" ? "overflow-visible" : ""}`}
+      )} ${isOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"} ${
+        theme === "motion" ? "overflow-visible" : ""
+      }`}
     >
       <div className="p-4 sm:p-5 flex-1 flex flex-col h-full overflow-y-auto">
         {/* Mobile Close Button */}
@@ -80,7 +82,13 @@ const Sidebar: React.FC<SidebarProps> = ({
         </h2>
 
         {/* Components List */}
-        <div className={`space-y-1 flex-1 min-w-0 ${theme === "motion" ? "overflow-y-auto overflow-x-visible" : "overflow-y-auto"}`}>
+        <div
+          className={`space-y-1 flex-1 min-w-0 ${
+            theme === "motion"
+              ? "overflow-y-auto overflow-x-visible"
+              : "overflow-y-auto"
+          }`}
+        >
           {filtered.map((c) => (
             <Link
               key={c.slug}

@@ -2,140 +2,153 @@
 
 import React, { useState } from "react";
 import { cn } from "@/lib/utils";
-import { Search, Mail, AlertCircle, CheckCircle } from "lucide-react";
 import { motion } from "framer-motion";
 
 export interface MotionInputProps
   extends React.InputHTMLAttributes<HTMLInputElement> {
   icon?: React.ReactNode;
-  validation?: boolean;
   label?: string;
+  error?: boolean;
+  helperText?: string;
 }
 
 export const MotionInput: React.FC<MotionInputProps> = ({
   className,
   type = "text",
+  label,
+  error = false,
+  helperText,
   ...props
 }) => {
-  const [value, setValue] = useState("");
-  const [focused, setFocused] = useState(false);
-  const [email, setEmail] = useState("");
-  const [emailValid, setEmailValid] = useState<boolean | null>(null);
+  const [isFocused, setIsFocused] = useState(false);
+  const [hasValue, setHasValue] = useState(false);
 
-  const validateLocalEmail = (val: string) => {
-    if (!val) {
-      setEmailValid(null);
-      return;
-    }
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    setEmailValid(emailRegex.test(val));
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setHasValue(e.target.value.length > 0);
+    props.onChange?.(e);
+  };
+
+  const handleFocus = (e: React.FocusEvent<HTMLInputElement>) => {
+    setIsFocused(true);
+    props.onFocus?.(e);
+  };
+
+  const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+    setIsFocused(false);
+    props.onBlur?.(e);
   };
 
   return (
-    <div className="max-w-md space-y-8">
-      <div className="relative">
+    <motion.div
+      className="relative w-full group"
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.3, ease: "easeOut" }}
+    >
+      {/* Label with motion */}
+      {label && (
         <motion.label
-          className="absolute left-4 text-gray-500 pointer-events-none"
+          className="block text-sm font-medium text-gray-400 mb-2 group-focus-within:text-blue-400 transition-colors duration-200"
           initial={false}
           animate={{
-            top: focused || value ? "-8px" : "16px",
-            fontSize: focused || value ? "12px" : "16px",
-            color: focused ? "#3b82f6" : "#6b7280",
-            fontWeight: focused || value ? "500" : "400",
+            opacity: 1,
+            y: 0,
           }}
-          transition={{ duration: 0.2, ease: "easeOut" }}
-        >
-          Enter your search query
-        </motion.label>
-        <input
-          type="text"
-          value={value}
-          onChange={(e) => setValue(e.target.value)}
-          onFocus={() => setFocused(true)}
-          onBlur={() => setFocused(false)}
-          className="w-full px-4 py-4 border-b-2 border-gray-300 bg-transparent text-gray-900 placeholder-transparent focus:outline-none focus:border-blue-500 transition-all duration-300"
-        />
-        <motion.div
-          className="absolute bottom-0 left-0 h-[2px] bg-gradient-to-r from-blue-500 to-purple-600"
-          initial={{ width: "0%", left: "50%" }}
-          animate={{
-            width: focused ? "100%" : "0%",
-            left: focused ? "0%" : "50%",
-          }}
-          transition={{ duration: 0.3, ease: "easeOut" }}
-        />
-        <motion.div
-          className="absolute right-4 top-1/2 -translate-y-1/2"
-          initial={{ opacity: 0, scale: 0 }}
-          animate={{ opacity: focused ? 1 : 0, scale: focused ? 1 : 0 }}
           transition={{ duration: 0.2 }}
         >
-          <Search className="w-5 h-5 text-blue-500" />
-        </motion.div>
-      </div>
-
-      <div className="relative">
-        <motion.label
-          className="absolute left-4 text-gray-500 pointer-events-none"
-          initial={false}
-          animate={{
-            top: email ? "-8px" : "16px",
-            fontSize: email ? "12px" : "16px",
-            color:
-              emailValid === true
-                ? "#10b981"
-                : emailValid === false
-                ? "#ef4444"
-                : "#6b7280",
-            fontWeight: email ? "500" : "400",
-          }}
-          transition={{ duration: 0.2, ease: "easeOut" }}
-        >
-          Email address
+          {label}
         </motion.label>
-        <input
-          type="email"
-          value={email}
-          onChange={(e) => {
-            setEmail(e.target.value);
-            validateLocalEmail(e.target.value);
-          }}
-          className="w-full px-4 py-4 border-b-2 border-gray-300 bg-transparent text-gray-900 placeholder-transparent focus:outline-none focus:border-blue-500 transition-all duration-300"
-        />
-        <motion.div
-          className={`absolute bottom-0 left-0 h-[2px] ${
-            emailValid === true
-              ? "bg-green-500"
-              : emailValid === false
-              ? "bg-red-500"
-              : "bg-gray-300"
-          }`}
-          animate={{ width: email ? "100%" : "0%" }}
-          transition={{ duration: 0.3, ease: "easeOut" }}
-        />
-        {email && (
-          <motion.div
-            className="absolute right-4 top-1/2 -translate-y-1/2"
-            initial={{ opacity: 0, scale: 0, rotate: -180 }}
-            animate={{ opacity: 1, scale: 1, rotate: 0 }}
-            transition={{ type: "spring", stiffness: 500, damping: 25 }}
-          >
-            {emailValid === true ? (
-              <CheckCircle className="w-5 h-5 text-green-500" />
-            ) : emailValid === false ? (
-              <AlertCircle className="w-5 h-5 text-red-500" />
-            ) : null}
-          </motion.div>
+      )}
+
+      {/* Main input container with gradient background */}
+      <motion.div
+        className={cn(
+          "relative rounded-xl p-0.5 overflow-hidden transition-all duration-300",
+          error && "ring-2 ring-red-500/50"
         )}
-      </div>
-    </div>
+        animate={{
+          background: isFocused
+            ? "linear-gradient(135deg, rgba(59, 130, 246, 0.3), rgba(59, 130, 246, 0.3))"
+            : error
+            ? "linear-gradient(135deg, rgba(239, 68, 68, 0.1), rgba(239, 68, 68, 0.1))"
+            : "linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(59, 130, 246, 0.1))",
+        }}
+        transition={{ duration: 0.3 }}
+      >
+        <div
+          className={cn(
+            "relative bg-gradient-to-br from-neutral-900 via-neutral-800/50 to-neutral-900 rounded-lg overflow-hidden",
+            "border border-neutral-700/50 transition-all duration-300",
+            isFocused && "border-blue-500/50",
+            error && "border-red-500/50"
+          )}
+        >
+          {/* Shimmer effect on hover */}
+          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700 pointer-events-none" />
+
+          {/* Glow effect on focus */}
+          <motion.div
+            className="absolute -inset-1 bg-blue-500 rounded-lg blur-xl opacity-0 -z-10"
+            animate={{
+              opacity: isFocused ? 0.2 : 0,
+              scale: isFocused ? 1 : 0.95,
+            }}
+            transition={{ duration: 0.3 }}
+          />
+
+          {/* Input field */}
+          <input
+            type={type}
+            className={cn(
+              "relative w-full px-4 py-3 bg-transparent text-white placeholder-gray-500",
+              "focus:outline-none transition-all duration-300",
+              "font-medium text-sm",
+              error && "text-red-400"
+            )}
+            onChange={handleChange}
+            onFocus={handleFocus}
+            onBlur={handleBlur}
+            {...props}
+          />
+
+          {/* Animated underline */}
+          <motion.div
+            className={cn(
+              "absolute bottom-0 left-0 h-[2px]",
+              error ? "bg-red-500" : "bg-blue-500"
+            )}
+            initial={{ width: "0%", left: "50%" }}
+            animate={{
+              width: isFocused ? "100%" : "0%",
+              left: isFocused ? "0%" : "50%",
+            }}
+            transition={{ duration: 0.3, ease: "easeOut" }}
+          />
+        </div>
+      </motion.div>
+
+      {/* Helper text with motion */}
+      {helperText && (
+        <motion.p
+          className={cn(
+            "mt-2 text-xs transition-colors duration-200",
+            error ? "text-red-400" : "text-gray-400"
+          )}
+          initial={{ opacity: 0, y: -5 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.2, delay: 0.05 }}
+        >
+          {helperText}
+        </motion.p>
+      )}
+    </motion.div>
   );
 };
 
 export function MotionInputPreview() {
   return (
     <div className="flex justify-center">
-      <MotionInput />
+      <MotionInput placeholder="Enter your search query" />
     </div>
   );
 }
