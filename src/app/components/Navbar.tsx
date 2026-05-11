@@ -228,16 +228,20 @@ const Navbar: React.FC<NavbarProps> = ({
 
             <a
               href="/"
-              className={`flex items-center gap-2 transition-opacity hover:opacity-80`}
+              className={`flex items-center gap-2 transition-opacity hover:opacity-80 select-none`}
+              aria-label="Silver UI"
             >
               <Image
                 src="/logo.svg"
-                width={80}
-                height={28}
-                alt="Logo"
+                width={24}
+                height={24}
+                alt="Silver UI logo"
                 priority
-                className="brightness-0 invert w-auto"
+                className="brightness-0 invert shrink-0"
               />
+              <span className="text-white font-semibold tracking-tight text-sm">
+                Silver UI
+              </span>
             </a>
           </div>
 
@@ -339,16 +343,20 @@ const Navbar: React.FC<NavbarProps> = ({
           <div className="flex items-center gap-3">
             <a
               href="/"
-              className={`flex items-center gap-2 transition-opacity hover:opacity-80`}
+              className={`flex items-center gap-2 transition-opacity hover:opacity-80 select-none`}
+              aria-label="Silver UI"
             >
               <Image
                 src="/logo.svg"
-                width={80}
-                height={28}
-                alt="Logo"
+                width={26}
+                height={26}
+                alt="Silver UI logo"
                 priority
-                className="brightness-0 invert"
+                className="brightness-0 invert shrink-0"
               />
+              <span className="text-white font-semibold tracking-tight text-sm">
+                Silver UI
+              </span>
             </a>
           </div>
           <div className="flex items-center gap-4 flex-1 justify-end">

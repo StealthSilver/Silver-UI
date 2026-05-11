@@ -1,5 +1,17 @@
 @import "tailwindcss";
 
+@theme {
+  --color-line: rgba(255, 255, 255, 0.14);
+  --color-background: #000000;
+  --color-muted: rgba(255, 255, 255, 0.08);
+  /* Match :root brand; enables bg-primary / bg-secondary / ring utilities */
+  --color-primary: #ffffff;
+  --color-primary-foreground: #0a0a0a;
+  --color-secondary: #0070a8;
+  --color-secondary-foreground: #ffffff;
+  --color-ring: rgba(255, 255, 255, 0.35);
+}
+
 @utility no-scrollbar {
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
@@ -54,9 +66,39 @@
   --color-primary: #ffffff;
   --color-secondary: #0070a8;
   --color-background: #000000;
+  --line: rgba(255, 255, 255, 0.14);
+  --color-line: var(--line);
   --font-primary: var(--font-ubuntu);
   --font-secondary: var(--font-roboto);
   --font-public-sans: var(--font-public-sans);
+}
+
+/* Full-bleed horizontal rules for framed header / panels (single element, no Tailwind `after:` clash) */
+.screen-line-edges {
+  position: relative;
+}
+
+.screen-line-edges::before,
+.screen-line-edges::after {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  height: 1px;
+  left: 50%;
+  /* Prefer dvi over vw so width matches layout viewport (no extra horizontal scroll from scrollbar) */
+  width: 100vw;
+  width: 100dvi;
+  transform: translateX(-50%);
+  background-color: var(--line);
+  pointer-events: none;
+}
+
+.screen-line-edges::before {
+  top: 0;
+}
+
+.screen-line-edges::after {
+  bottom: 0;
 }
 
 /* Theme-specific animations */
@@ -139,6 +181,13 @@
 
 .scale-103 {
   transform: scale(1.03);
+}
+
+html {
+  /* Prevent 100vw / full-bleed pseudo lines from causing horizontal scroll */
+  overflow-x: hidden;
+  /* Keeps centered layout from jumping when vertical scrollbar appears */
+  scrollbar-gutter: stable;
 }
 
 html,

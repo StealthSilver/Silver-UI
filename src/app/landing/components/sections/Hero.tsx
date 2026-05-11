@@ -8,7 +8,7 @@ import { motion } from "motion/react";
 
 export const Hero = () => {
   return (
-    <section className="relative flex flex-col items-center justify-center text-center min-h-screen px-6 pt-[100px] bg-black text-white overflow-hidden">
+    <section className="relative flex min-h-[calc(100dvh-4.5rem)] flex-col items-center justify-center overflow-hidden bg-black px-6 py-16 text-center text-white md:py-20">
       <Spotlight />
 
       <motion.h1

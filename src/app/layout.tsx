@@ -4,30 +4,18 @@ import "./globals.css";
 import { ThemeProvider } from "next-themes";
 import ThemeHeadIcons from "./landing/components/ThemeHeadIcon";
 import ClientWrapper from "./landing/components/ClientWrapper";
-import { Ubuntu, Roboto, Public_Sans } from "next/font/google";
+import { IBM_Plex_Sans } from "next/font/google";
 
-const ubuntu = Ubuntu({
+const ibmPlexSans = IBM_Plex_Sans({
   subsets: ["latin"],
-  weight: ["400", "500", "700"],
-  variable: "--font-ubuntu",
-});
-
-const roboto = Roboto({
-  subsets: ["latin"],
-  weight: ["400", "500", "700"],
-  variable: "--font-roboto",
-});
-
-const publicSans = Public_Sans({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  variable: "--font-public-sans",
+  weight: ["300", "400", "500", "600", "700"],
+  variable: "--font-ibm-plex-sans",
 });
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.url),
   title: {
-    default: `Silver UI | Not your orthodox component library`,
+    default: `Silver UI - Not your orthodox component library`,
     template: `%s | ${SITE.name}`,
   },
   description: SITE.description,
@@ -66,12 +54,12 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${ubuntu.variable} ${roboto.variable} ${publicSans.variable}`}
+      className={ibmPlexSans.variable}
     >
       <head>
         <ThemeHeadIcons />
       </head>
-      <body>
+      <body className={ibmPlexSans.className}>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"

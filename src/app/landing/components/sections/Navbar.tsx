@@ -1,46 +1,264 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import {
+  useState,
+  useEffect,
+  useId,
+  useRef,
+  type CSSProperties,
+} from "react";
 import Image from "next/image";
+import { Menu, X } from "lucide-react";
 import Link from "next/link";
-import { GithubLink, TwitterLink } from "../ui/SocialsButton";
+import { usePathname } from "next/navigation";
+import { AnimatePresence, motion } from "motion/react";
+import { cn } from "@/lib/utils";
+import { GetFullAccessButton } from "../ui/GetFullAccessButton";
+
+const navItems = [
+  { href: "/components", label: "Components" },
+  { href: "/blocks", label: "Blocks" },
+  { href: "/templates", label: "Templates" },
+  { href: "/lab", label: "Lab" },
+  { href: "/construct", label: "Construct" },
+  { href: "/docs", label: "Docs" },
+] as const;
+
+const mobileMenuEase = [0.16, 1, 0.3, 1] as const;
+const mobileMenuTransition = {
+  duration: 0.38,
+  ease: mobileMenuEase,
+} as const;
+
+const navLinkStyle: CSSProperties = {
+  color: "rgba(255, 255, 255, 0.58)",
+};
+
+function NavPrimaryLink({
+  href,
+  label,
+  className,
+  style,
+  onClick,
+}: {
+  href: string;
+  label: string;
+  className?: string;
+  style?: CSSProperties;
+  onClick?: () => void;
+}) {
+  return (
+    <Link
+      href={href}
+      className={className}
+      style={style}
+      onClick={onClick}
+    >
+      {label}
+    </Link>
+  );
+}
 
 export default function Navbar() {
-  const [scrolled, setScrolled] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const mobileNavId = useId();
+  const bodyOverflowBeforeMenu = useRef<string | null>(null);
+  const pathname = usePathname();
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 8);
+    setMobileOpen(false);
+  }, [pathname]);
+
+  useEffect(() => {
+    if (!mobileOpen) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setMobileOpen(false);
     };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [mobileOpen]);
+
+  useEffect(() => {
+    if (!mobileOpen) return;
+    bodyOverflowBeforeMenu.current = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+  }, [mobileOpen]);
+
+  useEffect(() => {
+    return () => {
+      if (bodyOverflowBeforeMenu.current != null) {
+        document.body.style.overflow = bodyOverflowBeforeMenu.current;
+        bodyOverflowBeforeMenu.current = null;
+      }
+    };
   }, []);
 
   return (
-    <nav
-      className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 py-4 ${
-        scrolled
-          ? "backdrop-blur-md bg-neutral/10 border-b border-white/10"
-          : "bg-transparent border-b border-transparent"
-      }`}
-    >
-      <div className="max-w-7xl mx-auto flex items-center justify-between px-4 h-full">
-        <Link href="/">
-          <Image
-            src="/logo.svg"
-            alt="Logo"
-            width={120}
-            height={40}
-            className="cursor-pointer"
-            priority
-          />
-        </Link>
+    <>
+      <header className="sticky top-0 z-50 w-full min-w-0 overflow-x-clip bg-background px-2 pt-2">
+        <div className="mx-auto w-full min-w-0 max-w-7xl">
+          <div
+            className="screen-line-edges relative flex h-12 min-w-0 items-center justify-between gap-2 border-x border-line px-2 sm:gap-4"
+            style={{ borderColor: "var(--line)" }}
+          >
+            <Link
+              className="flex min-w-0 shrink-0 select-none items-center gap-2 transition-transform ease-out active:scale-[0.98]"
+              href="/"
+              aria-label="Silver UI"
+            >
+              <Image
+                src="/logo.svg"
+                alt="Silver UI logo"
+                width={24}
+                height={24}
+                className="h-6 w-6 shrink-0"
+                priority
+              />
+              <span className="truncate text-sm font-semibold tracking-tight text-white">
+                Silver UI
+              </span>
+            </Link>
 
-        <div className="flex items-center gap-3">
-          <GithubLink />
-          <TwitterLink />
+            <div className="flex min-w-0 shrink-0 items-center justify-end gap-2 sm:gap-3 md:gap-4">
+              <nav
+                className={cn(
+                  "no-scrollbar hidden items-center gap-4 overflow-x-auto py-1 text-sm sm:flex md:gap-6 md:py-0",
+                )}
+                aria-label="Primary"
+              >
+                {navItems.map(({ href, label }) => (
+                  <NavPrimaryLink
+                    key={href}
+                    href={href}
+                    label={label}
+                    className="shrink-0 transition-opacity hover:opacity-80"
+                    style={navLinkStyle}
+                  />
+                ))}
+              </nav>
+
+              <GetFullAccessButton variant="nav" />
+
+              <button
+                type="button"
+                onClick={() => setMobileOpen((o) => !o)}
+                className="rounded-md p-2 transition-transform ease-out hover:bg-muted active:scale-[0.98] sm:hidden"
+                aria-label={mobileOpen ? "Close menu" : "Open menu"}
+                aria-expanded={mobileOpen}
+                aria-controls={mobileNavId}
+              >
+                {mobileOpen ? <X size={18} /> : <Menu size={18} />}
+              </button>
+            </div>
+
+            <div
+              className="absolute top-[-3.5px] left-[-4.5px] z-[2] flex size-2 border bg-background"
+              style={{ borderColor: "var(--line)" }}
+              aria-hidden
+            />
+            <div
+              className="absolute top-[-3.5px] right-[-4.5px] z-[2] flex size-2 border bg-background"
+              style={{ borderColor: "var(--line)" }}
+              aria-hidden
+            />
+            <div
+              className="absolute bottom-[-3.5px] left-[-4.5px] z-[2] flex size-2 border bg-background"
+              style={{ borderColor: "var(--line)" }}
+              aria-hidden
+            />
+            <div
+              className="absolute bottom-[-3.5px] right-[-4.5px] z-[2] flex size-2 border bg-background"
+              style={{ borderColor: "var(--line)" }}
+              aria-hidden
+            />
+          </div>
         </div>
-      </div>
-    </nav>
+      </header>
+
+      <AnimatePresence
+        onExitComplete={() => {
+          if (bodyOverflowBeforeMenu.current != null) {
+            document.body.style.overflow = bodyOverflowBeforeMenu.current;
+            bodyOverflowBeforeMenu.current = null;
+          } else {
+            document.body.style.removeProperty("overflow");
+          }
+        }}
+      >
+        {mobileOpen ? (
+          <motion.div
+            key="landing-navbar-mobile-scrim"
+            className="fixed inset-0 z-40 bg-background/55 backdrop-blur-sm dark:bg-background/45 sm:hidden"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={mobileMenuTransition}
+            onClick={() => setMobileOpen(false)}
+            aria-hidden
+          />
+        ) : null}
+        {mobileOpen ? (
+          <motion.div
+            key="landing-navbar-mobile-panel"
+            className="pointer-events-none fixed top-14 right-0 left-0 z-50 flex max-h-[min(70dvh,calc(100dvh-3.5rem-1.5rem))] justify-center overflow-x-hidden overflow-y-auto overscroll-contain px-2 pb-[max(0.5rem,env(safe-area-inset-bottom))] will-change-transform sm:hidden"
+            initial={{ y: -20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={{ y: -20, opacity: 0 }}
+            transition={mobileMenuTransition}
+          >
+            <div
+              id={mobileNavId}
+              role="dialog"
+              aria-modal="true"
+              aria-label="Main menu"
+              className="screen-line-edges pointer-events-auto relative w-full max-w-7xl border-x border-b border-line bg-background text-[15px] shadow-sm"
+            >
+              <nav className="flex flex-col" aria-label="Primary">
+                {navItems.map(({ href, label }, index) => (
+                  <NavPrimaryLink
+                    key={href}
+                    href={href}
+                    label={label}
+                    onClick={() => setMobileOpen(false)}
+                    className={cn(
+                      "block px-4 py-3.5 transition-[background-color,color] hover:bg-muted/80 active:bg-muted",
+                      index < navItems.length - 1 && "border-b border-line",
+                    )}
+                    style={navLinkStyle}
+                  />
+                ))}
+                <div className="border-t border-line px-4 py-3.5">
+                  <GetFullAccessButton
+                    variant="mobile"
+                    onClick={() => setMobileOpen(false)}
+                  />
+                </div>
+              </nav>
+
+              <div
+                className="absolute top-[-3.5px] left-[-4.5px] z-[2] flex size-2 border bg-background"
+                style={{ borderColor: "var(--line)" }}
+                aria-hidden
+              />
+              <div
+                className="absolute top-[-3.5px] right-[-4.5px] z-[2] flex size-2 border bg-background"
+                style={{ borderColor: "var(--line)" }}
+                aria-hidden
+              />
+              <div
+                className="absolute bottom-[-3.5px] left-[-4.5px] z-[2] flex size-2 border bg-background"
+                style={{ borderColor: "var(--line)" }}
+                aria-hidden
+              />
+              <div
+                className="absolute bottom-[-3.5px] right-[-4.5px] z-[2] flex size-2 border bg-background"
+                style={{ borderColor: "var(--line)" }}
+                aria-hidden
+              />
+            </div>
+          </motion.div>
+        ) : null}
+      </AnimatePresence>
+    </>
   );
 }

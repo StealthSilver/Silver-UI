@@ -1,0 +1,133 @@
+.anchor {
+  display: inline-flex;
+  text-decoration: none;
+  vertical-align: middle;
+}
+
+.anchor:focus-visible {
+  outline: 1px solid rgba(200, 200, 200, 0.22);
+  outline-offset: 2px;
+}
+
+.anchorMobile {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.shell {
+  cursor: pointer;
+  position: relative;
+  display: inline-block;
+  border: none;
+  padding: 2px;
+  border-radius: 0;
+  font-size: 0.6875rem;
+  font-weight: 500;
+  line-height: 1.15;
+  letter-spacing: 0.01em;
+  isolation: isolate;
+  background: radial-gradient(circle 80px at 80% -10%, #c8c8cc, #050505);
+  transition:
+    background 280ms ease,
+    box-shadow 280ms ease,
+    transform 180ms ease;
+}
+
+.anchor:hover .shell {
+  background:
+    radial-gradient(circle 110px at 80% -10%, #ffffff, #1a1a1c),
+    radial-gradient(circle 110px at 20% 110%, #ffffff, #1a1a1c);
+  background-blend-mode: lighten;
+  box-shadow:
+    0 0 0 1px rgba(220, 220, 225, 0.18),
+    0 0 24px rgba(220, 220, 225, 0.18);
+}
+
+.anchor:active .shell {
+  transform: translateY(0.5px);
+  box-shadow:
+    0 0 0 1px rgba(220, 220, 225, 0.12),
+    0 0 12px rgba(220, 220, 225, 0.12);
+}
+
+.shell::after {
+  content: "";
+  position: absolute;
+  width: 65%;
+  height: 60%;
+  border-radius: 0;
+  top: 0;
+  right: 0;
+  box-shadow: 0 0 20px #ffffff1f;
+  z-index: -1;
+  transition: box-shadow 280ms ease;
+}
+
+.anchor:hover .shell::after {
+  box-shadow: 0 0 28px #ffffff40;
+}
+
+@media (min-width: 640px) {
+  .shell {
+    font-size: 0.75rem;
+  }
+}
+
+.blob1 {
+  position: absolute;
+  width: 70px;
+  height: 100%;
+  border-radius: 0;
+  bottom: 0;
+  left: 0;
+  background: radial-gradient(
+    circle 60px at 0% 100%,
+    #ffffff,
+    rgba(190, 190, 195, 0.5),
+    transparent
+  );
+  box-shadow: -10px 10px 30px rgba(220, 220, 225, 0.18);
+}
+
+.blob2 {
+  display: none;
+}
+
+.inner {
+  position: relative;
+  z-index: 3;
+  display: block;
+  padding: 6px 12px;
+  border-radius: 0;
+  color: #fff;
+  background: radial-gradient(circle 80px at 80% -50%, #2a2a2a, #030303);
+  overflow: hidden;
+}
+
+@media (min-width: 640px) {
+  .inner {
+    padding: 7px 14px;
+  }
+}
+
+.inner::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  border-radius: 0;
+  background: radial-gradient(
+    circle 60px at 0% 100%,
+    rgba(255, 255, 255, 0.10),
+    rgba(200, 200, 205, 0.06),
+    transparent
+  );
+}
+
+.label {
+  position: relative;
+  z-index: 1;
+}
