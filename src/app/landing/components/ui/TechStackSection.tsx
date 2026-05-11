@@ -22,7 +22,7 @@ export default function Techstacksectionhero() {
 
   return (
     <div className="z-10 mx-auto flex w-full max-w-full flex-col items-center justify-center">
-      <div className="mx-auto grid grid-cols-3 items-center justify-between gap-6 py-4 sm:flex sm:flex-wrap sm:gap-8">
+      <div className="mx-auto grid grid-cols-3 items-center justify-between gap-4 py-2 sm:flex sm:flex-wrap sm:gap-6">
         <motion.div
           initial={{ opacity: 0, y: 20, filter: "blur(10px)" }}
           whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
