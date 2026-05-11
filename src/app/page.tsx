@@ -4,7 +4,7 @@ import Navbar from "./landing/components/sections/Navbar";
 import { Cta } from "./landing/components/sections/Cta";
 import { Footer } from "./landing/components/sections/Footer";
 import { Features } from "./landing/components/sections/Features";
-import { About } from "./landing/components/sections/About";
+import { Themes } from "./landing/components/sections/Themes";
 
 export default function Page() {
   return (
@@ -12,7 +12,7 @@ export default function Page() {
       <Navbar />
       <main className="relative min-h-screen overflow-x-clip bg-black">
         <Hero />
-        <About />
+        <Themes />
         <Features />
         <Cta />
         <Footer />
