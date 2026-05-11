@@ -5,8 +5,12 @@ import styles from "./GetFullAccessButton.module.css";
 type GetFullAccessButtonProps = {
   onClick?: () => void;
   className?: string;
-  /** `nav`: inline in header (hidden below `sm`). `mobile`: centered in menu row */
-  variant?: "nav" | "mobile";
+  /**
+   * `nav`: inline in header (hidden below `sm`).
+   * `mobile`: centered in mobile menu row.
+   * `inline`: always-visible inline button (e.g. hero CTA).
+   */
+  variant?: "nav" | "mobile" | "inline";
 };
 
 export function GetFullAccessButton({
@@ -25,10 +29,17 @@ export function GetFullAccessButton({
         className,
       )}
     >
-      <span className={styles.shell}>
+      <span
+        className={cn(styles.shell, variant === "inline" && styles.shellInline)}
+      >
         <span className={styles.blob1} aria-hidden />
         <span className={styles.blob2} aria-hidden />
-        <span className={styles.inner}>
+        <span
+          className={cn(
+            styles.inner,
+            variant === "inline" && styles.innerInline,
+          )}
+        >
           <span className={styles.label}>Get Full Access</span>
         </span>
       </span>

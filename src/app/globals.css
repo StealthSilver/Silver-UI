@@ -4,6 +4,9 @@
   --color-line: rgba(255, 255, 255, 0.14);
   --color-background: #000000;
   --color-muted: rgba(255, 255, 255, 0.08);
+  --color-border: rgba(255, 255, 255, 0.14);
+  --color-muted-foreground: rgba(255, 255, 255, 0.55);
+  --color-foreground: #fafafa;
   /* Match :root brand; enables bg-primary / bg-secondary / ring utilities */
   --color-primary: #ffffff;
   --color-primary-foreground: #0a0a0a;

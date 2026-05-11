@@ -1,12 +1,6 @@
 "use client";
 
-import {
-  useState,
-  useEffect,
-  useId,
-  useRef,
-  type CSSProperties,
-} from "react";
+import { useState, useEffect, useId, useRef } from "react";
 import Image from "next/image";
 import { Menu, X } from "lucide-react";
 import Link from "next/link";
@@ -30,30 +24,28 @@ const mobileMenuTransition = {
   ease: mobileMenuEase,
 } as const;
 
-const navLinkStyle: CSSProperties = {
-  color: "rgba(255, 255, 255, 0.58)",
-};
+function navHrefIsActive(pathname: string, href: string) {
+  if (href === "/components") {
+    return (
+      pathname === "/components" || pathname.startsWith("/components/")
+    );
+  }
+  return pathname === href;
+}
 
 function NavPrimaryLink({
   href,
   label,
   className,
-  style,
   onClick,
 }: {
   href: string;
   label: string;
   className?: string;
-  style?: CSSProperties;
   onClick?: () => void;
 }) {
   return (
-    <Link
-      href={href}
-      className={className}
-      style={style}
-      onClick={onClick}
-    >
+    <Link href={href} className={className} onClick={onClick}>
       {label}
     </Link>
   );
@@ -114,7 +106,7 @@ export default function Navbar() {
                 className="h-6 w-6 shrink-0"
                 priority
               />
-              <span className="truncate text-sm font-semibold tracking-tight text-white">
+              <span className="truncate text-sm font-medium tracking-tight text-white">
                 Silver UI
               </span>
             </Link>
@@ -131,8 +123,12 @@ export default function Navbar() {
                     key={href}
                     href={href}
                     label={label}
-                    className="shrink-0 transition-opacity hover:opacity-80"
-                    style={navLinkStyle}
+                    className={cn(
+                      "shrink-0 font-light transition-colors duration-200",
+                      navHrefIsActive(pathname, href)
+                        ? "text-white"
+                        : "text-white/60 hover:text-white",
+                    )}
                   />
                 ))}
               </nav>
@@ -221,10 +217,12 @@ export default function Navbar() {
                     label={label}
                     onClick={() => setMobileOpen(false)}
                     className={cn(
-                      "block px-4 py-3.5 transition-[background-color,color] hover:bg-muted/80 active:bg-muted",
+                      "block px-4 py-3.5 font-light transition-[background-color,color] duration-200 hover:bg-muted/80 active:bg-muted",
+                      navHrefIsActive(pathname, href)
+                        ? "text-white"
+                        : "text-white/60 hover:text-white",
                       index < navItems.length - 1 && "border-b border-line",
                     )}
-                    style={navLinkStyle}
                   />
                 ))}
                 <div className="border-t border-line px-4 py-3.5">

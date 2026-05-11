@@ -20,7 +20,7 @@
   position: relative;
   display: inline-block;
   border: none;
-  padding: 2px;
+  padding: 1px;
   border-radius: 0;
   font-size: 0.6875rem;
   font-weight: 500;
@@ -71,6 +71,34 @@
 @media (min-width: 640px) {
   .shell {
     font-size: 0.75rem;
+  }
+}
+
+.shellInline {
+  font-size: 1rem;
+  line-height: 1.5rem;
+  font-weight: 300;
+  width: 220px;
+  box-sizing: border-box;
+}
+
+@media (min-width: 640px) {
+  .shellInline {
+    font-size: 1.0625rem;
+    line-height: 1.5rem;
+    width: 230px;
+  }
+}
+
+.innerInline {
+  padding: 14px 24px;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+@media (min-width: 640px) {
+  .innerInline {
+    padding: 15px 26px;
   }
 }
 

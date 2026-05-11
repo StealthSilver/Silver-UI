@@ -1,30 +1,52 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
-import { Spotlight } from "../ui/Spotlight";
+import GradientBlinds from "../ui/GradientBlinds";
 import TechStackSection from "../ui/TechStackSection";
+import { GetFullAccessButton } from "../ui/GetFullAccessButton";
 import { motion } from "motion/react";
 
 export const Hero = () => {
   return (
     <section className="relative flex min-h-[calc(100dvh-4.5rem)] flex-col items-center justify-center overflow-hidden bg-black px-6 py-16 text-center text-white md:py-20">
-      <Spotlight />
+      <div className="absolute inset-0 z-0 mx-auto w-full max-w-7xl opacity-55">
+        <GradientBlinds
+          gradientColors={[
+            "#050505",
+            "#1a1a1c",
+            "#2a2a2a",
+            "#bebec3",
+            "#c8c8cc",
+            "#dcdce1",
+          ]}
+          angle={45}
+          noise={0.05}
+          blindCount={14}
+          blindMinWidth={50}
+          spotlightRadius={0.45}
+          spotlightSoftness={1.4}
+          spotlightOpacity={0.35}
+          mouseDampening={0.15}
+          distortAmount={0}
+          shineDirection="left"
+          mixBlendMode="lighten"
+        />
+      </div>
 
       <motion.h1
         initial={{ y: 10, filter: "blur(10px)", opacity: 0 }}
         animate={{ y: 0, filter: "blur(0px)", opacity: 1 }}
         transition={{ duration: 0.5, delay: 0.1, ease: "easeInOut" }}
-        className="text-6xl py-2 mb-10 font-semibold font-public-sans shiny-text"
+        className="relative z-10 text-6xl py-2 mb-10 font-light font-public-sans shiny-text"
       >
-        Not your average UI library
+        Not Your Average UI Library
       </motion.h1>
 
       <motion.p
         initial={{ y: 10, filter: "blur(10px)", opacity: 0 }}
         animate={{ y: 0, filter: "blur(0px)", opacity: 1 }}
         transition={{ duration: 0.4, delay: 0.3, ease: "easeInOut" }}
-        className="max-w-2xl text-gray-400 text-lg mb-10 font-roboto"
+        className="relative z-10 max-w-2xl text-white/60 text-lg mb-10 font-roboto"
       >
         Where all designs looks similar make something different. Use Silver UI
         to build stunning, unique interfaces with ease.
@@ -34,24 +56,19 @@ export const Hero = () => {
         initial={{ y: 5, filter: "blur(5px)", opacity: 0 }}
         animate={{ y: 0, filter: "blur(0px)", opacity: 1 }}
         transition={{ duration: 0.3, delay: 0.5, ease: "easeInOut" }}
-        className="flex flex-col sm:flex-row gap-4 mb-16"
+        className="relative z-10 flex flex-col sm:flex-row items-center gap-3 mb-16"
       >
+        <GetFullAccessButton variant="inline" />
         <Link
           href="/components"
-          className="px-6 py-3 bg-[#0070a8] text-white rounded-xl transition-all duration-300 hover:bg-[#008fd7] relative overflow-hidden group"
+          className="group inline-flex w-[220px] items-center justify-center gap-1.5 whitespace-nowrap rounded-none border border-white/15 px-6 py-[6px] text-base font-light leading-6 text-white/80 transition-[background-color,border-color,color] duration-200 hover:border-white/35 hover:bg-white/[0.04] hover:text-white sm:w-[230px] sm:py-[7px] sm:text-[1.0625rem]"
         >
-          <span className="relative z-10">Browse Components</span>
-          <div className="absolute inset-0 bg-[#0298e3] rounded-xl opacity-0 group-hover:opacity-50 transition-opacity duration-300 blur-md scale-110 -z-10"></div>
-        </Link>
-        <Link
-          href="/docs"
-          className="px-6 py-3 text-white rounded-xl border border-white transition-all duration-300 hover:bg-white hover:text-black group"
-        >
-          <span className="flex items-center gap-1">
-            Documentation
-            <span className="inline-block transition-transform duration-300 group-hover:translate-x-2">
-              &gt;
-            </span>
+          Browse Components
+          <span
+            aria-hidden
+            className="inline-block transition-transform duration-200 group-hover:translate-x-1"
+          >
+            &gt;
           </span>
         </Link>
       </motion.div>
@@ -60,7 +77,7 @@ export const Hero = () => {
         initial={{ y: 10, filter: "blur(10px)", opacity: 0 }}
         animate={{ y: 0, filter: "blur(0px)", opacity: 1 }}
         transition={{ duration: 0.4, delay: 0.7, ease: "easeInOut" }}
-        className="w-full"
+        className="relative z-10 w-full"
       >
         <TechStackSection />
       </motion.div>
