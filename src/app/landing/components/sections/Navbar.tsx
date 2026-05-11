@@ -87,7 +87,7 @@ export default function Navbar() {
 
   return (
     <>
-      <header className="sticky top-0 z-50 w-full min-w-0 overflow-x-clip bg-background px-2 pt-2">
+      <header className="sticky top-0 z-50 w-full min-w-0 shrink-0 overflow-x-clip bg-background px-2 pt-2">
         <div className="mx-auto w-full min-w-0 max-w-7xl">
           <div
             className="screen-line-edges relative flex h-12 min-w-0 items-center justify-between gap-2 border-x border-line px-2 sm:gap-4"

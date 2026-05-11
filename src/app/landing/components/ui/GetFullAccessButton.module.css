@@ -75,30 +75,18 @@
 }
 
 .shellInline {
-  font-size: 1rem;
-  line-height: 1.5rem;
+  font-size: 1.0625rem;
+  line-height: 1.625rem;
   font-weight: 300;
-  width: 220px;
+  width: 238px;
   box-sizing: border-box;
 }
 
 @media (min-width: 640px) {
   .shellInline {
-    font-size: 1.0625rem;
-    line-height: 1.5rem;
-    width: 230px;
-  }
-}
-
-.innerInline {
-  padding: 14px 24px;
-  text-align: center;
-  box-sizing: border-box;
-}
-
-@media (min-width: 640px) {
-  .innerInline {
-    padding: 15px 26px;
+    font-size: 1.125rem;
+    line-height: 1.75rem;
+    width: 252px;
   }
 }
 
@@ -136,6 +124,19 @@
 @media (min-width: 640px) {
   .inner {
     padding: 7px 14px;
+  }
+}
+
+/* Hero inline: must follow `.inner` and use compound selector so padding wins over `.inner`. */
+.inner.innerInline {
+  padding: 9px 26px;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+@media (min-width: 640px) {
+  .inner.innerInline {
+    padding: 11px 28px;
   }
 }
 

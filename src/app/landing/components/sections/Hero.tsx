@@ -47,7 +47,7 @@ export const Hero = () => {
           initial={{ y: 10, filter: "blur(10px)", opacity: 0 }}
           animate={{ y: 0, filter: "blur(0px)", opacity: 1 }}
           transition={{ duration: 0.4, delay: 0.3, ease: "easeInOut" }}
-          className="pointer-events-auto relative z-10 max-w-2xl text-white/60 text-lg mb-8 font-roboto md:mb-10"
+          className="pointer-events-auto relative z-10 max-w-2xl text-white/60 text-lg mb-10 font-roboto md:mb-12"
         >
           Where all designs looks similar make something different. Use Silver UI
           to build stunning, unique interfaces with ease.
@@ -57,12 +57,12 @@ export const Hero = () => {
           initial={{ y: 5, filter: "blur(5px)", opacity: 0 }}
           animate={{ y: 0, filter: "blur(0px)", opacity: 1 }}
           transition={{ duration: 0.3, delay: 0.5, ease: "easeInOut" }}
-          className="pointer-events-auto relative z-10 flex flex-col sm:flex-row items-center gap-3 mb-12 md:mb-14"
+          className="pointer-events-auto relative z-10 flex flex-col sm:flex-row items-center gap-4 py-3 mb-16 md:mb-20"
         >
           <GetFullAccessButton variant="inline" />
           <Link
             href="/components"
-            className="group inline-flex w-[220px] items-center justify-center gap-1.5 whitespace-nowrap rounded-none border border-white/15 px-6 py-[6px] text-base font-light leading-6 text-white/80 transition-[background-color,border-color,color] duration-200 hover:border-white/35 hover:bg-white/[0.04] hover:text-white sm:w-[230px] sm:py-[7px] sm:text-[1.0625rem]"
+            className="group inline-flex w-[220px] items-center justify-center gap-1.5 whitespace-nowrap rounded-none border border-white/15 px-6 py-[11px] text-base font-light leading-6 text-white/80 transition-[background-color,border-color,color] duration-200 hover:border-white/35 hover:bg-white/[0.04] hover:text-white sm:w-[230px] sm:py-[13px] sm:text-[1.0625rem]"
           >
             Browse Components
             <span
@@ -85,6 +85,7 @@ export const Hero = () => {
       </div>
 
       <div
+        id="hero-separator"
         className="pointer-events-none relative left-1/2 z-20 h-px w-screen max-w-none shrink-0 -translate-x-1/2 bg-line"
         aria-hidden
       />
