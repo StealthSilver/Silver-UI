@@ -8,8 +8,8 @@ import { motion } from "motion/react";
 
 export const Hero = () => {
   return (
-    <section className="relative flex min-h-[76vh] flex-col items-stretch overflow-hidden bg-black px-6 pt-8 pb-0 text-center text-white md:pt-10">
-      <div className="pointer-events-auto absolute inset-0 z-0 mx-auto w-full max-w-7xl opacity-55">
+    <section className="relative flex min-h-[76vh] flex-col items-stretch bg-black px-6 pt-8 pb-0 text-center text-white md:pt-10">
+      <div className="pointer-events-auto absolute inset-0 z-0 mx-auto w-full max-w-7xl overflow-hidden opacity-55">
         <GradientBlinds
           gradientColors={[
             "#050505",
@@ -85,16 +85,9 @@ export const Hero = () => {
       </div>
 
       <div
-        className="pointer-events-none relative z-20 w-full shrink-0 px-2 -mx-6"
+        className="pointer-events-none relative left-1/2 z-20 h-px w-screen max-w-none shrink-0 -translate-x-1/2 bg-line"
         aria-hidden
-      >
-        {/* Full-bleed horizontal; inner pl shifts line center right */}
-        <div className="relative mx-auto w-full min-w-0 max-w-7xl">
-          <div className="relative h-px w-full shrink-0 pl-10 sm:pl-14 md:pl-16">
-            <div className="pointer-events-none absolute top-0 left-1/2 z-[1] h-px w-[100dvi] max-w-none -translate-x-1/2 bg-line" />
-          </div>
-        </div>
-      </div>
+      />
     </section>
   );
 };

@@ -38,9 +38,10 @@
   animation: fadeIn 0.3s ease-out;
 }
 
+/* Align scrollbars with navbar / hero: black track, hairline thumb */
 * {
   scrollbar-width: thin;
-  scrollbar-color: #1f2633 #000000;
+  scrollbar-color: rgba(255, 255, 255, 0.2) #000000;
 }
 
 *::-webkit-scrollbar {
@@ -53,12 +54,16 @@
 }
 
 *::-webkit-scrollbar-thumb {
-  background: #44474e;
-  border-radius: 4px;
+  background: var(--line);
+  border-radius: 0;
+  border: 3px solid #000000;
+  background-clip: padding-box;
 }
 
 *::-webkit-scrollbar-thumb:hover {
-  background: #27282a;
+  background: rgba(255, 255, 255, 0.28);
+  border: 3px solid #000000;
+  background-clip: padding-box;
 }
 
 *::-webkit-scrollbar-corner {

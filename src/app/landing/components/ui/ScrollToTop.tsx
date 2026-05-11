@@ -40,11 +40,12 @@ export function ScrollToTop({
       className={cn(
         "[--bottom:0.5rem] lg:[--bottom:2rem]",
         "fixed right-4 bottom-[calc(var(--bottom,0.5rem)+env(safe-area-inset-bottom,0px))] z-50 lg:right-8",
-        "transition-[background-color,opacity] duration-300 data-[scroll-direction=down]:opacity-30 data-[scroll-direction=up]:opacity-100 data-[visible=false]:pointer-events-none data-[visible=false]:opacity-0",
+        "transition-[background-color,border-color,color,opacity] duration-300 ease-out data-[scroll-direction=down]:opacity-30 data-[scroll-direction=up]:opacity-100 data-[visible=false]:pointer-events-none data-[visible=false]:opacity-0",
         "data-[scroll-direction=down]:hover:opacity-100",
-        "border-none",
-        "inline-flex h-10 w-10 items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors hover:bg-primary hover:text-primary-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
-        "bg-secondary text-secondary-foreground hover:bg-secondary/90",
+        "inline-flex h-10 w-10 items-center justify-center rounded-none border border-white/15 bg-black text-white/80",
+        "hover:border-white/35 hover:bg-white/[0.04] hover:text-white",
+        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/35 focus-visible:ring-offset-2 focus-visible:ring-offset-black",
+        "disabled:pointer-events-none disabled:opacity-50",
         className,
       )}
       aria-label="Scroll to top"
