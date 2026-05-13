@@ -4,12 +4,18 @@ import "./globals.css";
 import { ThemeProvider } from "next-themes";
 import ThemeHeadIcons from "./landing/components/ThemeHeadIcon";
 import ClientWrapper from "./landing/components/ClientWrapper";
-import { IBM_Plex_Sans } from "next/font/google";
+import { IBM_Plex_Sans, Cinzel } from "next/font/google";
 
 const ibmPlexSans = IBM_Plex_Sans({
   subsets: ["latin"],
   weight: ["100", "300", "400", "500", "600", "700"],
   variable: "--font-ibm-plex-sans",
+});
+
+const cinzel = Cinzel({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-cinzel",
 });
 
 export const metadata: Metadata = {
@@ -54,7 +60,7 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={ibmPlexSans.variable}
+      className={`${ibmPlexSans.variable} ${cinzel.variable}`}
     >
       <head>
         <ThemeHeadIcons />

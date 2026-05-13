@@ -5,6 +5,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion } from "motion/react";
 import { LandingRailSeparator } from "./LandingRailSeparator";
+import DotField from "../ui/DotField";
+import { TextHoverEffect } from "@/components/ui/TextHoverEffect";
 
 const exploreLinks = [
   { href: "/components", label: "Components" },
@@ -88,26 +90,24 @@ function FooterColumn({
   );
 }
 
-export const Footer = () => {
-  const year = new Date().getFullYear();
-
+/** Logo, links grid, and top separator — lives inside the landing rail clip host. */
+export function FooterBranding() {
   return (
-    <footer
-      className="relative bg-black text-white"
-      aria-labelledby="footer-heading"
-    >
+    <div className="relative bg-black text-white">
       <LandingRailSeparator id="footer-separator" />
 
-      <div className="relative z-10 mx-auto max-w-7xl px-6 pt-14 pb-10 md:pt-16 md:pb-14">
-        <h2 id="footer-heading" className="sr-only">
-          Site footer
-        </h2>
+      <div className="relative z-10 px-6 py-10 md:py-12">
+        <div className="mx-auto max-w-7xl">
+          <h2 id="footer-heading" className="sr-only">
+            Site footer
+          </h2>
 
-        <div className="grid gap-12 border border-line bg-black px-5 py-10 sm:px-8 sm:py-12 md:gap-14 lg:grid-cols-12 lg:gap-10 lg:px-10 lg:py-14">
-          <motion.div
-            {...fadeUp}
-            className="flex flex-col gap-5 lg:col-span-5"
-          >
+          <div className="px-3 sm:px-6 md:px-10">
+            <div className="grid gap-12 border border-line bg-black p-10 sm:p-12 md:gap-14 lg:grid-cols-12 lg:gap-10 lg:p-14">
+              <motion.div
+                {...fadeUp}
+                className="flex flex-col gap-5 lg:col-span-5"
+              >
             <Link
               href="/"
               className="group inline-flex w-fit select-none items-center gap-2.5 transition-opacity duration-200 hover:opacity-90"
@@ -140,13 +140,13 @@ export const Footer = () => {
                 &gt;
               </span>
             </Link>
-          </motion.div>
+              </motion.div>
 
-          <motion.div
-            {...fadeUp}
-            transition={{ ...fadeUp.transition, delay: 0.06 }}
-            className="grid gap-10 sm:grid-cols-3 lg:col-span-7 lg:grid-cols-3 lg:gap-8"
-          >
+              <motion.div
+                {...fadeUp}
+                transition={{ ...fadeUp.transition, delay: 0.06 }}
+                className="grid gap-10 sm:grid-cols-3 lg:col-span-7 lg:grid-cols-3 lg:gap-8"
+              >
             <FooterColumn title="Explore">
               {exploreLinks.map(({ href, label }) => (
                 <li key={href}>
@@ -178,24 +178,74 @@ export const Footer = () => {
                 </li>
               ))}
             </FooterColumn>
+              </motion.div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/** Rule + copyright — outside the rail clip host so page rails do not extend here. */
+export function FooterLegal() {
+  const year = new Date().getFullYear();
+
+  return (
+    <footer
+      className="relative flex min-h-[420px] flex-1 flex-col overflow-hidden bg-black text-white"
+      aria-labelledby="footer-heading"
+    >
+      <div className="pointer-events-none absolute inset-0" aria-hidden>
+        <DotField
+          dotRadius={1.6}
+          dotSpacing={14}
+          bulgeStrength={67}
+          glowRadius={160}
+          sparkle={false}
+          waveAmplitude={0}
+          cursorRadius={500}
+          cursorForce={0.12}
+          bulgeOnly
+          gradientFrom="rgba(220, 220, 224, 0.45)"
+          gradientTo="rgba(255, 255, 255, 0.12)"
+          glowColor="#0a0a0a"
+        />
+        <div className="absolute inset-x-0 top-0 h-20 bg-gradient-to-b from-black to-transparent" />
+      </div>
+
+      <div className="relative z-10 px-6 pt-8">
+        <div className="mx-auto max-w-7xl">
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ duration: 0.4, delay: 0.1, ease: "easeInOut" }}
+            viewport={{ once: true }}
+          >
+            <div className="flex flex-col items-center justify-between gap-4 text-center sm:flex-row sm:text-left">
+              <p className="text-xs font-light text-white/45 md:text-sm">
+                © {year} Silver UI.
+              </p>
+              <p className="max-w-md text-xs font-light leading-relaxed text-white/40 md:text-sm">
+                Crafted for designers and developers who care about the details.
+              </p>
+            </div>
           </motion.div>
         </div>
+      </div>
 
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ duration: 0.4, delay: 0.1, ease: "easeInOut" }}
-          viewport={{ once: true }}
-          className="mt-10 flex flex-col items-center justify-between gap-4 border-t border-line pt-8 text-center sm:flex-row sm:text-left"
-        >
-          <p className="text-xs font-light text-white/45 md:text-sm">
-            © {year} Silver UI. Inspired by Forge UI.
-          </p>
-          <p className="max-w-md text-xs font-light leading-relaxed text-white/40 md:text-sm">
-            Crafted for designers and developers who care about the details.
-          </p>
-        </motion.div>
+      <div className="relative z-10 flex flex-1 items-end justify-center overflow-hidden">
+        <div className="mx-auto aspect-[480/128] w-full max-w-[min(96vw,1100px)] translate-y-[38%]">
+          <TextHoverEffect text="Silver UI" duration={0.3} />
+        </div>
       </div>
     </footer>
   );
-};
+}
+
+export const Footer = () => (
+  <>
+    <FooterBranding />
+    <FooterLegal />
+  </>
+);

@@ -110,9 +110,9 @@ export function Pricing() {
     <section
       id="pricing"
       aria-labelledby="pricing-heading"
-      className="relative bg-black px-6 py-10 text-white md:py-14"
+      className="relative bg-black px-6 pt-10 text-white md:pt-12"
     >
-      <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-col items-center">
+      <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-col items-center pb-10 md:pb-12">
         <h2
           id="pricing-heading"
           className="text-center text-xs uppercase tracking-widest text-white/50 md:text-sm"
