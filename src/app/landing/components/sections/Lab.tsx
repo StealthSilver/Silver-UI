@@ -1,4 +1,7 @@
+"use client";
+
 import Link from "next/link";
+import { LandingSectionReveal } from "../ui/LandingSectionReveal";
 
 export function Lab() {
   return (
@@ -7,7 +10,7 @@ export function Lab() {
       aria-labelledby="lab-heading"
       className="relative bg-black px-6 py-10 text-white"
     >
-      <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-col items-center">
+      <LandingSectionReveal className="relative z-10 mx-auto flex w-full max-w-7xl flex-col items-center">
         <h2
           id="lab-heading"
           className="text-center text-xs uppercase tracking-widest text-white/50 md:text-sm"
@@ -40,7 +43,7 @@ export function Lab() {
             </Link>
           </div>
         </div>
-      </div>
+      </LandingSectionReveal>
     </section>
   );
 }

@@ -1,5 +1,8 @@
+"use client";
+
 import Link from "next/link";
 import { LandingRailSeparator } from "./LandingRailSeparator";
+import { LandingSectionReveal } from "../ui/LandingSectionReveal";
 
 export function Deconstruct() {
   return (
@@ -8,7 +11,7 @@ export function Deconstruct() {
       aria-labelledby="deconstruct-heading"
       className="relative bg-black px-6 pt-10 text-white"
     >
-      <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-col items-center pb-10">
+      <LandingSectionReveal className="relative z-10 mx-auto flex w-full max-w-7xl flex-col items-center pb-10">
         <h2
           id="deconstruct-heading"
           className="text-center text-xs uppercase tracking-widest text-white/50 md:text-sm"
@@ -41,7 +44,7 @@ export function Deconstruct() {
             </Link>
           </div>
         </div>
-      </div>
+      </LandingSectionReveal>
 
       <LandingRailSeparator id="deconstruct-separator" />
     </section>

@@ -7,6 +7,12 @@ import { motion } from "motion/react";
 import { LandingRailSeparator } from "./LandingRailSeparator";
 import DotField from "../ui/DotField";
 import { TextHoverEffect } from "@/components/ui/TextHoverEffect";
+import {
+  landingRevealAnimate,
+  landingRevealInitial,
+  landingRevealTransition,
+  landingRevealViewport,
+} from "@/app/landing/lib/landingRevealMotion";
 
 const exploreLinks = [
   { href: "/components", label: "Components" },
@@ -35,10 +41,10 @@ const socialLinks = [
 ] as const;
 
 const fadeUp = {
-  initial: { y: 12, filter: "blur(8px)", opacity: 0 },
-  whileInView: { y: 0, filter: "blur(0px)", opacity: 1 },
-  transition: { duration: 0.45, ease: "easeInOut" as const },
-  viewport: { once: true },
+  initial: landingRevealInitial,
+  whileInView: landingRevealAnimate,
+  transition: landingRevealTransition({ duration: 0.45 }),
+  viewport: landingRevealViewport,
 };
 
 function FooterLink({
@@ -217,10 +223,10 @@ export function FooterLegal() {
       <div className="relative z-10 px-6 pt-8">
         <div className="mx-auto max-w-7xl">
           <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            transition={{ duration: 0.4, delay: 0.1, ease: "easeInOut" }}
-            viewport={{ once: true }}
+            initial={landingRevealInitial}
+            whileInView={landingRevealAnimate}
+            transition={landingRevealTransition({ duration: 0.45, delay: 0.1 })}
+            viewport={landingRevealViewport}
           >
             <div className="flex flex-col items-center justify-between gap-4 text-center sm:flex-row sm:text-left">
               <p className="text-xs font-light text-white/45 md:text-sm">

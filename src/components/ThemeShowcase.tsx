@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
+import { LandingSectionReveal } from "@/app/landing/components/ui/LandingSectionReveal";
 
 const SCOPED_STYLES = `
 @keyframes theme-showcase-fade-up {
@@ -1400,7 +1401,7 @@ export default function ThemeShowcase() {
         aria-labelledby="themes-heading"
         className="relative flex min-h-0 flex-col overflow-hidden bg-black px-6 py-10 text-white"
       >
-        <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-col items-center">
+        <LandingSectionReveal className="relative z-10 mx-auto flex w-full max-w-7xl flex-col items-center">
           <h2
             id="themes-heading"
             className="text-center text-xs uppercase tracking-widest text-white/50 md:text-sm"
@@ -1453,7 +1454,7 @@ export default function ThemeShowcase() {
               </div>
             </div>
           </div>
-        </div>
+        </LandingSectionReveal>
       </section>
     </>
   );

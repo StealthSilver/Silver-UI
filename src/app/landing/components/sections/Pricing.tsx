@@ -8,6 +8,12 @@ import {
   navigateToPricingSection,
   PRICING_HREF,
 } from "@/app/landing/lib/navigateToPricing";
+import {
+  landingRevealAnimate,
+  landingRevealInitial,
+  landingRevealTransition,
+  landingRevealViewport,
+} from "@/app/landing/lib/landingRevealMotion";
 import { LandingRailSeparator } from "./LandingRailSeparator";
 
 type Tier = {
@@ -93,10 +99,10 @@ const tiers: Tier[] = [
 ];
 
 const cardMotion = {
-  initial: { y: 14, filter: "blur(8px)", opacity: 0 },
-  whileInView: { y: 0, filter: "blur(0px)", opacity: 1 },
-  transition: { duration: 0.45, ease: "easeInOut" as const },
-  viewport: { once: true },
+  initial: landingRevealInitial,
+  whileInView: landingRevealAnimate,
+  transition: landingRevealTransition({ duration: 0.45 }),
+  viewport: landingRevealViewport,
 };
 
 const ctaClass =
@@ -113,18 +119,22 @@ export function Pricing() {
       className="relative bg-black px-6 pt-10 text-white md:pt-12"
     >
       <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-col items-center pb-10 md:pb-12">
-        <h2
+        <motion.h2
           id="pricing-heading"
+          initial={landingRevealInitial}
+          whileInView={landingRevealAnimate}
+          transition={landingRevealTransition({ duration: 0.45 })}
+          viewport={landingRevealViewport}
           className="text-center text-xs uppercase tracking-widest text-white/50 md:text-sm"
         >
           PRICING
-        </h2>
+        </motion.h2>
 
         <motion.p
-          initial={{ y: 10, filter: "blur(8px)", opacity: 0 }}
-          whileInView={{ y: 0, filter: "blur(0px)", opacity: 1 }}
-          transition={{ duration: 0.4, ease: "easeInOut" }}
-          viewport={{ once: true }}
+          initial={landingRevealInitial}
+          whileInView={landingRevealAnimate}
+          transition={landingRevealTransition({ duration: 0.45 })}
+          viewport={landingRevealViewport}
           className="mt-5 max-w-2xl text-center font-roboto text-sm font-light leading-relaxed text-white/55 md:text-base"
         >
           Choose a tier that matches how you ship. Upgrade once—no recurring
