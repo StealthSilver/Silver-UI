@@ -4,6 +4,7 @@ import Link from "next/link";
 import GradientBlinds from "../ui/GradientBlinds";
 import TechStackSection from "../ui/TechStackSection";
 import { GetFullAccessButton } from "../ui/GetFullAccessButton";
+import { LandingRailSeparator } from "./LandingRailSeparator";
 import { motion } from "motion/react";
 
 export const Hero = () => {
@@ -84,11 +85,7 @@ export const Hero = () => {
         </motion.div>
       </div>
 
-      <div
-        id="hero-separator"
-        className="pointer-events-none relative left-1/2 z-20 h-px w-screen max-w-none shrink-0 -translate-x-1/2 bg-line"
-        aria-hidden
-      />
+      <LandingRailSeparator id="hero-separator" />
     </section>
   );
 };

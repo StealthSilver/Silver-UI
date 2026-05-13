@@ -29,9 +29,9 @@ export const Themes = () => {
     <section
       id="themes"
       aria-labelledby="themes-heading"
-      className="relative bg-black px-6 pt-10 pb-20 text-white overflow-hidden"
+      className="relative flex min-h-[100vh] flex-col overflow-hidden bg-black px-6 pt-10 pb-6 text-white"
     >
-      <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-col items-center justify-start">
+      <div className="relative z-10 mx-auto flex min-h-0 w-full max-w-7xl flex-1 flex-col items-center justify-start">
         <h2
           id="themes-heading"
           className="text-center text-xs uppercase tracking-widest text-white/50 md:text-sm"
@@ -39,9 +39,9 @@ export const Themes = () => {
           THEMES
         </h2>
 
-        <div className="mt-8 w-full px-3 sm:px-6 md:px-10">
+        <div className="mt-8 flex min-h-0 w-full flex-1 flex-col px-3 sm:px-6 md:px-10">
           <div
-            className="flex min-h-[min(55vh,520px)] w-full flex-col border border-line bg-black"
+            className="flex min-h-0 w-full flex-1 flex-col border border-line bg-black"
             role="region"
             aria-label="Theme preview"
           >
@@ -73,7 +73,7 @@ export const Themes = () => {
               })}
             </div>
 
-            <div className="min-h-[280px] flex-1 p-4 sm:p-6 md:p-8">
+            <div className="min-h-0 flex-1 overflow-auto p-4 sm:p-6 md:p-8">
               {selected === "Minimal" ? (
                 <div
                   role="tabpanel"

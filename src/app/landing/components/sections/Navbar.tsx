@@ -15,6 +15,7 @@ const navItems = [
   { href: "/templates", label: "Templates" },
   { href: "/lab", label: "Lab" },
   { href: "/construct", label: "Construct" },
+  { href: "/deconstruct", label: "Deconstruct" },
   { href: "/docs", label: "Docs" },
 ] as const;
 
@@ -28,6 +29,11 @@ function navHrefIsActive(pathname: string, href: string) {
   if (href === "/components") {
     return (
       pathname === "/components" || pathname.startsWith("/components/")
+    );
+  }
+  if (href === "/deconstruct") {
+    return (
+      pathname === "/deconstruct" || pathname.startsWith("/deconstruct/")
     );
   }
   return pathname === href;

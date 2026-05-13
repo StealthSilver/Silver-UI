@@ -1,5 +1,11 @@
+"use client";
+
 import Link from "next/link";
 import { cn } from "@/lib/utils";
+import {
+  navigateToPricingSection,
+  PRICING_HREF,
+} from "@/app/landing/lib/navigateToPricing";
 import styles from "./GetFullAccessButton.module.css";
 
 type GetFullAccessButtonProps = {
@@ -20,8 +26,11 @@ export function GetFullAccessButton({
 }: GetFullAccessButtonProps) {
   return (
     <Link
-      href="/components"
-      onClick={onClick}
+      href={PRICING_HREF}
+      onClick={(e) => {
+        onClick?.();
+        navigateToPricingSection(e);
+      }}
       className={cn(
         styles.anchor,
         variant === "mobile" && styles.anchorMobile,
