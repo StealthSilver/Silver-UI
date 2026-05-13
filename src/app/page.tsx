@@ -3,7 +3,7 @@ import { LandingRailSeparator } from "./landing/components/sections/LandingRailS
 import Navbar from "./landing/components/sections/Navbar";
 import { Cta } from "./landing/components/sections/Cta";
 import { Footer } from "./landing/components/sections/Footer";
-import { Themes } from "./landing/components/sections/Themes";
+import ThemeShowcase from "@/components/ThemeShowcase";
 import { Templates } from "./landing/components/sections/Templates";
 import { Lab } from "./landing/components/sections/Lab";
 import { Construct } from "./landing/components/sections/Construct";
@@ -16,7 +16,7 @@ export default function Page() {
       <Navbar />
       <main className="relative min-h-screen overflow-x-clip bg-black">
         <Hero />
-        <Themes />
+        <ThemeShowcase />
         <LandingRailSeparator id="themes-separator" />
         <Templates />
         <LandingRailSeparator id="templates-lab-separator" />

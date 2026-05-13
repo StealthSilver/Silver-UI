@@ -120,7 +120,7 @@ export default function Navbar() {
             <div className="flex min-w-0 shrink-0 items-center justify-end gap-2 sm:gap-3 md:gap-4">
               <nav
                 className={cn(
-                  "no-scrollbar hidden items-center gap-4 overflow-x-auto py-1 text-sm sm:flex md:gap-6 md:py-0",
+                  "no-scrollbar me-3 hidden items-center gap-5 overflow-x-auto py-1 text-sm sm:flex md:me-5 md:gap-7 lg:gap-8 md:py-0",
                 )}
                 aria-label="Primary"
               >
