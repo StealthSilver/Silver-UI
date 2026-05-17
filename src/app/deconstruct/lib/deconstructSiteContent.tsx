@@ -2,6 +2,8 @@ import type { ComponentType } from "react";
 import type { DeconstructSiteId } from "@/app/deconstruct/lib/deconstructSites";
 import { LinearNavbarPreview } from "@/app/deconstruct/components/linear/LinearNavbarPreview";
 import { linearNavbarSource } from "@/app/deconstruct/components/linear/linearNavbar.source";
+import { CalNavbarPreview } from "@/app/deconstruct/components/cal/CalNavbarPreview";
+import { calNavbarSource } from "@/app/deconstruct/components/cal/calNavbar.source";
 import { StripeNavbarPreview } from "@/app/deconstruct/components/stripe/StripeNavbarPreview";
 import { stripeNavbarSource } from "@/app/deconstruct/components/stripe/stripeNavbar.source";
 import { VercelNavbarPreview } from "@/app/deconstruct/components/vercel/VercelNavbarPreview";
@@ -46,6 +48,16 @@ export const deconstructSiteContent: Partial<
   vercel: {
     Preview: VercelNavbarPreview,
     source: vercelNavbarSource,
+    codePanel: {
+      explorerFolder: "Components",
+      explorerFileName: "navbar.tsx",
+      editorPath: "components/navbar.tsx",
+      language: "tsx",
+    },
+  },
+  cal: {
+    Preview: CalNavbarPreview,
+    source: calNavbarSource,
     codePanel: {
       explorerFolder: "Components",
       explorerFileName: "navbar.tsx",

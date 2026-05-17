@@ -2,7 +2,7 @@ export const deconstructSites = [
   { id: "stripe", slug: "Stripe", label: "Stripe" },
   { id: "linear", slug: "Linear", label: "Linear" },
   { id: "vercel", slug: "Vercel", label: "Vercel" },
-  { id: "cal", slug: "Cal.com", label: "Cal.com" },
+  { id: "cal", slug: "Cal", label: "Cal.com" },
   { id: "cursor", slug: "Cursor", label: "Cursor" },
   { id: "heygen", slug: "HeyGen", label: "HeyGen" },
   { id: "clerk", slug: "Clerk", label: "Clerk" },
