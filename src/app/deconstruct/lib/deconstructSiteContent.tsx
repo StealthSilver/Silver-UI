@@ -8,7 +8,9 @@ import { StripeNavbarPreview } from "@/app/deconstruct/components/stripe/StripeN
 import { stripeNavbarSource } from "@/app/deconstruct/components/stripe/stripeNavbar.source";
 import { VercelNavbarPreview } from "@/app/deconstruct/components/vercel/VercelNavbarPreview";
 import { vercelNavbarSource } from "@/app/deconstruct/components/vercel/vercelNavbar.source";
+import { CursorLogoTickerPreview } from "@/app/deconstruct/components/cursor/CursorLogoTicker";
 import { CursorNavbarPreview } from "@/app/deconstruct/components/cursor/CursorNavbarPreview";
+import { cursorLogoTickerSource } from "@/app/deconstruct/components/cursor/cursorLogoTicker.source";
 import { cursorNavbarSource } from "@/app/deconstruct/components/cursor/cursorNavbar.source";
 import { HeyGenLogoTickerPreview } from "@/app/deconstruct/components/heygen/HeyGenLogoTicker";
 import { HeyGenNavbarPreview } from "@/app/deconstruct/components/heygen/HeyGenNavbarPreview";
@@ -101,6 +103,18 @@ export const deconstructSiteContent: Partial<
         Preview: CursorNavbarPreview,
         source: cursorNavbarSource,
         codePanel: navbarCodePanel,
+      },
+      {
+        id: "logo-ticker",
+        label: "Logo ticker",
+        Preview: CursorLogoTickerPreview,
+        source: cursorLogoTickerSource,
+        codePanel: {
+          explorerFolder: "Components",
+          explorerFileName: "logo-ticker.tsx",
+          editorPath: "components/logo-ticker.tsx",
+          language: "tsx",
+        },
       },
     ],
   },
