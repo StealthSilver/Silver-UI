@@ -10,7 +10,7 @@ import { VercelNavbarPreview } from "@/app/deconstruct/components/vercel/VercelN
 import { vercelNavbarSource } from "@/app/deconstruct/components/vercel/vercelNavbar.source";
 import { CursorNavbarPreview } from "@/app/deconstruct/components/cursor/CursorNavbarPreview";
 import { cursorNavbarSource } from "@/app/deconstruct/components/cursor/cursorNavbar.source";
-import { HeyGenLogoTickerPreview } from "@/app/deconstruct/components/heygen/HeyGenLogoTickerPreview";
+import { HeyGenLogoTickerPreview } from "@/app/deconstruct/components/heygen/HeyGenLogoTicker";
 import { HeyGenNavbarPreview } from "@/app/deconstruct/components/heygen/HeyGenNavbarPreview";
 import { heygenLogoTickerSource } from "@/app/deconstruct/components/heygen/heygenLogoTicker.source";
 import { heygenNavbarSource } from "@/app/deconstruct/components/heygen/heygenNavbar.source";
