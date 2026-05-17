@@ -9,6 +9,7 @@ import {
   DeconstructViewToggle,
   type DeconstructViewMode,
 } from "./DeconstructViewToggle";
+import { DeconstructIdePanel } from "./DeconstructIdePanel";
 
 type DeconstructViewProps = {
   activeId: DeconstructSiteId;
@@ -65,19 +66,23 @@ export function DeconstructView({ activeId }: DeconstructViewProps) {
           </div>
         ) : (
           <div
-            className="flex min-h-0 flex-1 flex-col overflow-auto bg-[#040404]"
+            className="flex min-h-0 flex-1 flex-col overflow-hidden"
             role="tabpanel"
             id="deconstruct-panel-code"
             aria-labelledby="deconstruct-tab-code"
           >
-            <pre className="min-h-0 flex-1 overflow-auto p-4 font-mono text-xs font-light leading-relaxed text-white/55 sm:p-6 sm:text-sm">
-              <code>
-                {siteContent?.source ??
-                  (activeSite
-                    ? `// ${activeSite.label} component source\n// Code view coming soon.`
-                    : "// Select a site from the sidebar to view code.")}
-              </code>
-            </pre>
+            <DeconstructIdePanel
+              source={
+                siteContent?.source ??
+                (activeSite
+                  ? `// ${activeSite.label} component source\n// Code view coming soon.`
+                  : "// Select a site from the sidebar to view code.")
+              }
+              language={siteContent?.codePanel?.language ?? "tsx"}
+              explorerFolder={siteContent?.codePanel?.explorerFolder}
+              explorerFileName={siteContent?.codePanel?.explorerFileName}
+              editorPath={siteContent?.codePanel?.editorPath}
+            />
           </div>
         )}
       </div>
