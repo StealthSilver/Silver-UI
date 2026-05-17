@@ -6,7 +6,7 @@ export default function DeconstructRootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <MarketingShell contentMaxWidth="8xl" showHero={false}>
+    <MarketingShell contentMaxWidth="8xl" showHero={false} subduedLines>
       {children}
     </MarketingShell>
   );

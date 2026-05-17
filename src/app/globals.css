@@ -109,6 +109,12 @@
   bottom: 0;
 }
 
+/* Deconstruct: softer grid rails and borders (navbar, subheader, panels) */
+.deconstruct-page {
+  --line: rgba(255, 255, 255, 0.1);
+  --color-line: rgba(255, 255, 255, 0.1);
+}
+
 /* Theme-specific animations */
 @keyframes gradient-x {
   0%,

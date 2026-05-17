@@ -15,6 +15,8 @@ type MarketingShellProps = {
   description?: string;
   contentMaxWidth?: PageContentMaxWidth;
   showHero?: boolean;
+  /** Softer horizontal/vertical rails and `border-line` on deconstruct routes only. */
+  subduedLines?: boolean;
   children?: ReactNode;
 };
 
@@ -23,13 +25,20 @@ export default function MarketingShell({
   description,
   contentMaxWidth = "7xl",
   showHero = true,
+  subduedLines = false,
   children,
 }: MarketingShellProps) {
   const maxWidthClass = pageContentMaxWidthClass[contentMaxWidth];
   const useGutter = hasPageContentGutter(contentMaxWidth);
+  const leftRailClass = subduedLines
+    ? "border-l border-line"
+    : "w-[0.5px] bg-neutral-400/28";
+  const rightRailClass = subduedLines
+    ? "border-r border-line"
+    : "w-[0.5px] bg-neutral-400/28";
 
   return (
-    <>
+    <div className={subduedLines ? "deconstruct-page" : undefined}>
       <Navbar contentMaxWidth={contentMaxWidth} />
       <main
         className={cn(
@@ -67,8 +76,8 @@ export default function MarketingShell({
             aria-hidden
           >
             <div className={cn("relative mx-auto h-full w-full", maxWidthClass)}>
-              <div className="absolute inset-y-0 left-0 w-[0.5px] bg-neutral-400/28" />
-              <div className="absolute inset-y-0 right-0 w-[0.5px] bg-neutral-400/28" />
+              <div className={cn("absolute inset-y-0 left-0", leftRailClass)} />
+              <div className={cn("absolute inset-y-0 right-0", rightRailClass)} />
             </div>
           </div>
         ) : (
@@ -79,11 +88,11 @@ export default function MarketingShell({
             )}
             aria-hidden
           >
-            <div className="absolute inset-y-0 left-0 w-[0.5px] bg-neutral-400/28" />
-            <div className="absolute inset-y-0 right-0 w-[0.5px] bg-neutral-400/28" />
+            <div className={cn("absolute inset-y-0 left-0", leftRailClass)} />
+            <div className={cn("absolute inset-y-0 right-0", rightRailClass)} />
           </div>
         )}
       </main>
-    </>
+    </div>
   );
 }

@@ -2,6 +2,8 @@ import type { ComponentType } from "react";
 import type { DeconstructSiteId } from "@/app/deconstruct/lib/deconstructSites";
 import { LinearNavbarPreview } from "@/app/deconstruct/components/linear/LinearNavbarPreview";
 import { linearNavbarSource } from "@/app/deconstruct/components/linear/linearNavbar.source";
+import { StripeNavbarPreview } from "@/app/deconstruct/components/stripe/StripeNavbarPreview";
+import { stripeNavbarSource } from "@/app/deconstruct/components/stripe/stripeNavbar.source";
 import { VercelNavbarPreview } from "@/app/deconstruct/components/vercel/VercelNavbarPreview";
 import { vercelNavbarSource } from "@/app/deconstruct/components/vercel/vercelNavbar.source";
 
@@ -21,6 +23,16 @@ export type DeconstructSiteContent = {
 export const deconstructSiteContent: Partial<
   Record<DeconstructSiteId, DeconstructSiteContent>
 > = {
+  stripe: {
+    Preview: StripeNavbarPreview,
+    source: stripeNavbarSource,
+    codePanel: {
+      explorerFolder: "Components",
+      explorerFileName: "navbar.tsx",
+      editorPath: "components/navbar.tsx",
+      language: "tsx",
+    },
+  },
   linear: {
     Preview: LinearNavbarPreview,
     source: linearNavbarSource,
