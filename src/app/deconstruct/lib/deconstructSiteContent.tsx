@@ -10,6 +10,8 @@ import { VercelNavbarPreview } from "@/app/deconstruct/components/vercel/VercelN
 import { vercelNavbarSource } from "@/app/deconstruct/components/vercel/vercelNavbar.source";
 import { CursorNavbarPreview } from "@/app/deconstruct/components/cursor/CursorNavbarPreview";
 import { cursorNavbarSource } from "@/app/deconstruct/components/cursor/cursorNavbar.source";
+import { HeyGenNavbarPreview } from "@/app/deconstruct/components/heygen/HeyGenNavbarPreview";
+import { heygenNavbarSource } from "@/app/deconstruct/components/heygen/heygenNavbar.source";
 
 export type DeconstructCodePanelConfig = {
   explorerFolder: string;
@@ -70,6 +72,16 @@ export const deconstructSiteContent: Partial<
   cursor: {
     Preview: CursorNavbarPreview,
     source: cursorNavbarSource,
+    codePanel: {
+      explorerFolder: "Components",
+      explorerFileName: "navbar.tsx",
+      editorPath: "components/navbar.tsx",
+      language: "tsx",
+    },
+  },
+  heygen: {
+    Preview: HeyGenNavbarPreview,
+    source: heygenNavbarSource,
     codePanel: {
       explorerFolder: "Components",
       explorerFileName: "navbar.tsx",
