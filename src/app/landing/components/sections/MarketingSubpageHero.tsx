@@ -1,20 +1,28 @@
 "use client";
 
+import { cn } from "@/lib/utils";
 import GradientBlinds from "../ui/GradientBlinds";
 import { motion } from "motion/react";
-
 type MarketingSubpageHeroProps = {
   title: string;
   description: string;
+  /** When true, hero fills the shell content column (no extra horizontal padding). */
+  insetContent?: boolean;
 };
 
 export function MarketingSubpageHero({
   title,
   description,
+  insetContent = false,
 }: MarketingSubpageHeroProps) {
   return (
-    <section className="relative flex min-h-[calc(100dvh-4.5rem)] flex-col items-center justify-center overflow-hidden bg-black px-6 py-16 text-center text-white md:py-20">
-      <div className="absolute inset-0 z-0 mx-auto w-full max-w-7xl opacity-55">
+    <section
+      className={cn(
+        "relative flex min-h-[calc(100dvh-4.5rem)] flex-col items-center justify-center overflow-hidden bg-black py-16 text-center text-white md:py-20",
+        !insetContent && "px-6",
+      )}
+    >
+      <div className="absolute inset-0 z-0 w-full opacity-55" aria-hidden>
         <GradientBlinds
           gradientColors={[
             "#050505",

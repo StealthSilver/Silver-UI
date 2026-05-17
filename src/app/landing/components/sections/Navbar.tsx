@@ -6,6 +6,13 @@ import { Menu, X } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { AnimatePresence, motion } from "motion/react";
+import {
+  hasPageContentGutter,
+  pageContentGutterClass,
+  pageContentGutterXClass,
+  pageContentMaxWidthClass,
+  type PageContentMaxWidth,
+} from "@/app/landing/lib/pageContentWidth";
 import { cn } from "@/lib/utils";
 import { GetFullAccessButton } from "../ui/GetFullAccessButton";
 
@@ -57,11 +64,16 @@ function NavPrimaryLink({
   );
 }
 
-export default function Navbar() {
+type NavbarProps = {
+  contentMaxWidth?: PageContentMaxWidth;
+};
+
+export default function Navbar({ contentMaxWidth = "7xl" }: NavbarProps) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const mobileNavId = useId();
   const bodyOverflowBeforeMenu = useRef<string | null>(null);
   const pathname = usePathname();
+  const maxWidthClass = pageContentMaxWidthClass[contentMaxWidth];
 
   useEffect(() => {
     setMobileOpen(false);
@@ -93,8 +105,15 @@ export default function Navbar() {
 
   return (
     <>
-      <header className="sticky top-0 z-50 w-full min-w-0 shrink-0 overflow-x-clip bg-background px-2 pt-2">
-        <div className="mx-auto w-full min-w-0 max-w-7xl">
+      <header
+        className={cn(
+          "sticky top-0 z-50 w-full min-w-0 shrink-0 overflow-x-clip bg-background pt-2",
+          hasPageContentGutter(contentMaxWidth)
+            ? cn(pageContentGutterXClass, "pt-2")
+            : "px-2 pt-2",
+        )}
+      >
+        <div className={cn("mx-auto w-full min-w-0", maxWidthClass)}>
           <div
             className="screen-line-edges relative flex h-12 min-w-0 items-center justify-between gap-2 border-x border-line px-2 sm:gap-4"
             style={{ borderColor: "var(--line)" }}
@@ -202,7 +221,12 @@ export default function Navbar() {
         {mobileOpen ? (
           <motion.div
             key="landing-navbar-mobile-panel"
-            className="pointer-events-none fixed top-14 right-0 left-0 z-50 flex max-h-[min(70dvh,calc(100dvh-3.5rem-1.5rem))] justify-center overflow-x-hidden overflow-y-auto overscroll-contain px-2 pb-[max(0.5rem,env(safe-area-inset-bottom))] will-change-transform sm:hidden"
+            className={cn(
+              "pointer-events-none fixed top-14 right-0 left-0 z-50 flex max-h-[min(70dvh,calc(100dvh-3.5rem-1.5rem))] justify-center overflow-x-hidden overflow-y-auto overscroll-contain pb-[max(0.5rem,env(safe-area-inset-bottom))] will-change-transform sm:hidden",
+              hasPageContentGutter(contentMaxWidth)
+                ? pageContentGutterXClass
+                : "px-2",
+            )}
             initial={{ y: -20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: -20, opacity: 0 }}
@@ -213,7 +237,10 @@ export default function Navbar() {
               role="dialog"
               aria-modal="true"
               aria-label="Main menu"
-              className="screen-line-edges pointer-events-auto relative w-full max-w-7xl border-x border-b border-line bg-background text-[15px] shadow-sm"
+              className={cn(
+                "screen-line-edges pointer-events-auto relative w-full border-x border-b border-line bg-background text-[15px] shadow-sm",
+                maxWidthClass,
+              )}
             >
               <nav className="flex flex-col" aria-label="Primary">
                 {navItems.map(({ href, label }, index) => (

@@ -6,7 +6,6 @@ import Link from "next/link";
 import { motion } from "motion/react";
 import { LandingRailSeparator } from "./LandingRailSeparator";
 import DotField from "../ui/DotField";
-import { TextHoverEffect } from "@/components/ui/TextHoverEffect";
 import {
   landingRevealAnimate,
   landingRevealInitial,
@@ -199,28 +198,10 @@ export function FooterLegal() {
 
   return (
     <footer
-      className="relative flex min-h-[420px] flex-1 flex-col overflow-hidden bg-black text-white"
+      className="relative overflow-hidden bg-black text-white"
       aria-labelledby="footer-heading"
     >
-      <div className="pointer-events-none absolute inset-0" aria-hidden>
-        <DotField
-          dotRadius={1.6}
-          dotSpacing={14}
-          bulgeStrength={67}
-          glowRadius={160}
-          sparkle={false}
-          waveAmplitude={0}
-          cursorRadius={500}
-          cursorForce={0.12}
-          bulgeOnly
-          gradientFrom="rgba(220, 220, 224, 0.45)"
-          gradientTo="rgba(255, 255, 255, 0.12)"
-          glowColor="#0a0a0a"
-        />
-        <div className="absolute inset-x-0 top-0 h-20 bg-gradient-to-b from-black to-transparent" />
-      </div>
-
-      <div className="relative z-10 px-6 pt-8">
+      <div className="relative z-10 px-6 pt-8 pb-6">
         <div className="mx-auto max-w-7xl">
           <motion.div
             initial={landingRevealInitial}
@@ -240,10 +221,25 @@ export function FooterLegal() {
         </div>
       </div>
 
-      <div className="relative z-10 flex flex-1 items-end justify-center overflow-hidden">
-        <div className="mx-auto aspect-[480/128] w-full max-w-[min(96vw,1100px)] translate-y-[38%]">
-          <TextHoverEffect text="Silver UI" duration={0.3} />
-        </div>
+      <div
+        className="pointer-events-none relative h-[35vh] w-full overflow-hidden"
+        aria-hidden
+      >
+        <DotField
+          dotRadius={1.6}
+          dotSpacing={14}
+          bulgeStrength={67}
+          glowRadius={160}
+          sparkle={false}
+          waveAmplitude={0}
+          cursorRadius={500}
+          cursorForce={0.12}
+          bulgeOnly
+          gradientFrom="rgba(220, 220, 224, 0.58)"
+          gradientTo="rgba(255, 255, 255, 0.22)"
+          glowColor="#0a0a0a"
+        />
+        <div className="absolute inset-x-0 top-0 h-12 bg-gradient-to-b from-black to-transparent" />
       </div>
     </footer>
   );
