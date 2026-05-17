@@ -8,6 +8,8 @@ import { StripeNavbarPreview } from "@/app/deconstruct/components/stripe/StripeN
 import { stripeNavbarSource } from "@/app/deconstruct/components/stripe/stripeNavbar.source";
 import { VercelNavbarPreview } from "@/app/deconstruct/components/vercel/VercelNavbarPreview";
 import { vercelNavbarSource } from "@/app/deconstruct/components/vercel/vercelNavbar.source";
+import { CursorNavbarPreview } from "@/app/deconstruct/components/cursor/CursorNavbarPreview";
+import { cursorNavbarSource } from "@/app/deconstruct/components/cursor/cursorNavbar.source";
 
 export type DeconstructCodePanelConfig = {
   explorerFolder: string;
@@ -58,6 +60,16 @@ export const deconstructSiteContent: Partial<
   cal: {
     Preview: CalNavbarPreview,
     source: calNavbarSource,
+    codePanel: {
+      explorerFolder: "Components",
+      explorerFileName: "navbar.tsx",
+      editorPath: "components/navbar.tsx",
+      language: "tsx",
+    },
+  },
+  cursor: {
+    Preview: CursorNavbarPreview,
+    source: cursorNavbarSource,
     codePanel: {
       explorerFolder: "Components",
       explorerFileName: "navbar.tsx",
