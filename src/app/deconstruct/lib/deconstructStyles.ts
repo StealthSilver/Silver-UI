@@ -1,6 +1,11 @@
+import { pageContentFrameInnerClass } from "@/app/landing/lib/pageContentWidth";
+import { cn } from "@/lib/utils";
+
 /** Shared fixed height for Sites (left) and Preview/Code (right) panel headers. */
-export const deconstructPanelHeaderClass =
-  "flex h-12 shrink-0 items-center border-b border-line px-4";
+export const deconstructPanelHeaderClass = cn(
+  "flex h-12 shrink-0 items-center border-b border-line",
+  pageContentFrameInnerClass,
+);
 
 /** Preview / code panel inner surface (matches landing Deconstruct section). */
 export const deconstructSurfaceGradientClass =

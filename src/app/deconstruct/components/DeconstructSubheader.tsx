@@ -44,7 +44,7 @@ export function DeconstructSubheader() {
 
       <FramedBlock>
         <nav
-          className="flex flex-wrap items-center gap-x-6 gap-y-2"
+          className="flex flex-wrap items-center gap-5 md:gap-7 lg:gap-8"
           aria-label="Sites to deconstruct"
         >
           {deconstructSites.map(({ id, slug, label }) => {
@@ -55,10 +55,8 @@ export function DeconstructSubheader() {
                 href={getDeconstructSitePath(slug)}
                 aria-current={isActive ? "page" : undefined}
                 className={cn(
-                  "border-b-2 pb-1 text-sm font-light transition-[border-color,color] duration-200",
-                  isActive
-                    ? "border-white text-white"
-                    : "border-transparent text-white/60 hover:border-white/25 hover:text-white",
+                  "shrink-0 text-sm font-light transition-colors duration-200",
+                  isActive ? "text-white" : "text-white/60 hover:text-white",
                 )}
               >
                 {label}

@@ -2,6 +2,8 @@ import type { ComponentType } from "react";
 import type { DeconstructSiteId } from "@/app/deconstruct/lib/deconstructSites";
 import { LinearNavbarPreview } from "@/app/deconstruct/components/linear/LinearNavbarPreview";
 import { linearNavbarSource } from "@/app/deconstruct/components/linear/linearNavbar.source";
+import { VercelNavbarPreview } from "@/app/deconstruct/components/vercel/VercelNavbarPreview";
+import { vercelNavbarSource } from "@/app/deconstruct/components/vercel/vercelNavbar.source";
 
 export type DeconstructCodePanelConfig = {
   explorerFolder: string;
@@ -26,6 +28,16 @@ export const deconstructSiteContent: Partial<
       explorerFolder: "Components",
       explorerFileName: "navbar.tsx",
       editorPath: "components/team-01.tsx",
+      language: "tsx",
+    },
+  },
+  vercel: {
+    Preview: VercelNavbarPreview,
+    source: vercelNavbarSource,
+    codePanel: {
+      explorerFolder: "Components",
+      explorerFileName: "navbar.tsx",
+      editorPath: "components/navbar.tsx",
       language: "tsx",
     },
   },
