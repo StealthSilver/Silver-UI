@@ -3,9 +3,7 @@
 import { useMemo, useState } from "react";
 import { Check, ChevronDown, Copy, FileCode2 } from "lucide-react";
 import { Highlight } from "prism-react-renderer";
-import {
-  deconstructPanelHeaderClass,
-} from "@/app/deconstruct/lib/deconstructStyles";
+import { deconstructPanelHeaderClass } from "@/app/deconstruct/lib/deconstructStyles";
 import { deconstructCodeTheme } from "@/app/deconstruct/lib/deconstructCodeTheme";
 import { cn } from "@/lib/utils";
 
@@ -35,12 +33,12 @@ export function DeconstructIdePanel({
 
   return (
     <div
-      className="flex h-full min-h-[360px] w-full overflow-hidden bg-black"
+      className="flex h-0 min-h-0 w-full flex-1 overflow-hidden bg-black"
       role="region"
       aria-label="Code editor"
     >
       <aside
-        className="flex w-44 shrink-0 flex-col border-r border-line bg-black sm:w-52"
+        className="flex min-h-0 w-44 shrink-0 flex-col overflow-hidden border-r border-line bg-black sm:w-52"
         aria-label="File explorer"
       >
         <div className={deconstructPanelHeaderClass}>
@@ -49,7 +47,7 @@ export function DeconstructIdePanel({
           </span>
         </div>
 
-        <div className="min-h-0 flex-1 overflow-y-auto px-3 py-3">
+        <div className="min-h-0 flex-1 overflow-hidden px-3 py-3">
           <div className="flex items-center gap-1.5 px-1 py-1.5 font-roboto text-xs text-white/55">
             <ChevronDown
               className="h-3 w-3 shrink-0 text-white/35"
@@ -75,7 +73,7 @@ export function DeconstructIdePanel({
         </div>
       </aside>
 
-      <div className="flex min-w-0 flex-1 flex-col">
+      <div className="flex min-h-0 min-w-0 flex-1 flex-col overflow-hidden">
         <div className={cn(deconstructPanelHeaderClass, "gap-3")}>
           <div
             className="flex h-6 min-w-0 flex-1 items-center justify-between gap-3 bg-white/[0.04] pl-3 pr-2"
@@ -115,64 +113,62 @@ export function DeconstructIdePanel({
           </div>
         </div>
 
-        <div className="relative min-h-0 flex-1 overflow-hidden bg-black">
-          <div className="h-full overflow-auto bg-[#030303] p-4 sm:p-5">
-            <Highlight
-              code={code}
-              language={language}
-              theme={deconstructCodeTheme}
-            >
-              {({ className, style, tokens, getLineProps, getTokenProps }) => (
-                <pre
-                  className={cn(
-                    className,
-                    "relative m-0 min-h-full overflow-x-auto bg-[#030303] p-4 font-mono text-[13px] sm:p-5",
-                  )}
-                  style={{
-                    ...style,
-                    background: "#030303",
-                    whiteSpace: "pre",
-                    wordBreak: "normal",
-                    margin: 0,
-                  }}
-                >
-                  {tokens.map((line, lineIndex) => {
-                    const lineProps = getLineProps({ line });
-                    return (
-                      <div
-                        key={lineIndex}
-                        {...lineProps}
-                        className="table-row hover:bg-white/[0.02]"
-                        style={{ whiteSpace: "pre" }}
+        <div
+          className="h-0 min-h-0 flex-1 overflow-y-auto overflow-x-auto overscroll-contain bg-[#030303]"
+          role="region"
+          aria-label="Source code"
+        >
+          <Highlight code={code} language={language} theme={deconstructCodeTheme}>
+            {({ className, style, tokens, getLineProps, getTokenProps }) => (
+              <pre
+                className={cn(
+                  className,
+                  "m-0 bg-[#030303] p-4 font-mono text-[13px] sm:p-5",
+                )}
+                style={{
+                  ...style,
+                  background: "#030303",
+                  whiteSpace: "pre",
+                  wordBreak: "normal",
+                  margin: 0,
+                }}
+              >
+                {tokens.map((line, lineIndex) => {
+                  const lineProps = getLineProps({ line });
+                  return (
+                    <div
+                      key={lineIndex}
+                      {...lineProps}
+                      className="table-row hover:bg-white/[0.02]"
+                      style={{ whiteSpace: "pre" }}
+                    >
+                      <span
+                        className="table-cell w-8 shrink-0 select-none pr-4 text-right text-white/25"
+                        aria-hidden
                       >
-                        <span
-                          className="table-cell w-8 shrink-0 select-none pr-4 text-right text-white/25"
-                          aria-hidden
-                        >
-                          {lineIndex + 1}
-                        </span>
-                        <span className="table-cell pr-4">
-                          {line.map((token, tokenIndex) => {
-                            const tokenProps = getTokenProps({ token });
-                            return (
-                              <span
-                                key={tokenIndex}
-                                {...tokenProps}
-                                style={{
-                                  ...tokenProps.style,
-                                  whiteSpace: "pre",
-                                }}
-                              />
-                            );
-                          })}
-                        </span>
-                      </div>
-                    );
-                  })}
-                </pre>
-              )}
-            </Highlight>
-          </div>
+                        {lineIndex + 1}
+                      </span>
+                      <span className="table-cell pr-4">
+                        {line.map((token, tokenIndex) => {
+                          const tokenProps = getTokenProps({ token });
+                          return (
+                            <span
+                              key={tokenIndex}
+                              {...tokenProps}
+                              style={{
+                                ...tokenProps.style,
+                                whiteSpace: "pre",
+                              }}
+                            />
+                          );
+                        })}
+                      </span>
+                    </div>
+                  );
+                })}
+              </pre>
+            )}
+          </Highlight>
         </div>
       </div>
     </div>

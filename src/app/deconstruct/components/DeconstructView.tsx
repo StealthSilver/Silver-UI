@@ -27,7 +27,7 @@ export function DeconstructView({ activeId }: DeconstructViewProps) {
 
   return (
     <section
-      className="flex min-w-0 flex-1 flex-col bg-black"
+      className="flex h-full min-h-0 min-w-0 flex-1 flex-col overflow-hidden bg-black"
       aria-label="Deconstruct preview and code"
     >
       <div className={deconstructPanelHeaderClass}>

@@ -12,6 +12,8 @@ import { CursorNavbarPreview } from "@/app/deconstruct/components/cursor/CursorN
 import { cursorNavbarSource } from "@/app/deconstruct/components/cursor/cursorNavbar.source";
 import { HeyGenNavbarPreview } from "@/app/deconstruct/components/heygen/HeyGenNavbarPreview";
 import { heygenNavbarSource } from "@/app/deconstruct/components/heygen/heygenNavbar.source";
+import { ClerkNavbarPreview } from "@/app/deconstruct/components/clerk/ClerkNavbarPreview";
+import { clerkNavbarSource } from "@/app/deconstruct/components/clerk/clerkNavbar.source";
 
 export type DeconstructCodePanelConfig = {
   explorerFolder: string;
@@ -82,6 +84,16 @@ export const deconstructSiteContent: Partial<
   heygen: {
     Preview: HeyGenNavbarPreview,
     source: heygenNavbarSource,
+    codePanel: {
+      explorerFolder: "Components",
+      explorerFileName: "navbar.tsx",
+      editorPath: "components/navbar.tsx",
+      language: "tsx",
+    },
+  },
+  clerk: {
+    Preview: ClerkNavbarPreview,
+    source: clerkNavbarSource,
     codePanel: {
       explorerFolder: "Components",
       explorerFileName: "navbar.tsx",

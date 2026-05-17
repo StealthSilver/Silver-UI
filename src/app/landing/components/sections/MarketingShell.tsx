@@ -43,7 +43,9 @@ export default function MarketingShell({
       <main
         className={cn(
           "relative overflow-x-clip bg-black",
-          showHero ? "min-h-screen" : "min-h-[calc(100dvh-4.5rem)]",
+          showHero
+            ? "min-h-screen"
+            : "min-h-[calc(100dvh-4.5rem)] overflow-hidden",
           useGutter && pageContentGutterClass,
         )}
       >
@@ -53,7 +55,7 @@ export default function MarketingShell({
             maxWidthClass,
             showHero
               ? "min-h-[calc(100dvh-4.5rem)]"
-              : "h-[calc(100dvh-4.5rem)]",
+              : "h-[calc(100dvh-4.5rem)] overflow-hidden",
           )}
         >
           {showHero && title != null && description != null ? (
