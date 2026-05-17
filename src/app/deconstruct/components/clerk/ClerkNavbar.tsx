@@ -4,11 +4,14 @@ import type { CSSProperties } from "react";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 
-/** Matches Clerk `.label-3`: 13px / 500 / 153.846% line-height */
+/** Matches Clerk `.label-3` — leading-none in the bar keeps flex vertical centering exact */
 const label3Class = cn(
-  "font-sans text-[0.8125rem] font-medium leading-[153.846%]",
+  "font-sans text-[0.8125rem] font-medium leading-none",
   "antialiased",
 );
+
+/** Clerk bar: 26px controls + 8px vertical inset = 42px */
+const NAVBAR_HEIGHT = "h-[42px]";
 
 const transitionBase = cn(
   "transition-[color,background-color,border-color,text-decoration-color,fill,stroke,box-shadow,background]",
@@ -31,21 +34,21 @@ const navItemLabelClass = cn(
 );
 
 const navTriggerButtonClass = cn(
-  "group relative flex h-full cursor-pointer items-center border-0 bg-transparent p-0 pr-2",
-  "before:absolute before:inset-x-0 before:-inset-y-3",
+  "group relative inline-flex cursor-pointer items-center border-0 bg-transparent p-0 pr-2",
+  "before:pointer-events-none before:absolute before:inset-x-0 before:-inset-y-3",
   "data-[state=open]:after:absolute data-[state=open]:after:top-full",
   "data-[state=open]:after:h-4 data-[state=open]:after:w-full",
 );
 
 const navTriggerLabelClass = cn(
   navItemLabelClass,
-  "inline-flex items-center gap-x-[0.5rem] leading-none",
+  "inline-flex items-center gap-x-[0.5rem]",
 );
 
 const signInButtonClass = cn(
   label3Class,
   transitionBase,
-  "group relative flex h-[1.625rem] cursor-pointer items-center justify-center rounded-md",
+  "group relative flex h-[26px] shrink-0 cursor-pointer items-center justify-center rounded-md",
   "border-[0.5px] border-solid border-[rgba(19,19,22,0)] bg-[rgba(19,19,22,0)] px-2.5",
   "text-gray-950 duration-150 ease-[cubic-bezier(0.33,1,0.68,1)]",
   "hover:border-[rgba(19,19,22,0.12)] hover:bg-[rgba(19,19,22,0.02)] hover:duration-100",
@@ -58,7 +61,7 @@ const startBuildingClass = cn(
   label3Class,
   "rounded-md shadow-[0_2px_3px_-1px_rgba(0,0,0,0.08),0_0_0_0.5px_rgba(19,19,22,0.18),0_1px_0_0_rgba(255,255,255,0.1)_inset]",
   "[background:linear-gradient(180deg,rgba(19,19,22,0)_45%,rgba(19,19,22,0.03)_55%),#fff]",
-  "h-[1.625rem] px-2.5 text-sm text-gray-950",
+  "h-[1.625rem] shrink-0 px-2.5 text-sm leading-none text-gray-950",
 );
 
 const chevronSvgClass = cn(
@@ -145,7 +148,7 @@ function ClerkLogo({ className }: { className?: string }) {
 
 function NavChevron() {
   return (
-    <span className="relative top-[-0.5px] flex h-[0.25rem] w-[0.5rem] items-center justify-center">
+    <span className="flex h-[0.25rem] w-[0.5rem] shrink-0 items-center justify-center">
       <svg
         aria-hidden
         viewBox="0 0 8 4"
@@ -242,29 +245,30 @@ export function ClerkNavbar() {
       <div className="relative m-auto w-[76.75rem] max-w-[calc(100vw-1rem)] rounded-xl md:max-w-[calc(100vw-2rem)]">
         <div
           className={cn(
-            "pointer-events-auto relative z-30 mx-auto flex min-h-[2.626rem] w-full items-center rounded-xl",
-            "bg-[rgba(248,248,248,0.9)] px-2 py-0 pr-0 pl-3 md:min-h-[2.75rem] md:pr-2",
+            "pointer-events-auto relative z-30 mx-auto box-border flex w-full items-center overflow-hidden rounded-xl",
+            NAVBAR_HEIGHT,
+            "bg-[rgba(248,248,248,0.9)] px-2 py-0 pr-0 pl-3 md:pr-2",
             navBarShadow,
           )}
         >
           <Link
             href="https://clerk.com/"
             aria-label="Clerk Home Page"
-            className="flex h-full shrink-0 select-none items-center gap-x-3"
+            className="inline-flex shrink-0 select-none items-center gap-x-3"
           >
             <ClerkLogo />
           </Link>
 
           <nav
             aria-label="Main"
-            className="ml-3 hidden h-full items-center md:flex"
+            className="ml-3 hidden shrink-0 items-center md:flex"
           >
             <ul
-              className="group/nav m-0 flex h-full list-none items-center p-0 text-gray-950"
+              className="group/nav m-0 flex list-none items-center p-0 text-gray-950"
               dir="ltr"
             >
               {NAV_DROPDOWNS.map((label) => (
-                <li key={label} data-navitem className="relative flex h-full items-center">
+                <li key={label} data-navitem className="flex items-center">
                   <button
                     type="button"
                     data-state="closed"
@@ -278,42 +282,38 @@ export function ClerkNavbar() {
                   </button>
                 </li>
               ))}
-              <li data-navitem className="relative flex h-full items-center">
+              <li data-navitem className="flex items-center">
                 <Link
                   href="https://clerk.com/pricing"
                   className={cn(navTriggerButtonClass, "no-underline")}
                 >
-                  <span className={cn(navItemLabelClass, "leading-none")}>Pricing</span>
+                  <span className={navItemLabelClass}>Pricing</span>
                 </Link>
               </li>
             </ul>
           </nav>
 
-          <div className="ml-auto flex h-full items-center gap-6 font-medium max-[22.5rem]:hidden">
-            <div className="flex h-full items-center gap-2 sm:gap-2 md:gap-2">
+          <div className="ml-auto flex shrink-0 items-center gap-6 font-medium max-[22.5rem]:hidden">
+            <div className="flex items-center gap-2">
               <button type="button" className={signInButtonClass}>
                 <span className="pointer-events-none">Sign in</span>
               </button>
 
-              <div className="contents sm:hidden">
-                <Link
-                  href="https://dashboard.clerk.com/sign-up"
-                  className={startBuildingClass}
-                >
-                  <span>Start building</span>
-                  <StartBuildingArrow />
-                </Link>
-              </div>
+              <Link
+                href="https://dashboard.clerk.com/sign-up"
+                className={cn(startBuildingClass, "sm:hidden")}
+              >
+                <span>Start building</span>
+                <StartBuildingArrow />
+              </Link>
 
-              <div className="hidden sm:contents">
-                <Link
-                  href="https://clerk.com/docs/quickstart"
-                  className={startBuildingClass}
-                >
-                  <span>Start building</span>
-                  <StartBuildingArrow />
-                </Link>
-              </div>
+              <Link
+                href="https://clerk.com/docs/quickstart"
+                className={cn(startBuildingClass, "hidden sm:inline-flex")}
+              >
+                <span>Start building</span>
+                <StartBuildingArrow />
+              </Link>
             </div>
           </div>
 
@@ -322,10 +322,10 @@ export function ClerkNavbar() {
             aria-label="Open navigation"
             aria-expanded={false}
             className={cn(
-              "inline-flex size-8 cursor-pointer items-center justify-center rounded-md border-0",
+              "inline-flex size-8 shrink-0 cursor-pointer items-center justify-center rounded-md border-0",
               "bg-transparent text-gray-500 outline-none [--focus-outline-offset:-0.5rem]",
               transitionBase,
-              "self-center hover:text-gray-950 max-[22.5rem]:ml-auto md:hidden",
+              "hover:text-gray-950 max-[22.5rem]:ml-auto md:hidden",
             )}
           >
             <MenuIcon />

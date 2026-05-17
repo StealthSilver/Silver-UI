@@ -12,11 +12,14 @@ const options: { id: DeconstructViewMode; label: string }[] = [
 type DeconstructViewToggleProps = {
   mode: DeconstructViewMode;
   onChange: (mode: DeconstructViewMode) => void;
+  /** Unique prefix for tab/panel ids when multiple toggles appear on one page. */
+  tabIdPrefix?: string;
 };
 
 export function DeconstructViewToggle({
   mode,
   onChange,
+  tabIdPrefix = "deconstruct",
 }: DeconstructViewToggleProps) {
   return (
     <div
@@ -32,8 +35,8 @@ export function DeconstructViewToggle({
             type="button"
             role="tab"
             aria-selected={isActive}
-            id={`deconstruct-tab-${id}`}
-            aria-controls={`deconstruct-panel-${id}`}
+            id={`${tabIdPrefix}-tab-${id}`}
+            aria-controls={`${tabIdPrefix}-panel-${id}`}
             onClick={() => onChange(id)}
             className={cn(
               "flex h-full items-center px-3 text-xs font-normal uppercase leading-none tracking-widest transition-[background-color,color] duration-200",

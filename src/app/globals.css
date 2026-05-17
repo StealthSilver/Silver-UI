@@ -188,6 +188,19 @@
   animation: glow 2s ease-in-out infinite;
 }
 
+@keyframes heygen-logo-slide {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.animate-heygen-logo-slide {
+  animation: heygen-logo-slide 25s linear infinite;
+}
+
 /* Custom scale utilities */
 .scale-102 {
   transform: scale(1.02);

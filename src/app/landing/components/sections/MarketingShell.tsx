@@ -45,7 +45,9 @@ export default function MarketingShell({
           "relative overflow-x-clip bg-black",
           showHero
             ? "min-h-screen"
-            : "min-h-[calc(100dvh-4.5rem)] overflow-hidden",
+            : subduedLines
+              ? "min-h-[calc(100dvh-4.5rem)]"
+              : "min-h-[calc(100dvh-4.5rem)] overflow-hidden",
           useGutter && pageContentGutterClass,
         )}
       >
@@ -55,7 +57,9 @@ export default function MarketingShell({
             maxWidthClass,
             showHero
               ? "min-h-[calc(100dvh-4.5rem)]"
-              : "h-[calc(100dvh-4.5rem)] overflow-hidden",
+              : subduedLines
+                ? "min-h-[calc(100dvh-4.5rem)]"
+                : "h-[calc(100dvh-4.5rem)] overflow-hidden",
           )}
         >
           {showHero && title != null && description != null ? (

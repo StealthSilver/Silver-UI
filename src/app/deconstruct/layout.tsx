@@ -7,9 +7,7 @@ export default function DeconstructRootLayout({
 }) {
   return (
     <MarketingShell contentMaxWidth="8xl" showHero={false} subduedLines>
-      <div className="flex h-full min-h-0 flex-col overflow-hidden">
-        {children}
-      </div>
+      <div className="flex w-full flex-col">{children}</div>
     </MarketingShell>
   );
 }
