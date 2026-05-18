@@ -8,6 +8,7 @@ import {
   templateThemeHref,
 } from "./templatesScrollConfig";
 import { DriftTemplatePreview } from "./DriftTemplatePreview";
+import { ObsidianTemplatePreview } from "./ObsidianTemplatePreview";
 import { HaloTemplatePreview } from "./HaloTemplatePreview";
 import { PulseTemplatePreview } from "./PulseTemplatePreview";
 
@@ -17,6 +18,7 @@ const TEMPLATE_PREVIEWS: Record<string, ComponentType> = {
   pulse: PulseTemplatePreview,
   halo: HaloTemplatePreview,
   drift: DriftTemplatePreview,
+  obsidian: ObsidianTemplatePreview,
 };
 
 export function TemplatesScrollShowcase() {
