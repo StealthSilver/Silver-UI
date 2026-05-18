@@ -17,24 +17,24 @@ const heroStats = [
 export const Hero = () => {
   return (
     <section className="relative flex min-h-[76vh] flex-col items-stretch bg-black px-6 pt-8 pb-0 text-center text-white md:pt-10">
-      <div className="pointer-events-auto absolute inset-0 z-0 mx-auto w-full max-w-7xl overflow-hidden opacity-55">
+      <div className="pointer-events-auto absolute inset-0 z-0 mx-auto w-full max-w-7xl overflow-hidden opacity-38">
         <GradientBlinds
           gradientColors={[
             "#050505",
-            "#1a1a1c",
-            "#2a2a2a",
-            "#bebec3",
-            "#c8c8cc",
-            "#dcdce1",
+            "#121214",
+            "#1e1e22",
+            "#3a3a40",
+            "#45454c",
+            "#52525a",
           ]}
           angle={45}
           noise={0.05}
           blindCount={14}
           blindMinWidth={50}
-          spotlightRadius={0.45}
-          spotlightSoftness={1.4}
-          spotlightOpacity={0.35}
-          mouseDampening={0.15}
+          spotlightRadius={0.52}
+          spotlightSoftness={1.15}
+          spotlightOpacity={0.42}
+          mouseDampening={0.12}
           distortAmount={0}
           shineDirection="left"
           mixBlendMode="lighten"
