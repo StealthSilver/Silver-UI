@@ -38,6 +38,40 @@
   animation: fadeIn 0.3s ease-out;
 }
 
+/** Tight dotted border — 1px dots, 2px gap (closer than browser `border-dotted`). */
+@utility border-dotted-tight {
+  --dotted-border-color: rgb(255 255 255 / 0.15);
+  border: 0;
+  background-image:
+    repeating-linear-gradient(
+      to right,
+      var(--dotted-border-color) 0 1px,
+      transparent 1px 3px
+    ),
+    repeating-linear-gradient(
+      to right,
+      var(--dotted-border-color) 0 1px,
+      transparent 1px 3px
+    ),
+    repeating-linear-gradient(
+      to bottom,
+      var(--dotted-border-color) 0 1px,
+      transparent 1px 3px
+    ),
+    repeating-linear-gradient(
+      to bottom,
+      var(--dotted-border-color) 0 1px,
+      transparent 1px 3px
+    );
+  background-size: 3px 1px, 3px 1px, 1px 3px, 1px 3px;
+  background-position: top, bottom, left, right;
+  background-repeat: repeat-x, repeat-x, repeat-y, repeat-y;
+
+  &:hover {
+    --dotted-border-color: rgb(255 255 255 / 0.35);
+  }
+}
+
 /* Align scrollbars with navbar / hero: black track, hairline thumb */
 * {
   scrollbar-width: thin;

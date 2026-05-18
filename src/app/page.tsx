@@ -12,7 +12,6 @@ import { Lab } from "./landing/components/sections/Lab";
 import { Construct } from "./landing/components/sections/Construct";
 import { Deconstruct } from "./landing/components/sections/Deconstruct";
 import { Pricing } from "./landing/components/sections/Pricing";
-
 export default function Page() {
   return (
     <>

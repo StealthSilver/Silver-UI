@@ -103,89 +103,71 @@ export function FooterBranding() {
 
       <div className="relative z-10 px-6 py-10 md:py-12">
         <div className="mx-auto max-w-7xl">
-          <h2 id="footer-heading" className="sr-only">
-            Site footer
-          </h2>
+            <h2 id="footer-heading" className="sr-only">
+              Site footer
+            </h2>
 
-          <div className="px-3 sm:px-6 md:px-10">
-            <div className="grid gap-12 border border-line bg-black p-10 sm:p-12 md:gap-14 lg:grid-cols-12 lg:gap-10 lg:p-14">
+            <div className="px-3 sm:px-6 md:px-10">
               <motion.div
                 {...fadeUp}
-                className="flex flex-col gap-5 lg:col-span-5"
+                className="flex w-full flex-col gap-12 sm:flex-row sm:items-start sm:justify-between sm:gap-16 md:gap-20 lg:gap-24"
               >
-            <Link
-              href="/"
-              className="group inline-flex w-fit select-none items-center gap-2.5 transition-opacity duration-200 hover:opacity-90"
-              aria-label="Silver UI home"
-            >
-              <Image
-                src="/logo.svg"
-                alt=""
-                width={28}
-                height={28}
-                className="h-7 w-7 shrink-0"
-              />
-              <span className="font-public-sans text-lg font-light tracking-tight text-white">
-                Silver UI
-              </span>
-            </Link>
-            <p className="max-w-sm font-roboto text-sm font-light leading-relaxed text-white/55 md:text-[15px]">
-              Polished components and themes for interfaces that feel
-              considered—not generic. Build faster without blending in.
-            </p>
-            <Link
-              href="/components"
-              className="group mt-1 inline-flex w-fit items-center gap-1.5 border border-white/15 px-5 py-2.5 text-sm font-light text-white/80 transition-[background-color,border-color,color] duration-200 hover:border-white/35 hover:bg-white/[0.04] hover:text-white"
-            >
-              Browse components
-              <span
-                aria-hidden
-                className="transition-transform duration-200 group-hover:translate-x-0.5"
-              >
-                &gt;
-              </span>
-            </Link>
-              </motion.div>
+                <div className="flex shrink-0 justify-start self-start">
+                  <Link
+                    href="/"
+                    className="group inline-flex w-fit select-none items-center gap-2.5 transition-opacity duration-200 hover:opacity-90"
+                    aria-label="Silver UI home"
+                  >
+                    <Image
+                      src="/logo.svg"
+                      alt=""
+                      width={28}
+                      height={28}
+                      className="h-7 w-7 shrink-0"
+                    />
+                    <span className="font-public-sans text-lg font-light tracking-tight text-white">
+                      Silver UI
+                    </span>
+                  </Link>
+                </div>
 
-              <motion.div
-                {...fadeUp}
-                transition={{ ...fadeUp.transition, delay: 0.06 }}
-                className="grid gap-10 sm:grid-cols-3 lg:col-span-7 lg:grid-cols-3 lg:gap-8"
-              >
-            <FooterColumn title="Explore">
-              {exploreLinks.map(({ href, label }) => (
-                <li key={href}>
-                  <FooterLink href={href} label={label} />
-                </li>
-              ))}
-            </FooterColumn>
+                <div className="flex w-full shrink-0 justify-end self-end sm:w-auto">
+                  <div className="grid gap-10 sm:grid-cols-3 sm:gap-8 md:gap-12 lg:gap-16">
+                    <FooterColumn title="Explore">
+                  {exploreLinks.map(({ href, label }) => (
+                    <li key={href}>
+                      <FooterLink href={href} label={label} />
+                    </li>
+                  ))}
+                </FooterColumn>
 
-            <FooterColumn title="Docs & code">
-              {docsLinks.map(({ href, label, external }) => (
-                <li key={href}>
-                  <FooterLink
-                    href={href}
-                    label={label}
-                    external={external}
-                  />
-                </li>
-              ))}
-            </FooterColumn>
+                <FooterColumn title="Docs & code">
+                  {docsLinks.map(({ href, label, external }) => (
+                    <li key={href}>
+                      <FooterLink
+                        href={href}
+                        label={label}
+                        external={external}
+                      />
+                    </li>
+                  ))}
+                </FooterColumn>
 
-            <FooterColumn title="Connect">
-              {socialLinks.map(({ href, label, external }) => (
-                <li key={href}>
-                  <FooterLink
-                    href={href}
-                    label={label}
-                    external={external}
-                  />
-                </li>
-              ))}
-            </FooterColumn>
+                <FooterColumn title="Connect">
+                  {socialLinks.map(({ href, label, external }) => (
+                    <li key={href}>
+                      <FooterLink
+                        href={href}
+                        label={label}
+                        external={external}
+                      />
+                    </li>
+                  ))}
+                </FooterColumn>
+                  </div>
+                </div>
               </motion.div>
             </div>
-          </div>
         </div>
       </div>
     </div>
