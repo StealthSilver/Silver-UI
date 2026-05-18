@@ -39,18 +39,21 @@ export function ObsidianTemplatePreview() {
 
           <div className="obsidian-preview__illustration" aria-hidden>
             <div className="obsidian-preview__illus-grid">
-              <div className="obsidian-preview__illus-col">
-                <span className="obsidian-preview__illus-block obsidian-preview__illus-block--tall" />
-                <span className="obsidian-preview__illus-block obsidian-preview__illus-block--short" />
-              </div>
-              <div className="obsidian-preview__illus-col">
+              <div className="obsidian-preview__illus-col obsidian-preview__illus-col--1">
+                <span className="obsidian-preview__illus-block obsidian-preview__illus-block--xs" />
                 <span className="obsidian-preview__illus-block obsidian-preview__illus-block--mid" />
                 <span className="obsidian-preview__illus-block obsidian-preview__illus-block--tall" />
+              </div>
+              <div className="obsidian-preview__illus-col obsidian-preview__illus-col--2">
+                <span className="obsidian-preview__illus-block obsidian-preview__illus-block--short" />
+                <span className="obsidian-preview__illus-block obsidian-preview__illus-block--tall obsidian-preview__illus-block--fill" />
+                <span className="obsidian-preview__illus-block obsidian-preview__illus-block--mid" />
                 <span className="obsidian-preview__illus-block obsidian-preview__illus-block--xs" />
               </div>
-              <div className="obsidian-preview__illus-col">
+              <div className="obsidian-preview__illus-col obsidian-preview__illus-col--3">
                 <span className="obsidian-preview__illus-block obsidian-preview__illus-block--short" />
                 <span className="obsidian-preview__illus-block obsidian-preview__illus-block--mid" />
+                <span className="obsidian-preview__illus-block obsidian-preview__illus-block--short" />
               </div>
             </div>
             <span className="obsidian-preview__illus-frame" />
