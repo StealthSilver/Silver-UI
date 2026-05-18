@@ -541,48 +541,6 @@ body {
   height: min(58vh, 520px);
   margin-inline: auto;
   flex-shrink: 0;
-  perspective: 1100px;
-  perspective-origin: 50% 40%;
-}
-
-.templates-scroll__template-surface {
-  position: absolute;
-  top: clamp(5.25rem, 13vh, 7.25rem);
-  left: 64%;
-  z-index: 0;
-  width: clamp(22rem, 61vw, 40.5rem);
-  height: clamp(14rem, 32vh, 21rem);
-  transform: translateX(-42%) rotateX(74deg);
-  transform-origin: center top;
-  border-radius: 5px;
-  background: linear-gradient(
-    165deg,
-    rgba(255, 255, 255, 0.045) 0%,
-    rgba(18, 18, 20, 0.72) 42%,
-    rgba(4, 4, 6, 0.88) 100%
-  );
-  box-shadow:
-    inset 0 0 0 0.5px rgba(255, 255, 255, 0.07),
-    0 20px 36px rgba(0, 0, 0, 0.42);
-  pointer-events: none;
-}
-
-.templates-scroll__template-stage::after {
-  content: "";
-  position: absolute;
-  top: clamp(6.5rem, 15vh, 8.5rem);
-  left: 64%;
-  z-index: 0;
-  width: clamp(18rem, 52vw, 34rem);
-  height: clamp(2.5rem, 6vh, 3.5rem);
-  transform: translateX(-42%);
-  background: radial-gradient(
-    ellipse 55% 70% at 50% 50%,
-    rgba(0, 0, 0, 0.5) 0%,
-    transparent 72%
-  );
-  filter: blur(10px);
-  pointer-events: none;
 }
 
 .templates-scroll__template-card {
@@ -609,14 +567,35 @@ body {
     0 2px 4px rgba(0, 0, 0, 0.28),
     0 10px 22px -6px rgba(0, 0, 0, 0.48),
     0 28px 52px -14px rgba(0, 0, 0, 0.55);
-  transform: translateX(-42%) translateY(-3px) rotateX(1.75deg);
-  transform-origin: center bottom;
+  transform: translateX(-42%);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   overflow: hidden;
   padding: 3px;
   display: flex;
   flex-direction: column;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+  transition:
+    transform 0.22s ease,
+    box-shadow 0.22s ease;
+}
+
+.templates-scroll__template-card:hover {
+  transform: translateX(-42%) translateY(-3px);
+  box-shadow:
+    inset 0 0 0 0.5px rgba(255, 255, 255, 0.28),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.28),
+    0 4px 8px rgba(0, 0, 0, 0.32),
+    0 14px 28px -6px rgba(0, 0, 0, 0.52),
+    0 32px 58px -14px rgba(0, 0, 0, 0.58);
+}
+
+.templates-scroll__template-card:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.35);
+  outline-offset: 3px;
 }
 
 .templates-scroll__theme--halo .templates-scroll__word--halo {
@@ -1487,24 +1466,11 @@ body {
     left: 4.25rem;
   }
 
-  .templates-scroll__template-surface {
-    width: min(96vw, 29rem);
-    height: clamp(11rem, 28vh, 17rem);
-    top: clamp(4rem, 11vh, 5.75rem);
-    left: 62%;
-  }
-
-  .templates-scroll__template-stage::after {
-    width: min(82vw, 25rem);
-    left: 62%;
-    top: clamp(5.25rem, 12vh, 6.75rem);
-  }
-
   .templates-scroll__template-card {
     width: min(94vw, 28rem);
     left: 62%;
     top: clamp(3.5rem, 10vh, 5rem);
-    transform: translateX(-42%) translateY(-2px) rotateX(1.5deg);
+    transform: translateX(-42%);
   }
 }
 

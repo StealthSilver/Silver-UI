@@ -1,11 +1,21 @@
 "use client";
 
+import Link from "next/link";
+import type { ComponentType } from "react";
 import { cn } from "@/lib/utils";
-import { TEMPLATE_SCROLL_ITEMS } from "./templatesScrollConfig";
+import {
+  TEMPLATE_SCROLL_ITEMS,
+  templateThemeHref,
+} from "./templatesScrollConfig";
 import { HaloTemplatePreview } from "./HaloTemplatePreview";
 import { PulseTemplatePreview } from "./PulseTemplatePreview";
 
 const GRADIENT_BARS = ["a", "b", "c"] as const;
+
+const TEMPLATE_PREVIEWS: Record<string, ComponentType> = {
+  pulse: PulseTemplatePreview,
+  halo: HaloTemplatePreview,
+};
 
 export function TemplatesScrollShowcase() {
   return (
@@ -15,82 +25,66 @@ export function TemplatesScrollShowcase() {
     >
       <div className="templates-scroll-showcase__content">
         {TEMPLATE_SCROLL_ITEMS.map(
-          ({ text, themeClass, fontClass, colorClass, extraClass }) => (
-            <div
-              key={text}
-              className={cn("templates-scroll__slide", themeClass)}
-            >
-              <div className="templates-scroll__gradients" aria-hidden>
-                {GRADIENT_BARS.map((bar) => (
-                  <div
-                    key={bar}
-                    className={cn(
-                      "templates-scroll__gradient",
-                      `templates-scroll__gradient--${bar}`,
-                    )}
-                  />
-                ))}
-              </div>
-              {text === "Pulse" ? (
-                <>
-                  <h3
-                    className={cn(
-                      "templates-scroll__word templates-scroll__word--pulse",
-                      fontClass,
-                      colorClass,
-                      extraClass,
-                    )}
-                  >
-                    {text}
-                  </h3>
-                  <div className="templates-scroll__template-stage">
+          ({ text, slug, themeClass, fontClass, colorClass, extraClass }) => {
+            const Preview = TEMPLATE_PREVIEWS[slug];
+
+            return (
+              <div
+                key={slug}
+                className={cn("templates-scroll__slide", themeClass)}
+              >
+                <div className="templates-scroll__gradients" aria-hidden>
+                  {GRADIENT_BARS.map((bar) => (
                     <div
-                      className="templates-scroll__template-surface"
-                      aria-hidden
+                      key={bar}
+                      className={cn(
+                        "templates-scroll__gradient",
+                        `templates-scroll__gradient--${bar}`,
+                      )}
                     />
-                    <div className="templates-scroll__template-card">
-                      <PulseTemplatePreview />
-                    </div>
-                  </div>
-                </>
-              ) : text === "Halo" ? (
-                <>
-                  <h3
-                    className={cn(
-                      "templates-scroll__word templates-scroll__word--halo",
-                      fontClass,
-                      colorClass,
-                      extraClass,
-                    )}
-                  >
-                    {text}
-                  </h3>
-                  <div className="templates-scroll__template-stage">
-                    <div
-                      className="templates-scroll__template-surface"
-                      aria-hidden
-                    />
-                    <div className="templates-scroll__template-card">
-                      <HaloTemplatePreview />
-                    </div>
-                  </div>
-                </>
-              ) : (
-                <div className="templates-scroll__foreground">
-                  <h3
-                    className={cn(
-                      "templates-scroll__word",
-                      fontClass,
-                      colorClass,
-                      extraClass,
-                    )}
-                  >
-                    {text}
-                  </h3>
+                  ))}
                 </div>
-              )}
-            </div>
-          ),
+
+                {Preview ? (
+                  <>
+                    <h3
+                      className={cn(
+                        "templates-scroll__word",
+                        `templates-scroll__word--${slug}`,
+                        fontClass,
+                        colorClass,
+                        extraClass,
+                      )}
+                    >
+                      {text}
+                    </h3>
+                    <div className="templates-scroll__template-stage">
+                      <Link
+                        href={templateThemeHref(slug)}
+                        className="templates-scroll__template-card"
+                        aria-label={`Open ${text} template`}
+                      >
+                        <Preview />
+                      </Link>
+                    </div>
+                  </>
+                ) : (
+                  <div className="templates-scroll__foreground">
+                    <h3
+                      className={cn(
+                        "templates-scroll__word",
+                        fontClass,
+                        colorClass,
+                        extraClass,
+                      )}
+                    >
+                      {text}
+                    </h3>
+                  </div>
+                )}
+              </div>
+            );
+          },
         )}
       </div>
     </section>
