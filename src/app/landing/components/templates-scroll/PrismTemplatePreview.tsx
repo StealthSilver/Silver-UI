@@ -44,7 +44,7 @@ export function PrismTemplatePreview() {
             refraction={0.012}
             blur={0.018}
             liquid={0.82}
-            speed={0.28}
+            speed={0.12}
             brightness={2.1}
             contrast={0.55}
             angle={-8}

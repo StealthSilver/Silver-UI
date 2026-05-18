@@ -823,7 +823,7 @@ body {
 .atlas-preview__hero-bg {
   object-fit: cover;
   object-position: center center;
-  filter: sepia(0.12) contrast(1.05) brightness(0.18) saturate(0.32);
+  filter: sepia(0.14) contrast(1.08) brightness(0.48) saturate(0.42);
   transform: scale(1.03);
 }
 
@@ -833,16 +833,16 @@ body {
   inset: 0;
   z-index: 1;
   pointer-events: none;
-  background: rgba(4, 8, 16, 0.58);
+  background: rgba(4, 8, 16, 0.22);
 }
 
 .atlas-preview__hero-grain {
   position: absolute;
   inset: -20%;
   z-index: 2;
-  opacity: 0.92;
+  opacity: 0.58;
   pointer-events: none;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.15' numOctaves='5' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.92'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.15' numOctaves='5' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.75'/%3E%3C/svg%3E");
   background-size: 128px 128px;
   mix-blend-mode: overlay;
   animation: atlas-grain-drift 7s linear infinite;
@@ -852,8 +852,8 @@ body {
   content: "";
   position: absolute;
   inset: -20%;
-  opacity: 0.62;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 128 128' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='2.4' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)' opacity='0.95'/%3E%3C/svg%3E");
+  opacity: 0.38;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 128 128' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='2.4' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)' opacity='0.8'/%3E%3C/svg%3E");
   background-size: 64px 64px;
   mix-blend-mode: soft-light;
   animation: atlas-grain-fine 3.5s steps(6) infinite;
@@ -885,19 +885,19 @@ body {
 @keyframes atlas-grain-fine {
   0% {
     background-position: 0% 0%;
-    opacity: 0.55;
+    opacity: 0.32;
   }
   33% {
     background-position: 40% 70%;
-    opacity: 0.68;
+    opacity: 0.44;
   }
   66% {
     background-position: 80% 20%;
-    opacity: 0.6;
+    opacity: 0.36;
   }
   100% {
     background-position: 100% 100%;
-    opacity: 0.55;
+    opacity: 0.32;
   }
 }
 
@@ -907,10 +907,10 @@ body {
   z-index: 3;
   pointer-events: none;
   background: radial-gradient(
-    ellipse 68% 52% at 50% 48%,
-    rgba(4, 8, 16, 0.35) 0%,
-    rgba(4, 8, 16, 0.78) 55%,
-    rgba(3, 6, 12, 0.94) 100%
+    ellipse 72% 58% at 50% 48%,
+    rgba(4, 8, 16, 0.08) 0%,
+    rgba(4, 8, 16, 0.42) 58%,
+    rgba(3, 6, 12, 0.72) 100%
   );
 }
 
@@ -1110,6 +1110,9 @@ body {
   flex: 1;
   min-height: 0;
   overflow: hidden;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
   background: linear-gradient(
     165deg,
     #0a0810 0%,
@@ -1195,13 +1198,15 @@ body {
 }
 
 .prism-preview__prism-visual {
-  position: absolute;
-  right: 2%;
-  top: 50%;
+  position: relative;
   z-index: 1;
-  width: 46%;
+  grid-column: 1;
+  grid-row: 1;
+  width: 92%;
   height: 78%;
-  transform: translateY(-50%);
+  margin-left: 4%;
+  justify-self: start;
+  align-self: center;
   pointer-events: none;
 }
 
@@ -1237,26 +1242,32 @@ body {
 }
 
 .prism-preview__shell--hero {
+  position: relative;
+  z-index: 2;
+  grid-column: 2;
+  grid-row: 1;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  justify-content: flex-end;
-  width: 100%;
-  max-width: 88%;
-  height: 100%;
+  justify-content: center;
+  width: 86%;
+  max-width: none;
+  height: auto;
   margin-inline: auto;
-  padding-inline: 0.55rem;
-  padding-block: 0.55rem 0.65rem;
+  padding-inline: 0.5rem 1.35rem;
+  padding-block: 0;
   text-align: right;
-  gap: 0.3rem;
+  gap: 0.46rem;
+  align-self: center;
+  justify-self: center;
 }
 
 .prism-preview__eyebrow {
   margin: 0;
   display: inline-block;
-  padding: 0.14rem 0.36rem;
+  padding: 0.18rem 0.44rem;
   border-radius: 999px;
-  font-size: 0.3rem;
+  font-size: 0.44rem;
   font-weight: 700;
   letter-spacing: 0.18em;
   text-transform: uppercase;
@@ -1265,9 +1276,8 @@ body {
 
 .prism-preview__headline {
   margin: 0;
-  max-width: 14em;
-  margin-left: auto;
-  font-size: clamp(0.72rem, 2.4vw, 1rem);
+  max-width: 12em;
+  font-size: clamp(1rem, 3.8vw, 1.52rem);
   font-weight: 700;
   line-height: 1.14;
   letter-spacing: -0.02em;
@@ -1289,9 +1299,8 @@ body {
 
 .prism-preview__subhead {
   margin: 0;
-  max-width: 16em;
-  margin-left: auto;
-  font-size: 0.36rem;
+  max-width: 14em;
+  font-size: 0.56rem;
   font-weight: 500;
   line-height: 1.48;
   letter-spacing: 0.02em;
@@ -1300,11 +1309,10 @@ body {
 
 .prism-preview__btn {
   display: inline-flex;
-  margin-top: 0.1rem;
-  margin-left: auto;
-  padding: 0.22rem 0.46rem;
+  margin-top: 0.14rem;
+  padding: 0.3rem 0.6rem;
   border-radius: 999px;
-  font-size: 0.34rem;
+  font-size: 0.48rem;
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;

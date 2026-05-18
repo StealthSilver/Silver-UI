@@ -14,6 +14,7 @@ import { ForgeTemplatePreview } from "./ForgeTemplatePreview";
 import { ObsidianTemplatePreview } from "./ObsidianTemplatePreview";
 import { HaloTemplatePreview } from "./HaloTemplatePreview";
 import { PulseTemplatePreview } from "./PulseTemplatePreview";
+import { ZenithTemplatePreview } from "./ZenithTemplatePreview";
 
 const GRADIENT_BARS = ["a", "b", "c"] as const;
 
@@ -25,6 +26,7 @@ const TEMPLATE_PREVIEWS: Record<string, ComponentType> = {
   halo: HaloTemplatePreview,
   drift: DriftTemplatePreview,
   obsidian: ObsidianTemplatePreview,
+  zenith: ZenithTemplatePreview,
 };
 
 export function TemplatesScrollShowcase() {
