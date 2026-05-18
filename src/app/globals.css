@@ -452,6 +452,407 @@ body {
   }
 }
 
+/* Templates section — theme name scroll */
+.templates-scroll-showcase__content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-block: 4rem 5rem;
+}
+
+.templates-scroll__slide {
+  position: relative;
+  width: 100%;
+  min-height: 72vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.templates-scroll__slide:not(:last-child) {
+  margin-bottom: 4vh;
+}
+
+.templates-scroll__gradients {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(0.5rem, 1.8vw, 1.15rem);
+  pointer-events: none;
+}
+
+.templates-scroll__gradient {
+  width: clamp(4.25rem, 11vw, 8.75rem);
+  border-radius: 0;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  flex-shrink: 0;
+}
+
+.templates-scroll__gradient--a {
+  height: min(48vh, 420px);
+  align-self: center;
+  transform: translateY(6%);
+}
+
+.templates-scroll__gradient--b {
+  height: min(58vh, 520px);
+  align-self: center;
+}
+
+.templates-scroll__gradient--c {
+  height: min(44vh, 390px);
+  align-self: center;
+  transform: translateY(-5%);
+}
+
+.templates-scroll__word {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  text-transform: uppercase;
+  line-height: 1;
+  font-size: clamp(1.75rem, 5.5vw, 4.5rem);
+  white-space: nowrap;
+  text-shadow: 0 2px 28px rgba(0, 0, 0, 0.85);
+}
+
+/* Pulse — deep crimson heartbeat */
+.templates-scroll__theme--pulse .templates-scroll__gradient--a {
+  background: linear-gradient(
+    180deg,
+    #0c0406 0%,
+    #3a0a14 42%,
+    #1a060c 100%
+  );
+}
+
+.templates-scroll__theme--pulse .templates-scroll__gradient--b {
+  background: linear-gradient(
+    180deg,
+    #140308 0%,
+    #5c1224 38%,
+    #2a0812 72%,
+    #100406 100%
+  );
+}
+
+.templates-scroll__theme--pulse .templates-scroll__gradient--c {
+  background: linear-gradient(
+    180deg,
+    #080204 0%,
+    #2e0810 55%,
+    #120408 100%
+  );
+}
+
+/* Forge — ember / industrial heat */
+.templates-scroll__theme--forge .templates-scroll__gradient--a {
+  background: linear-gradient(
+    180deg,
+    #0e0804 0%,
+    #4a2410 45%,
+    #1a0e06 100%
+  );
+}
+
+.templates-scroll__theme--forge .templates-scroll__gradient--b {
+  background: linear-gradient(
+    180deg,
+    #120a04 0%,
+    #7a3a14 35%,
+    #3a1c0a 68%,
+    #100804 100%
+  );
+}
+
+.templates-scroll__theme--forge .templates-scroll__gradient--c {
+  background: linear-gradient(
+    180deg,
+    #0a0602 0%,
+    #362010 50%,
+    #140c04 100%
+  );
+}
+
+/* Halo — soft luminous ring */
+.templates-scroll__theme--halo .templates-scroll__gradient--a {
+  background: linear-gradient(
+    180deg,
+    #0a0a0c 0%,
+    #2a2618 40%,
+    #12110e 100%
+  );
+}
+
+.templates-scroll__theme--halo .templates-scroll__gradient--b {
+  background: linear-gradient(
+    180deg,
+    #08080a 0%,
+    #4a4224 28%,
+    #1e1c14 62%,
+    #0a0a0c 100%
+  );
+}
+
+.templates-scroll__theme--halo .templates-scroll__gradient--c {
+  background: linear-gradient(
+    180deg,
+    #0c0c0e 0%,
+    #322e1c 50%,
+    #10100c 100%
+  );
+}
+
+/* Atlas — deep ocean / globe */
+.templates-scroll__theme--atlas .templates-scroll__gradient--a {
+  background: linear-gradient(
+    180deg,
+    #040810 0%,
+    #0e2844 48%,
+    #061018 100%
+  );
+}
+
+.templates-scroll__theme--atlas .templates-scroll__gradient--b {
+  background: linear-gradient(
+    180deg,
+    #03060c 0%,
+    #143a5c 40%,
+    #0a2038 70%,
+    #040a10 100%
+  );
+}
+
+.templates-scroll__theme--atlas .templates-scroll__gradient--c {
+  background: linear-gradient(
+    180deg,
+    #050a12 0%,
+    #0c2238 55%,
+    #050c14 100%
+  );
+}
+
+/* Drift — misty teal current */
+.templates-scroll__theme--drift .templates-scroll__gradient--a {
+  background: linear-gradient(
+    180deg,
+    #060c10 0%,
+    #1a3440 46%,
+    #0a1418 100%
+  );
+}
+
+.templates-scroll__theme--drift .templates-scroll__gradient--b {
+  background: linear-gradient(
+    180deg,
+    #040a0e 0%,
+    #244858 38%,
+    #142830 72%,
+    #080e12 100%
+  );
+}
+
+.templates-scroll__theme--drift .templates-scroll__gradient--c {
+  background: linear-gradient(
+    180deg,
+    #080e12 0%,
+    #1a3038 52%,
+    #0c1216 100%
+  );
+}
+
+/* Prism — spectral dark refraction */
+.templates-scroll__theme--prism .templates-scroll__gradient--a {
+  background: linear-gradient(
+    165deg,
+    #0a0810 0%,
+    #2a1440 28%,
+    #0e1828 58%,
+    #0a0a0e 100%
+  );
+}
+
+.templates-scroll__theme--prism .templates-scroll__gradient--b {
+  background: linear-gradient(
+    180deg,
+    #08080c 0%,
+    #381838 22%,
+    #142848 48%,
+    #281840 72%,
+    #0a0a0e 100%
+  );
+}
+
+.templates-scroll__theme--prism .templates-scroll__gradient--c {
+  background: linear-gradient(
+    195deg,
+    #0c0a10 0%,
+    #1a2848 40%,
+    #301828 70%,
+    #0a0a0c 100%
+  );
+}
+
+/* Obsidian — volcanic glass */
+.templates-scroll__theme--obsidian .templates-scroll__gradient--a {
+  background: linear-gradient(
+    180deg,
+    #020202 0%,
+    #141418 42%,
+    #060608 100%
+  );
+}
+
+.templates-scroll__theme--obsidian .templates-scroll__gradient--b {
+  background: linear-gradient(
+    180deg,
+    #000000 0%,
+    #1c1c22 35%,
+    #0a0a0e 68%,
+    #020202 100%
+  );
+}
+
+.templates-scroll__theme--obsidian .templates-scroll__gradient--c {
+  background: linear-gradient(
+    180deg,
+    #040404 0%,
+    #18181e 50%,
+    #08080a 100%
+  );
+}
+
+/* Zenith — indigo peak / night sky */
+.templates-scroll__theme--zenith .templates-scroll__gradient--a {
+  background: linear-gradient(
+    180deg,
+    #06040e 0%,
+    #1e1848 44%,
+    #0c0a18 100%
+  );
+}
+
+.templates-scroll__theme--zenith .templates-scroll__gradient--b {
+  background: linear-gradient(
+    180deg,
+    #04020c 0%,
+    #2a2460 32%,
+    #14102e 66%,
+    #080610 100%
+  );
+}
+
+.templates-scroll__theme--zenith .templates-scroll__gradient--c {
+  background: linear-gradient(
+    180deg,
+    #080612 0%,
+    #221c4a 52%,
+    #0a0814 100%
+  );
+}
+
+.templates-scroll__word--font-1 {
+  font-family: var(--font-cinzel), serif;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+}
+
+.templates-scroll__word--font-2 {
+  font-family: var(--font-ibm-plex-sans), sans-serif;
+  font-weight: 300;
+  letter-spacing: 0.14em;
+}
+
+.templates-scroll__word--font-3 {
+  font-family: var(--font-ibm-plex-sans), sans-serif;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+}
+
+.templates-scroll__word--font-4 {
+  font-family: var(--font-cinzel), serif;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.templates-scroll__word--font-5 {
+  font-family: var(--font-ibm-plex-sans), sans-serif;
+  font-weight: 100;
+  letter-spacing: 0.1em;
+  font-style: italic;
+}
+
+.templates-scroll__word--font-6 {
+  font-family: var(--font-ibm-plex-sans), sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+
+.templates-scroll__word--font-7 {
+  font-family: var(--font-cinzel), serif;
+  font-weight: 300;
+  font-style: italic;
+  letter-spacing: 0.06em;
+}
+
+.templates-scroll__word--font-8 {
+  font-family: var(--font-ibm-plex-sans), sans-serif;
+  font-weight: 200;
+  letter-spacing: 0.28em;
+}
+
+.templates-scroll__word--color-1 {
+  color: rgba(250, 250, 250, 0.95);
+}
+
+.templates-scroll__word--color-2 {
+  color: rgba(255, 255, 255, 0.52);
+}
+
+.templates-scroll__word--blend {
+  mix-blend-mode: plus-lighter;
+}
+
+.templates-scroll__word--shadow {
+  text-shadow: 0 0 14px rgba(255, 255, 255, 0.32);
+}
+
+@media screen and (max-width: 768px) {
+  .templates-scroll__slide {
+    min-height: 65vh;
+  }
+
+  .templates-scroll__gradient {
+    width: clamp(3.25rem, 18vw, 5.5rem);
+  }
+
+  .templates-scroll__gradient--a {
+    height: min(40vh, 320px);
+  }
+
+  .templates-scroll__gradient--b {
+    height: min(48vh, 380px);
+  }
+
+  .templates-scroll__gradient--c {
+    height: min(36vh, 280px);
+  }
+
+  .templates-scroll__word {
+    font-size: clamp(1.5rem, 8vw, 2.75rem);
+    white-space: normal;
+    padding-inline: 1rem;
+  }
+}
+
 /* Responsive utilities */
 @media (max-width: 768px) {
   /* Ensure sidebar doesn't block content on mobile */
