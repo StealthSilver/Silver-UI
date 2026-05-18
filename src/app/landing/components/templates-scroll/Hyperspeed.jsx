@@ -49,16 +49,11 @@ const Hyperspeed = ({ effectOptions = DEFAULT_EFFECT_OPTIONS }) => {
   const appRef = useRef(null);
 
   useEffect(() => {
-    if (appRef.current) {
-      appRef.current.dispose();
-      appRef.current = null;
-      const container = hyperspeed.current;
-      if (container) {
-        while (container.firstChild) {
-          container.removeChild(container.firstChild);
-        }
-      }
-    }
+    let cancelled = false;
+    let started = false;
+
+    const container = hyperspeed.current;
+    if (!container) return;
     const mountainUniforms = {
       uFreq: { value: new THREE.Vector3(3, 6, 10) },
       uAmp: { value: new THREE.Vector3(30, 30, 20) }
@@ -360,8 +355,10 @@ const Hyperspeed = ({ effectOptions = DEFAULT_EFFECT_OPTIONS }) => {
 
         this.renderer = new THREE.WebGLRenderer({
           antialias: false,
-          alpha: true
+          alpha: false,
+          powerPreference: 'high-performance'
         });
+        this.renderer.setClearColor(0x000000, 1);
         this.renderer.setSize(initW, initH, false);
         this.renderer.setPixelRatio(window.devicePixelRatio);
         this.composer = new EffectComposer(this.renderer);
@@ -384,6 +381,7 @@ const Hyperspeed = ({ effectOptions = DEFAULT_EFFECT_OPTIONS }) => {
         this.clock = new THREE.Clock();
         this.assets = {};
         this.disposed = false;
+        this.passesInitialized = false;
 
         this.road = new Road(this, options);
         this.leftCarLights = new CarLights(
@@ -441,7 +439,15 @@ const Hyperspeed = ({ effectOptions = DEFAULT_EFFECT_OPTIONS }) => {
         this.hasValidSize = true;
       }
 
+      canUseComposer() {
+        if (this.disposed || !this.renderer) return false;
+        const gl = this.renderer.getContext();
+        return Boolean(gl?.getContextAttributes?.());
+      }
+
       initPasses() {
+        if (this.passesInitialized || !this.canUseComposer()) return;
+
         this.renderPass = new RenderPass(this.scene, this.camera);
         this.bloomPass = new EffectPass(
           this.camera,
@@ -466,6 +472,7 @@ const Hyperspeed = ({ effectOptions = DEFAULT_EFFECT_OPTIONS }) => {
         this.composer.addPass(this.renderPass);
         this.composer.addPass(this.bloomPass);
         this.composer.addPass(smaaPass);
+        this.passesInitialized = true;
       }
 
       loadAssets() {
@@ -494,7 +501,11 @@ const Hyperspeed = ({ effectOptions = DEFAULT_EFFECT_OPTIONS }) => {
       }
 
       init() {
+        if (this.disposed || !this.canUseComposer()) return;
+
         this.initPasses();
+        if (!this.passesInitialized) return;
+
         const options = this.options;
         this.road.init();
         this.leftCarLights.init();
@@ -583,6 +594,7 @@ const Hyperspeed = ({ effectOptions = DEFAULT_EFFECT_OPTIONS }) => {
       }
 
       render(delta) {
+        if (!this.passesInitialized || this.disposed) return;
         this.composer.render(delta);
       }
 
@@ -1157,9 +1169,6 @@ const Hyperspeed = ({ effectOptions = DEFAULT_EFFECT_OPTIONS }) => {
       return needResize;
     }
 
-    const container = hyperspeed.current;
-    if (!container) return;
-
     const options = {
       ...DEFAULT_EFFECT_OPTIONS,
       ...effectOptions,
@@ -1167,19 +1176,43 @@ const Hyperspeed = ({ effectOptions = DEFAULT_EFFECT_OPTIONS }) => {
     };
     options.distortion = distortions[options.distortion];
 
-    const myApp = new App(container, options);
-    appRef.current = myApp;
-    myApp.loadAssets().then(myApp.init);
+    const tryStart = () => {
+      if (cancelled || started) return;
+      if (container.offsetWidth <= 0 || container.offsetHeight <= 0) return;
+
+      started = true;
+
+      const myApp = new App(container, options);
+      appRef.current = myApp;
+
+      myApp.loadAssets().then(() => {
+        if (cancelled || appRef.current !== myApp || myApp.disposed) return;
+        myApp.init();
+      });
+    };
+
+    const resizeObserver = new ResizeObserver(() => {
+      tryStart();
+    });
+    resizeObserver.observe(container);
+    tryStart();
 
     return () => {
+      cancelled = true;
+      resizeObserver.disconnect();
+
       if (appRef.current) {
         appRef.current.dispose();
         appRef.current = null;
       }
+
+      while (container.firstChild) {
+        container.removeChild(container.firstChild);
+      }
     };
   }, [effectOptions]);
 
-  return <div id="lights" ref={hyperspeed}></div>;
+  return <div className="hyperspeed-root" ref={hyperspeed} />;
 };
 
 export { Hyperspeed };

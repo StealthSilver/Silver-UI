@@ -8,6 +8,9 @@ import {
   templateThemeHref,
 } from "./templatesScrollConfig";
 import { DriftTemplatePreview } from "./DriftTemplatePreview";
+import { AtlasTemplatePreview } from "./AtlasTemplatePreview";
+import { PrismTemplatePreview } from "./PrismTemplatePreview";
+import { ForgeTemplatePreview } from "./ForgeTemplatePreview";
 import { ObsidianTemplatePreview } from "./ObsidianTemplatePreview";
 import { HaloTemplatePreview } from "./HaloTemplatePreview";
 import { PulseTemplatePreview } from "./PulseTemplatePreview";
@@ -16,6 +19,9 @@ const GRADIENT_BARS = ["a", "b", "c"] as const;
 
 const TEMPLATE_PREVIEWS: Record<string, ComponentType> = {
   pulse: PulseTemplatePreview,
+  forge: ForgeTemplatePreview,
+  atlas: AtlasTemplatePreview,
+  prism: PrismTemplatePreview,
   halo: HaloTemplatePreview,
   drift: DriftTemplatePreview,
   obsidian: ObsidianTemplatePreview,
