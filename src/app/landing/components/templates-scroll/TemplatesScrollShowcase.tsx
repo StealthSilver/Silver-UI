@@ -7,6 +7,7 @@ import {
   TEMPLATE_SCROLL_ITEMS,
   templateThemeHref,
 } from "./templatesScrollConfig";
+import { DriftTemplatePreview } from "./DriftTemplatePreview";
 import { HaloTemplatePreview } from "./HaloTemplatePreview";
 import { PulseTemplatePreview } from "./PulseTemplatePreview";
 
@@ -15,6 +16,7 @@ const GRADIENT_BARS = ["a", "b", "c"] as const;
 const TEMPLATE_PREVIEWS: Record<string, ComponentType> = {
   pulse: PulseTemplatePreview,
   halo: HaloTemplatePreview,
+  drift: DriftTemplatePreview,
 };
 
 export function TemplatesScrollShowcase() {
