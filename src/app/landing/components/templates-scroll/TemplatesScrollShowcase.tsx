@@ -2,6 +2,8 @@
 
 import { cn } from "@/lib/utils";
 import { TEMPLATE_SCROLL_ITEMS } from "./templatesScrollConfig";
+import { HaloTemplatePreview } from "./HaloTemplatePreview";
+import { PulseTemplatePreview } from "./PulseTemplatePreview";
 
 const GRADIENT_BARS = ["a", "b", "c"] as const;
 
@@ -29,16 +31,64 @@ export function TemplatesScrollShowcase() {
                   />
                 ))}
               </div>
-              <h3
-                className={cn(
-                  "templates-scroll__word",
-                  fontClass,
-                  colorClass,
-                  extraClass,
-                )}
-              >
-                {text}
-              </h3>
+              {text === "Pulse" ? (
+                <>
+                  <h3
+                    className={cn(
+                      "templates-scroll__word templates-scroll__word--pulse",
+                      fontClass,
+                      colorClass,
+                      extraClass,
+                    )}
+                  >
+                    {text}
+                  </h3>
+                  <div className="templates-scroll__template-stage">
+                    <div
+                      className="templates-scroll__template-surface"
+                      aria-hidden
+                    />
+                    <div className="templates-scroll__template-card">
+                      <PulseTemplatePreview />
+                    </div>
+                  </div>
+                </>
+              ) : text === "Halo" ? (
+                <>
+                  <h3
+                    className={cn(
+                      "templates-scroll__word templates-scroll__word--halo",
+                      fontClass,
+                      colorClass,
+                      extraClass,
+                    )}
+                  >
+                    {text}
+                  </h3>
+                  <div className="templates-scroll__template-stage">
+                    <div
+                      className="templates-scroll__template-surface"
+                      aria-hidden
+                    />
+                    <div className="templates-scroll__template-card">
+                      <HaloTemplatePreview />
+                    </div>
+                  </div>
+                </>
+              ) : (
+                <div className="templates-scroll__foreground">
+                  <h3
+                    className={cn(
+                      "templates-scroll__word",
+                      fontClass,
+                      colorClass,
+                      extraClass,
+                    )}
+                  >
+                    {text}
+                  </h3>
+                </div>
+              )}
             </div>
           ),
         )}
